@@ -19,30 +19,24 @@
       var palabra = palabras[Math.floor(Math.random() * palabras.length)];
       var letrasAdivinadas = Array(palabra.length).fill("-");
       var intentos = 10;
-
       var mensaje = document.getElementById("mensaje");
       var letras = document.getElementById("letras");
       var intentosEl = document.getElementById("intentos");
       var letraInput = document.getElementById("letra");
       var boton = document.getElementById("boton");
       var reiniciar = document.getElementById("reiniciar");
-
       function mostrarMensaje(texto) {
         mensaje.textContent = texto;
       }
-
       function mostrarLetras(letras) {
         letras.textContent = letrasAdivinadas.join(" ");
       }
-
       function mostrarIntentos(numIntentos) {
         intentosEl.textContent = "Te quedan " + numIntentos + " intentos.";
       }
-
       function actualizarJuego() {
         mostrarLetras(letras);
         mostrarIntentos(intentos);
-
         if (letrasAdivinadas.join("") === palabra) {
           mostrarMensaje("¡ENHORABUENA, Ganaste! La palabra era " + palabra);
           reiniciar.style.display = "inline";
@@ -53,31 +47,24 @@
           boton.disabled = true;
         }
       }
-
       actualizarJuego();
-
       boton.addEventListener("click", function() {
         var letra = letraInput.value.toLowerCase();
-
         if (letra.match(/^[a-z]$/)) {
           letraInput.value = "";
           var acierto = false;
-
           for (var i = 0; i < palabra.length; i++) {
             if (palabra.charAt(i) === letra) {
               letrasAdivinadas[i] = letra;
               acierto = true;
             }
           }
-
           if (!acierto) {
             intentos--;
           }
-
           actualizarJuego();
         }
       });
-
       reiniciar.addEventListener("click", function() {
         window.location.reload();
       });
