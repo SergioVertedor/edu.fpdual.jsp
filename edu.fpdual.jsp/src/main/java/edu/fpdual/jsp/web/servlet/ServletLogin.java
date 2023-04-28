@@ -1,6 +1,6 @@
 package edu.fpdual.jsp.web.servlet;
 
-import org.contateach.servlet.dto.Usuario;
+import edu.fpdual.jsp.web.dto.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;

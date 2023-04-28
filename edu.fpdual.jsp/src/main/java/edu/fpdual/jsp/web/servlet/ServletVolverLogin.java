@@ -1,6 +1,6 @@
 package edu.fpdual.jsp.web.servlet;
 
-import edu.example.aplicativoweb.servlet.dto.Usuario;
+import edu.fpdual.jsp.web.dto.Usuario;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

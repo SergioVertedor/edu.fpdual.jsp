@@ -68,8 +68,6 @@ public class MySQLConnector {
             + (prop.getProperty(MySQLConstants.USER))
             + ("&password=")
             + (prop.getProperty(MySQLConstants.PASSWD))
-            + ("&useSSL=")
-            + (prop.getProperty(MySQLConstants.URL_SSL))
             + ("&allowPublicKeyRetrieval=")
             + (prop.getProperty(MySQLConstants.ALLOW_PUBLIC_KEY_RETRIEVAL))
             + ("&useJDBCCompliantTimezoneShift=")
@@ -77,12 +75,13 @@ public class MySQLConnector {
             + ("&useLegacyDatetimeCode=")
             + (prop.getProperty(MySQLConstants.USE_LEGACY_DATE_TIME_CODE))
             + ("&serverTimezone=")
-            + (prop.getProperty(MySQLConstants.SERVER_TIMEZONE));
+            + (prop.getProperty(MySQLConstants.SERVER_TIMEZONE))
+            + ("&useSSL=")
+            + (prop.getProperty(MySQLConstants.URL_SSL));
     return url;
   }
 
   public static void main(String[] args) throws SQLException, ClassNotFoundException {
-    // ¿No quiere dejar el método getMySQLConnection() como static?
     MySQLConnector connector = new MySQLConnector();
     Connection connection = connector.getMySQLConnection();
     System.out.println(connection.getCatalog());
