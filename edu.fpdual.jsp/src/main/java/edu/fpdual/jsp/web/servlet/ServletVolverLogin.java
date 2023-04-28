@@ -1,6 +1,8 @@
 package edu.fpdual.jsp.web.servlet;
 
-import edu.example.aplicativoweb.servlet.dto.Usuario;
+
+import edu.fpdual.jsp.web.dto.Usuario;
+
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,9 +19,9 @@ public class ServletVolverLogin extends HttpServlet {
       throws ServletException, IOException {
     Usuario usuario = (Usuario) req.getSession().getAttribute("usuarioSesion");
     if (usuario != null) {
-      resp.sendRedirect("/EjemploAplicativoWeb/servlet-login");
+      resp.sendRedirect("/jsp/servlet-login");
     } else {
-      resp.sendRedirect("/EjemploAplicativoWeb/login/login.jsp");
+      resp.sendRedirect("/jsp/login/login.jsp");
     }
   }
 }

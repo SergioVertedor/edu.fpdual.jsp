@@ -1,6 +1,7 @@
 package edu.fpdual.jsp.web.servlet;
 
-import org.contateach.servlet.dto.Usuario;
+import edu.fpdual.jsp.web.dto.Usuario;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -38,7 +39,7 @@ public class ServletLogin extends HttpServlet {
         req.getSession().setAttribute("usuarioSesion", usuario);
         homePage(resp, usuario);
       } else {
-        resp.sendRedirect("/ContaTeach/login/login.jsp");
+        resp.sendRedirect("/jsp/login/login.jsp");
       }
     }
   }
@@ -48,7 +49,7 @@ public class ServletLogin extends HttpServlet {
     writer.println("<html>");
     writer.println("<body>");
     writer.println("<h2>Bienvenido --> " + usuario.getUsuario() + "</h2></br>");
-    writer.println("<form action=\"/ContaTeach/servlet-volver-login\" method=\"GET\">");
+    writer.println("<form action=\"/jsp/servlet-volver-login\" method=\"GET\">");
     writer.println("<button type=\"submit\">Volver Login</button>");
     writer.println("</form>");
     writer.println("</body>");
