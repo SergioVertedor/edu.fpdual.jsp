@@ -18,4 +18,19 @@
         <param-value>5</param-value>
     </context-param>
 
+
+    <web-app>
+        <servlet>
+            <servlet-name>HomePageServlet</servlet-name>
+            <servlet-class>edu.fpdual.jsp.web.servlet.HomePageServlet</servlet-class>
+        </servlet>
+        <servlet-mapping>
+            <servlet-name>HomePageServlet</servlet-name>
+            <url-pattern>/home</url-pattern>
+        </servlet-mapping>
+        <welcome-file-list>
+            <welcome-file>index.jsp</welcome-file>
+        </welcome-file-list>
+    </web-app>
+
 </web-app>
