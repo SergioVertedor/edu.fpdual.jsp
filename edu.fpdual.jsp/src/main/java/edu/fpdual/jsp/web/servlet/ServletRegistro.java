@@ -10,9 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet(
-    name = "ServletLogin",
-    urlPatterns = {"/servlet-login"})
-public class ServletLogin extends HttpServlet {
+    name = "ServletRegistro",
+    urlPatterns = {"/servlet-registro"})
+public class ServletRegistro extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
@@ -48,7 +48,7 @@ public class ServletLogin extends HttpServlet {
     writer.println("<html>");
     writer.println("<body>");
     writer.println("<h2>Bienvenido --> " + usuario.getUsuario() + "</h2></br>");
-    writer.println("<form action=\"/jsp/servlet-volver-login\" method=\"GET\">");
+    writer.println("<form action=\"/ContaTeach/servlet-volver-login\" method=\"GET\">");
     writer.println("<button type=\"submit\">Volver Login</button>");
     writer.println("</form>");
     writer.println("</body>");
