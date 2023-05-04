@@ -1,73 +1,144 @@
-<%@ page contentType="text/html; charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.util.Random" %>
+<%@ page import="java.util.Arrays" %>
+
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Juego de adivinanza en JSP</title>
-  </head>
-  <body>
-    <h1>Juego de adivinanza en JSP</h1>
-    <p id="mensaje"></p>
-    <p id="letras"></p>
-    <p id="intentos"></p>
-    <label>Introduce una letra:</label>
-    <input type="text" id="letra" maxlength="1">
-    <button id="boton">Enviar</button>
-    <button id="reiniciar">Reiniciar</button>
-    <script>
-      var palabras = ["codigo", "binario", "string", "comando","bug", "depurar",
-        "compilar","bucle","array","variable","algoritmo","interfaz","clase","objeto","refactorizacion"];
-      var palabra = palabras[Math.floor(Math.random() * palabras.length)];
-      var letrasAdivinadas = Array(palabra.length).fill("-");
-      var intentos = 10;
-      var mensaje = document.getElementById("mensaje");
-      var letras = document.getElementById("letras");
-      var intentosEl = document.getElementById("intentos");
-      var letraInput = document.getElementById("letra");
-      var boton = document.getElementById("boton");
-      var reiniciar = document.getElementById("reiniciar");
-      function mostrarMensaje(texto) {
-        mensaje.textContent = texto;
-      }
-      function mostrarLetras(letras) {
-        letras.textContent = letrasAdivinadas.join(" ");
-      }
-      function mostrarIntentos(numIntentos) {
-        intentosEl.textContent = "Te quedan " + numIntentos + " intentos.";
-      }
-      function actualizarJuego() {
-        mostrarLetras(letras);
-        mostrarIntentos(intentos);
-        if (letrasAdivinadas.join("") === palabra) {
-          mostrarMensaje("¡ENHORABUENA, Ganaste! La palabra era " + palabra);
-          reiniciar.style.display = "inline";
-          boton.disabled = true;
-        } else if (intentos === 0) {
-          mostrarMensaje("Perdiste :( La palabra era " + palabra);
-          reiniciar.style.display = "inline";
-          boton.disabled = true;
-        }
-      }
-      actualizarJuego();
-      boton.addEventListener("click", function() {
-        var letra = letraInput.value.toLowerCase();
-        if (letra.match(/^[a-z]$/)) {
-          letraInput.value = "";
-          var acierto = false;
-          for (var i = 0; i < palabra.length; i++) {
-            if (palabra.charAt(i) === letra) {
-              letrasAdivinadas[i] = letra;
-              acierto = true;
+<head>
+    <meta charset="UTF-8">
+    <title>Ahorcado</title>
+     <style>
+            body {
+                background-color: turquoise;
+                font-family: Arial, sans-serif;
+                          text-align: center;
+                      }
+
+
+            h1 {
+                color: #9900CC;
+                margin-top: 50px;
             }
-          }
-          if (!acierto) {
-            intentos--;
-          }
-          actualizarJuego();
+            p {
+                font-size: 18px;
+                margin-top: 20px;
+            }
+            p1 {
+                     font-size: 28px;
+                  margin-top: 20px;
+                        }
+            label {
+                font-weight: bold;
+                font-size: 16px;
+            }
+            input[type=text], input[type=submit] {
+                padding: 8px;
+                font-size: 16px;
+                border-radius: 5px;
+                border: none;
+            }
+            input[type=submit] {
+                background-color: #4CAF50;
+                color: white;
+                cursor: pointer;
+                transition: background-color 0.3s ease-in-out;
+            }
+            input[type=submit]:hover {
+                background-color: #FF66FF;
+            }
+        </style>
+</head>
+<body>
+<%
+    boolean juegoTerminado = false;
+    boolean victoria = false;
+    String mensaje = "";
+    char[] letrasAdivinadas = (char[]) request.getSession().getAttribute("letrasAdivinadas");
+
+if (letrasAdivinadas == null || request.getParameter("reiniciar") != null) { // si no se ha inicializado el juego o se presionó el botón "Reiniciar", se genera una palabra aleatoria
+    String[] palabras = { "rosa", "banana", "perro", "gato", "elefante", "mariposa" };
+    Random rand = new Random();
+    String palabra = palabras[rand.nextInt(palabras.length)];
+    letrasAdivinadas = new char[palabra.length()];
+    Arrays.fill(letrasAdivinadas, '-');
+    request.getSession().setAttribute("palabra", palabra);
+    request.getSession().setAttribute("letrasAdivinadas", letrasAdivinadas);
+    request.getSession().setAttribute("intentos", 10);
+} else {
+    String letra = request.getParameter("letra");
+    if (letra != null && letra.length() == 1) {
+        letra = letra.toLowerCase(); // convertir la letra ingresada en minúscula
+        String palabra = (String) request.getSession().getAttribute("palabra");
+        int intentos = (int) request.getSession().getAttribute("intentos");
+
+     if (!palabra.contains(letra)) {
+         intentos--;
+     } else {
+         boolean letraRepetida = false;
+         for (int i = 0; i < letrasAdivinadas.length; i++) {
+             if (letrasAdivinadas[i] == letra.charAt(0)) {
+                 letraRepetida = true;
+                 break;
+             }
+         }
+         if (!letraRepetida) {
+             for (int i = 0; i < palabra.length(); i++) {
+                 if (palabra.charAt(i) == letra.charAt(0)) {
+                     letrasAdivinadas[i] = letra.charAt(0);
+                 }
+             }
+         }
+     }
+
+        request.getSession().setAttribute("letrasAdivinadas", letrasAdivinadas);
+
+        if (!new String(letrasAdivinadas).contains("-")) {
+            juegoTerminado = true;
+            victoria = true;
+        } else if (intentos == 0) {
+            juegoTerminado = true;
         }
-      });
-      reiniciar.addEventListener("click", function() {
-        window.location.reload();
-      });
-    </script>
-  </body>
+
+        request.getSession().setAttribute("intentos", intentos);
+    }
+}
+
+if (juegoTerminado) {
+    String palabra = (String) request.getSession().getAttribute("palabra");
+    mensaje = victoria ? "¡Ganaste! La palabra era " + palabra + "." : "Perdiste. La palabra era " + palabra + ".";
+
+
+
+%>
+<p><%= mensaje %></p>
+<form method="post" action="ahorcado">
+<p>
+<input type="submit" name="reiniciar" value="Reiniciar">
+</p>
+</form>
+<%
+} else {
+%>
+<h1>Adivina la palabra</h1>
+<p1>Palabra a adivinar: <%= new String(letrasAdivinadas) %></p1>
+<p>Te quedan <%= request.getSession().getAttribute("intentos") %> intentos.</p>
+<form method="post" action="ahorcado">
+<p>
+<label for="letra">Ingresa una letra: </label>
+<input type="text" name="letra" maxlength="1">
+                <input type="submit" value="Enviar">
+            </p>
+ <% if (session.getAttribute("mostrarBotones") != null && (boolean) session.getAttribute("mostrarBotones")) { %>
+            <form action="${pageContext.request.contextPath}/ahorcado" method="GET">
+                <input type="submit" name="reiniciar" value="Reiniciar juego">
+
+        </form>
+            </form>
+        <% } %>
+
+<%
+    }
+%>
+<img src="./src/main/webapp/images/adivina-2.png"></img>
+</body>
 </html>
