@@ -1,6 +1,11 @@
 package edu.fpdual.jsp.web.servlet;
 
+import edu.fpdual.jsp.persistence.connector.MySQLConnector;
+import edu.fpdual.jsp.persistence.manager.UsuarioManager;
+import edu.fpdual.jsp.service.UsuarioService;
 import edu.fpdual.jsp.web.dto.Usuario;
+import lombok.SneakyThrows;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -19,39 +24,34 @@ public class ServletRegistro extends HttpServlet {
     doPost(req, resp);
   }
 
+  @SneakyThrows
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
+    UsuarioService userSrv = new UsuarioService(new MySQLConnector(), new UsuarioManager());
     Usuario usuario = (Usuario) req.getSession().getAttribute("usuarioSesion");
     if (usuario != null) {
       homePage(resp, usuario);
     } else {
-      String usuarioConfigurado = getServletContext().getInitParameter("usuario");
-      String passwordConfigurado = getServletContext().getInitParameter("password");
-      String usuarioIntroducido = req.getParameter("usuario");
-      String passwordIntroducido = req.getParameter("contrasena");
-      if ((usuarioIntroducido != null && usuarioIntroducido.equals(usuarioConfigurado))
-          && (passwordIntroducido != null && passwordIntroducido.equals(passwordConfigurado))) {
-        usuario =
-            Usuario.builder().usuario(usuarioIntroducido).password(passwordIntroducido).build();
-
-        req.getSession().setAttribute("usuarioSesion", usuario);
-        homePage(resp, usuario);
+      String usuarioIntroducido = req.getParameter("nombre");
+      String correoIntroducido = req.getParameter("correo");
+      String passwordIntroducido = req.getParameter("password");
+      System.out.println(usuarioIntroducido);
+      if (userSrv.searchForExactName(usuarioIntroducido)) {
+        System.out.println(userSrv.searchForExactName(usuarioIntroducido));
+        PrintWriter writer = resp.getWriter();
+        writer.println("<p>El usuario ya existe.</p>");
+      } else if (passwordIntroducido.length() != 8) {
+        PrintWriter writer = resp.getWriter();
+        writer.println("<p>La contraseña debe contener 8 carácteres.</p>");
       } else {
-        resp.sendRedirect("/jsp/login/login.jsp");
+        userSrv.insertUsuario(
+            new edu.fpdual.jsp.persistence.dao.Usuario(
+                usuarioIntroducido, correoIntroducido, passwordIntroducido));
       }
     }
   }
-
   private void homePage(HttpServletResponse resp, Usuario usuario) throws IOException {
-    PrintWriter writer = resp.getWriter();
-    writer.println("<html>");
-    writer.println("<body>");
-    writer.println("<h2>Bienvenido --> " + usuario.getUsuario() + "</h2></br>");
-    writer.println("<form action=\"/ContaTeach/servlet-volver-login\" method=\"GET\">");
-    writer.println("<button type=\"submit\">Volver Login</button>");
-    writer.println("</form>");
-    writer.println("</body>");
-    writer.println("</html>");
+    resp.sendRedirect("/jsp/");
   }
 }

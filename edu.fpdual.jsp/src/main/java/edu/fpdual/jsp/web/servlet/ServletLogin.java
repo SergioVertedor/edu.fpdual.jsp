@@ -33,7 +33,7 @@ public class ServletLogin extends HttpServlet {
       if ((usuarioIntroducido != null && usuarioIntroducido.equals(usuarioConfigurado))
           && (passwordIntroducido != null && passwordIntroducido.equals(passwordConfigurado))) {
         usuario =
-            Usuario.builder().usuario(usuarioIntroducido).password(passwordIntroducido).build();
+            Usuario.builder().nombre(usuarioIntroducido).password(passwordIntroducido).build();
 
         req.getSession().setAttribute("usuarioSesion", usuario);
         homePage(resp, usuario);
@@ -47,7 +47,7 @@ public class ServletLogin extends HttpServlet {
     PrintWriter writer = resp.getWriter();
     writer.println("<html>");
     writer.println("<body>");
-    writer.println("<h2>Bienvenido --> " + usuario.getUsuario() + "</h2></br>");
+    writer.println("<h2>Bienvenido --> " + usuario.getNombre() + "</h2></br>");
     writer.println("<form action=\"/jsp/servlet-volver-login\" method=\"GET\">");
     writer.println("<button type=\"submit\">Volver Login</button>");
     writer.println("</form>");

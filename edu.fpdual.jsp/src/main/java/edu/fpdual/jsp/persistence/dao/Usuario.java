@@ -16,6 +16,12 @@ public class Usuario implements Comparable<Usuario> {
 	private String correo;
 	private String password;
 
+	public Usuario (String nombre, String correo, String password) {
+		this.id = 0;
+		this.nombre = nombre;
+		this.correo =  correo;
+		this.password = password;
+	}
 	public Usuario(ResultSet result) {
 		try {
 			this.id = result.getInt("id");

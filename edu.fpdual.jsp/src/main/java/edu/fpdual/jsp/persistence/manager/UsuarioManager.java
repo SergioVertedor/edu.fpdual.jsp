@@ -23,6 +23,7 @@ public class UsuarioManager {
       return null;
     }
   }
+
   public Usuario findById(Connection con, Integer id) {
 
     try (PreparedStatement stmt = con.prepareStatement("SELECT * FROM usuario where id = ?")) {
@@ -39,6 +40,7 @@ public class UsuarioManager {
       return null;
     }
   }
+
   public List<Usuario> filterByName(Connection con, String name) {
     try (PreparedStatement stmt = con.prepareStatement("SELECT ? FROM usuario")) {
       stmt.setString(1, "%" + name + "%");
@@ -60,6 +62,29 @@ public class UsuarioManager {
       }
     }
   }
+
+  public boolean searchForExactName(Connection con, String name) {
+    boolean isListed = false;
+    try (PreparedStatement stmt = con.prepareStatement("SELECT ? FROM usuario")) {
+      stmt.setString(1, name);
+      ResultSet result = stmt.executeQuery();
+      if (result.next()) {
+        isListed = true;
+      } else {
+        isListed = false;
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    } finally {
+      try {
+        con.close();
+      } catch (SQLException e) {
+        throw new RuntimeException(e);
+      }
+    }
+    return isListed;
+  }
+
   public void insertUsuario(Connection con, Usuario usuario) {
     try {
       PreparedStatement sentencia =
@@ -71,6 +96,7 @@ public class UsuarioManager {
       e.printStackTrace();
     }
   }
+
   public void deleteUsuario(Connection con, int id) {
     try {
       PreparedStatement sentencia = con.prepareStatement("DELETE FROM City WHERE ID = ?");

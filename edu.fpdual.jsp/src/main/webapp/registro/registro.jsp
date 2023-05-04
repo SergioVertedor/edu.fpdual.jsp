@@ -7,14 +7,11 @@
 <body>
 <h1>Registro de Usuarios</h1>
 <form action="/jsp/servlet-registro" method="POST">
-    <label for="nombre">Nombre:</label>
+    <label for="nombre">Usuario:</label>
     <input type="text" id="nombre" name="nombre" required/><br/><br/>
 
-    <label for="apellido">Apellido:</label>
-    <input type="text" id="apellido" name="apellido" required/><br/><br/>
-
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" required/><br/><br/>
+    <label for="correo">Email:</label>
+    <input type="email" id="correo" name="correo" required/><br/><br/>
 
     <label for="password">Contraseña:</label>
     <input type="password" id="password" name="password" required/><br/><br/>
