@@ -21,10 +21,8 @@
         <servlet-name>HomePageServlet</servlet-name>
         <servlet-class>edu.fpdual.jsp.web.servlet.HomePageServlet</servlet-class>
     </servlet>
-
     <servlet-mapping>
         <servlet-name>HomePageServlet</servlet-name>
         <url-pattern>/HomePageServlet</url-pattern>
     </servlet-mapping>
-
 </web-app>
