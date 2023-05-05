@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpServletResponse;
 public class HomePageServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         reiniciarJuego(request);
-        request.getRequestDispatcher("/comun/HomePage.jsp").forward(request, response);
+        request.getRequestDispatcher("/comun/homePage.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -47,10 +47,10 @@ public class HomePageServlet extends HttpServlet {
 
             request.getSession().setAttribute("letrasAdivinadas", letrasAdivinadas);
             request.getSession().setAttribute("intentos", intentos);
-            request.getRequestDispatcher("/comun/HomePage.jsp").forward(request, response);
+            request.getRequestDispatcher("/comun/homePage.jsp").forward(request, response);
         } else if ("reiniciar".equals(request.getParameter("accion"))) {
             reiniciarJuego(request);
-            request.getRequestDispatcher("/comun/HomePage.jsp").forward(request, response);
+            request.getRequestDispatcher("/comun/homePage.jsp").forward(request, response);
         }
     }
 
