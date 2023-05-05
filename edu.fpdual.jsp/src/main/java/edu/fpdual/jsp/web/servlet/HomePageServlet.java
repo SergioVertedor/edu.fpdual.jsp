@@ -38,11 +38,11 @@ public class HomePageServlet extends HttpServlet {
             if (Arrays.equals(letrasAdivinadas, palabra.toCharArray())) {
                 request.getSession().setAttribute("resultado", "ganaste");
                 request.getSession().setAttribute("palabraAdivinada", palabra);
-                request.getSession().setAttribute("mostrarBotones", true); // agregamos una nueva variable de sesión para mostrar los botones de reinicio y nueva palabra
+
             } else if (intentos == 0) {
                 request.getSession().setAttribute("resultado", "perdiste");
                 request.getSession().setAttribute("palabraAdivinada", palabra);
-                request.getSession().setAttribute("mostrarBotones", true); // agregamos una nueva variable de sesión para mostrar los botones de reinicio y nueva palabra
+
             }
 
             request.getSession().setAttribute("letrasAdivinadas", letrasAdivinadas);

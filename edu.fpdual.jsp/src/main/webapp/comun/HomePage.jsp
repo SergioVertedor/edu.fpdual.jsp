@@ -8,47 +8,47 @@
     <meta charset="UTF-8">
     <title>Ahorcado</title>
      <style>
-            body {
-                background-color: turquoise;
-                font-family: Arial, sans-serif;
-                          text-align: center;
-                      }
+     body {
+     background-color: turquoise;
+     font-family: Arial, sans-serif;
+     text-align: center;
+     }
 
-
-            h1 {
-                color: #9900CC;
-                margin-top: 50px;
-            }
-            p {
-                font-size: 18px;
-                margin-top: 20px;
-            }
-            p1 {
-                     font-size: 28px;
-                  margin-top: 20px;
-                        }
-            label {
-                font-weight: bold;
-                font-size: 16px;
-            }
-            input[type=text], input[type=submit] {
-                padding: 8px;
-                font-size: 16px;
-                border-radius: 5px;
-                border: none;
-            }
-            input[type=submit] {
-                background-color: #4CAF50;
-                color: white;
-                cursor: pointer;
-                transition: background-color 0.3s ease-in-out;
-            }
-            input[type=submit]:hover {
-                background-color: #FF66FF;
-            }
-        </style>
+     h1 {
+     color: #9900CC;
+     margin-top: 50px;
+     }
+     p {
+     font-size: 18px;
+     margin-top: 20px;
+     }
+     p1 {
+     font-size: 28px;
+     margin-top: 20px;
+     }
+     label {
+     font-weight: bold;
+     font-size: 16px;
+     }
+     input[type=text], input[type=submit] {
+     padding: 8px;
+     font-size: 16px;
+     border-radius: 5px;
+     border: none;
+     }
+     input[type=submit] {
+     background-color: #4CAF50;
+     color: white;
+     cursor: pointer;
+     transition: background-color 0.3s ease-in-out;
+     }
+     input[type=submit]:hover {
+     background-color: #FF66FF;
+     }
+     </style>
 </head>
 <body>
+
 <%
     boolean juegoTerminado = false;
     boolean victoria = false;
@@ -135,10 +135,8 @@ if (juegoTerminado) {
         </form>
             </form>
         <% } %>
-
 <%
     }
 %>
-<img src="./src/main/webapp/images/adivina-2.png"></img>
 </body>
 </html>
