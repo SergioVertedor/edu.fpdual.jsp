@@ -38,20 +38,12 @@ public class ServletLogin extends HttpServlet {
         req.getSession().setAttribute("usuarioSesion", usuario);
         homePage(resp, usuario);
       } else {
-        resp.sendRedirect("/jsp/login/login.jsp");
+        resp.sendRedirect("/login/login.jsp");
       }
     }
   }
 
   private void homePage(HttpServletResponse resp, Usuario usuario) throws IOException {
-    PrintWriter writer = resp.getWriter();
-    writer.println("<html>");
-    writer.println("<body>");
-    writer.println("<h2>Bienvenido --> " + usuario.getNombre() + "</h2></br>");
-    writer.println("<form action=\"/jsp/servlet-volver-login\" method=\"GET\">");
-    writer.println("<button type=\"submit\">Volver Login</button>");
-    writer.println("</form>");
-    writer.println("</body>");
-    writer.println("</html>");
+    resp.sendRedirect("/ahorcado");
   }
 }
