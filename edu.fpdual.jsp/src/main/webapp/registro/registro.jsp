@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>Registro de Usuarios</h1>
-<form action="/jsp/servlet-registro" method="POST">
+<form action="/servlet-registro" method="POST">
     <label for="nombre">Usuario:</label>
     <input type="text" id="nombre" name="nombre" required/><br/><br/>
 
