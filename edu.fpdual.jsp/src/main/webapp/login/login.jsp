@@ -21,7 +21,7 @@
     <button type="submit" class="button buttonBlue">Login
         <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
     </button>
-    <a href="register.html" target="_blank">Dont have an account? Click here to register!</a>
+    <a href="../registro/registro.jsp" target="_blank">Dont have an account? Click here to register!</a>
 </form>
 </body>
 </html>
