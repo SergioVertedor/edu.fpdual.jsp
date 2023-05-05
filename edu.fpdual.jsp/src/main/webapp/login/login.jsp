@@ -11,8 +11,8 @@
 </hgroup>
 <form action="/servlet-login" method="POST">
     <div class="group">
-        <input type="email" id="correo" name="correo"><span class="highlight"></span><span class="bar"></span>
-        <label>Email</label>
+        <input type="text" id="nombre" name="nombre"><span class="highlight"></span><span class="bar"></span>
+        <label>Name</label>
     </div>
     <div class="group">
         <input type="password" id="password" name="password"><span class="highlight"></span><span class="bar"></span>
