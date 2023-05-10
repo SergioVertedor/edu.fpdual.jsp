@@ -11,11 +11,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+
 import lombok.SneakyThrows;
 
 @WebServlet(
-        name = "ServletRegistro",
-        urlPatterns = {"/servlet-registro"})
+        name = "RegistroServlet",
+        urlPatterns = {"/registro-servlet"})
 public class RegistroServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -30,7 +32,7 @@ public class RegistroServlet extends HttpServlet {
      * @throws ServletException
      * @throws IOException
      */
-    @SneakyThrows
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
@@ -43,23 +45,30 @@ public class RegistroServlet extends HttpServlet {
             String correoIntroducido = req.getParameter("correo");
             String passwordIntroducido = req.getParameter("password");
             String passwordIntroducidoCheck = req.getParameter("confirm_password");
-            if (userSrv.buscarPorNombre(usuarioIntroducido)) {
-                req.setAttribute("error","<p class='error'>El usuario ya existe.</p>");
-                req.getRequestDispatcher("/registro/registro.jsp").forward(req, resp);
-            } else if (passwordIntroducido.length() > 8 || passwordIntroducido.length() < 6) {
-                PrintWriter writer = resp.getWriter();
-                req.setAttribute("error", "<p class='error'>La contraseña debe contener entre 6 y 8 carácteres.</p>");
-                req.getRequestDispatcher("/registro/registro.jsp").forward(req, resp);
-            } else if (!passwordIntroducido.equals(passwordIntroducidoCheck)) {
-                PrintWriter writer = resp.getWriter();
-                req.setAttribute("error","<p class='error'>Las contraseñas no coinciden.</p>");
-                req.getRequestDispatcher("/registro/registro.jsp").forward(req, resp);
+            req.setAttribute("error","");
+            try {
+                if (userSrv.buscarPorNombre(usuarioIntroducido)) {
+                    req.setAttribute("error","<p class='error'>El usuario ya existe.</p>");
+                    req.getRequestDispatcher("/registro/registro.jsp").forward(req, resp);
+                } else if (passwordIntroducido.length() > 8 || passwordIntroducido.length() < 6) {
+                    PrintWriter writer = resp.getWriter();
+                    req.setAttribute("error", "<p class='error'>La contraseña debe contener entre 6 y 8 carácteres.</p>");
+                    req.getRequestDispatcher("/registro/registro.jsp").forward(req, resp);
+                } else if (!passwordIntroducido.equals(passwordIntroducidoCheck)) {
+                    PrintWriter writer = resp.getWriter();
+                    req.setAttribute("error","<p class='error'>Las contraseñas no coinciden.</p>");
+                    req.getRequestDispatcher("/registro/registro.jsp").forward(req, resp);
 
-            } else {
-                userSrv.insertarUsuario(
-                        new edu.fpdual.jsp.persistence.dao.Usuario(
-                                usuarioIntroducido, correoIntroducido, passwordIntroducido));
-                homePage(resp, usuario);
+                } else {
+                    userSrv.insertarUsuario(
+                            new edu.fpdual.jsp.persistence.dao.Usuario(
+                                    usuarioIntroducido, correoIntroducido, passwordIntroducido));
+                    homePage(resp, usuario);
+                }
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException(e);
             }
         }
     }

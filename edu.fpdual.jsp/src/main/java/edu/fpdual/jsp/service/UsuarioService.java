@@ -76,7 +76,6 @@ public class UsuarioService {
     }
   }
 
-
   public boolean buscarPorNombre(String name) throws SQLException, ClassNotFoundException {
     Connection con = null;
     boolean result = false;
