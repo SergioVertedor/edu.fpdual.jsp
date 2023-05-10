@@ -31,7 +31,7 @@ public class SessionFilter implements Filter {
 		Usuario usuario = (Usuario)req.getSession().getAttribute("usuarioSesion");
 
 		if(usuario == null){
-			((HttpServletResponse)servletResponse).sendRedirect("/jsp/login/loginJSP.jsp");
+			((HttpServletResponse)servletResponse).sendRedirect("/login/login.jsp");
 		} else {
 			System.out.println("Antes de pasar filtro");
 			filterChain.doFilter(servletRequest, servletResponse);

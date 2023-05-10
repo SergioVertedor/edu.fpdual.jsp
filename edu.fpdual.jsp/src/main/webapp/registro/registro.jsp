@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Registro de Usuarios</title>
-    <link rel="stylesheet" href="./style/style.css">
+       <link rel="stylesheet" type="text/css" href="/registro/style/style.css"/>
 </head>
 <body>
 <hgroup>
     <h1>HackeaPalabra</h1>
 </hgroup>
-<form action="/servlet-registro" method="POST">
+<form action="/registro-servlet" method="POST">
     <div class="group">
         <input type="text" id="nombre" name="nombre" required><span class="highlight"></span><span class="bar"></span>
         <label>Name</label>
@@ -26,7 +26,10 @@
         <input type="password" id="confirm_password" name="confirm_password"><span class="highlight"></span><span class="bar"></span>
         <label>Confirm password</label>
     </div>
-    <% String mensaje = (String) request.getAttribute("error"); %>
+    <% String mensaje = (String) request.getAttribute("error");
+     if (mensaje != null){  %>
+     <p class='error'><%= mensaje %></p>
+     <% } %>
     <button type="submit" class="button buttonBlue">Register
         <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
     </button>
