@@ -10,7 +10,7 @@ import java.io.PrintWriter;
 
 @WebServlet(
     name = "MiServlet",
-    urlPatterns = {"/mi-servlet2"})
+    urlPatterns = {"/mi-servlet"})
 public class MiServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
