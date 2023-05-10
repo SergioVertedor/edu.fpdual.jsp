@@ -17,7 +17,7 @@ import lombok.SneakyThrows;
 
 public class CpanelEliminarUsuarioServlet {
   @WebServlet(
-      name = "RegistroServlet",
+      name = "EliminarUsuarioServlet",
       urlPatterns = {"/cpanel-eliminar-usuario-servlet"})
   public class ServletRegistro extends HttpServlet {
     @Override
@@ -41,9 +41,7 @@ public class CpanelEliminarUsuarioServlet {
             req.setAttribute("notificacion", "usuario eliminado correctamente.");
             req.getRequestDispatcher("/controlpanel/cpanel.jsp").forward(req, resp);
           };
-        } catch (SQLException e) {
-          throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
           throw new RuntimeException(e);
         }
         homePage(resp, usuario);
