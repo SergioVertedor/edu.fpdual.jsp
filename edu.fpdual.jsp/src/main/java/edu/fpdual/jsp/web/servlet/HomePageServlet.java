@@ -56,7 +56,7 @@ public class HomePageServlet extends HttpServlet {
 
         request.setAttribute("letrasAdivinadas", String.valueOf(letrasAdivinadas));
         request.setAttribute("intentos", intentos);
-        request.getRequestDispatcher("/comun/homePage.jsp").forward(request, response);
+        request.getRequestDispatcher("/comun/homepage.jsp").forward(request, response);
 
     }
 

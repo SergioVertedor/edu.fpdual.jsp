@@ -64,15 +64,17 @@ public class UsuarioService {
     }
   }
 
-  public void eliminarUsuario(int id) throws SQLException, ClassNotFoundException {
+  public int eliminarUsuario(int id) throws SQLException, ClassNotFoundException {
     Connection con = null;
+    int lineas = 0;
     try {
       con = connector.getMySQLConnection();
-      manager.eliminarUsuario(con, id);
+      lineas = manager.eliminarUsuario(con, id);
     } finally {
       if (con != null) {
         con.close();
       }
+      return lineas;
     }
   }
 

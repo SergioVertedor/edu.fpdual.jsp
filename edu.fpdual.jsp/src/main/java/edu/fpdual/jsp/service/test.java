@@ -9,6 +9,6 @@ public class test {
   @SneakyThrows
   public static void main(String[] args) {
     UsuarioService userSrv = new UsuarioService(new MySQLConnector(), new UsuarioManager());
-    userSrv.insertarUsuario(new Usuario("test2", "12345678", "12345678"));
+    userSrv.eliminarUsuario(2);
   }
 }

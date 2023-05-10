@@ -96,12 +96,15 @@ public class UsuarioManager {
     }
   }
 
-  public void eliminarUsuario(Connection con, int id) {
+  public int eliminarUsuario(Connection con, int id) {
+    int lineas = 0;
     try {
-      PreparedStatement sentencia = con.prepareStatement("DELETE FROM usuario WHERE ID = ?");
+      PreparedStatement sentencia = con.prepareStatement("DELETE FROM usuario WHERE id = ?");
       sentencia.setInt(1, id);
+      lineas = sentencia.executeUpdate();
     } catch (SQLException e) {
       e.printStackTrace();
     }
+    return lineas;
   }
 }
