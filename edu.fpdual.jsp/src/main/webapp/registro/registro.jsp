@@ -28,10 +28,8 @@
     </div>
     <% String mensaje = (String) request.getAttribute("error");
      if (mensaje != null){  %>
-     <%= mensaje %>
-     <%
-          }
-     %>
+     <p class='error'><%= mensaje %></p>
+     <% } %>
     <button type="submit" class="button buttonBlue">Register
         <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
     </button>

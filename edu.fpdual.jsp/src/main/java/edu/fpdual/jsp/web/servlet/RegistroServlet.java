@@ -48,7 +48,7 @@ public class RegistroServlet extends HttpServlet {
             req.setAttribute("error","");
             try {
                 if (userSrv.buscarPorNombre(usuarioIntroducido)) {
-                    req.setAttribute("error","<p class='error'>El usuario ya existe.</p>");
+                    req.setAttribute("error","El usuario ya existe.");
                     req.getRequestDispatcher("/registro/registro.jsp").forward(req, resp);
                 } else if (passwordIntroducido.length() > 8 || passwordIntroducido.length() < 6) {
                     PrintWriter writer = resp.getWriter();
