@@ -23,6 +23,13 @@ public class RegistroServlet extends HttpServlet {
         doPost(req, resp);
     }
 
+    /***
+     * Método para recogida de parámetros, verificación y registro posterior en base de datos.
+     * @param req Parametros recibidos desde registro.jsp
+     * @param resp Parametros a disposición para registro.jsp
+     * @throws ServletException
+     * @throws IOException
+     */
     @SneakyThrows
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
@@ -57,8 +64,13 @@ public class RegistroServlet extends HttpServlet {
         }
     }
 
+    /***
+     * Método para redireccionar a la página principal.
+     * @param resp Parámetros a disposición para la homepage.
+     * @param usuario Incluye la sesión del usuario.
+     * @throws IOException
+     */
     private void homePage(HttpServletResponse resp, Usuario usuario) throws IOException {
         resp.sendRedirect("/");
-        
     }
 }

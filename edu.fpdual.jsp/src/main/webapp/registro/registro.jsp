@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="es">
-<% >
 <head>
     <meta charset="UTF-8"/>
     <title>Registro de Usuarios</title>
     <link rel="stylesheet" href="./style/style.css">
 </head>
 <body>
-<script src="js.js"></script>
 <hgroup>
     <h1>HackeaPalabra</h1>
 </hgroup>
@@ -28,6 +26,7 @@
         <input type="password" id="confirm_password" name="confirm_password"><span class="highlight"></span><span class="bar"></span>
         <label>Confirm password</label>
     </div>
+    <% String mensaje = (String) request.getAttribute("error"); %>
     <button type="submit" class="button buttonBlue">Register
         <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
     </button>
