@@ -6,6 +6,8 @@ import edu.fpdual.jsp.persistence.manager.UsuarioManager;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class UsuarioService {
   private MySQLConnector connector;
@@ -16,6 +18,12 @@ public class UsuarioService {
     this.manager = manager;
   }
 
+  /***
+   * Metodo que busca en el servidor MySQL todos los usuarios.
+   * @return Devuelve una lista que contiene todos los usuarios en el registro.
+   * @throws SQLException
+   * @throws ClassNotFoundException
+   */
   public List<Usuario> buscarATodos() throws SQLException, ClassNotFoundException {
     Connection con = null;
     try {
@@ -40,11 +48,11 @@ public class UsuarioService {
     }
   }
 
-  public List<Usuario> filtrarPorNombre(String name) throws SQLException, ClassNotFoundException {
+  public int modificarUsuario(Usuario usuario) throws SQLException, ClassNotFoundException {
     Connection con = null;
     try {
       con = connector.getMySQLConnection();
-      return manager.filtrarPorNombre(con, name);
+      return manager.modificarUsuario(con, usuario);
     } finally {
       if (con != null) {
         con.close();
@@ -78,7 +86,22 @@ public class UsuarioService {
     }
   }
 
-  public boolean buscarPorNombre(String name) throws SQLException, ClassNotFoundException {
+  public Map<String, String> buscarUsuarioConPassword(String name) throws SQLException, ClassNotFoundException {
+    Connection con = null;
+    Map<String, String> mapa = new TreeMap<>();
+    try {
+      con = connector.getMySQLConnection();
+      mapa = manager.buscarUsuarioConPassword(con, name);
+    } finally {
+      if (con != null) {
+        con.close();
+      }
+
+    }
+    return mapa;
+  }
+
+  public boolean buscarPorNombreExacto(String name) throws SQLException, ClassNotFoundException {
     Connection con = null;
     boolean result = false;
     try {

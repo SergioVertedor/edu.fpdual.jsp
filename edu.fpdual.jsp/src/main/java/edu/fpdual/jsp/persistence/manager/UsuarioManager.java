@@ -5,12 +5,13 @@ import edu.fpdual.jsp.persistence.dao.Usuario;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class UsuarioManager {
   public List<Usuario> buscarTodos(Connection con) {
     try (Statement stmt = con.createStatement()) {
       ResultSet result = stmt.executeQuery("SELECT * FROM usuario");
-      result.beforeFirst();
       List<Usuario> usuarios = new ArrayList<>();
       while (result.next()) {
         usuarios.add(new Usuario(result));
@@ -27,37 +28,14 @@ public class UsuarioManager {
     try (PreparedStatement stmt = con.prepareStatement("SELECT * FROM usuario where id = ?")) {
       stmt.setInt(1, id);
       ResultSet result = stmt.executeQuery();
-      result.beforeFirst();
       Usuario usuario = null;
-      while (result.next()) {
+      if (result.next()) {
         usuario = new Usuario(result);
       }
       return usuario;
     } catch (SQLException e) {
       e.printStackTrace();
       return null;
-    }
-  }
-
-  public List<Usuario> filtrarPorNombre(Connection con, String name) {
-    try (PreparedStatement stmt = con.prepareStatement("SELECT ? FROM usuario")) {
-      stmt.setString(1, "%" + name + "%");
-      ResultSet result = stmt.executeQuery();
-      result.beforeFirst();
-      List<Usuario> usuarios = new ArrayList<>();
-      while (result.next()) {
-        usuarios.add(new Usuario(result));
-      }
-      return usuarios;
-    } catch (SQLException e) {
-      e.printStackTrace();
-      return null;
-    } finally {
-      try {
-        con.close();
-      } catch (SQLException e) {
-        throw new RuntimeException(e);
-      }
     }
   }
 
@@ -83,6 +61,25 @@ public class UsuarioManager {
     return isListed;
   }
 
+  public Map<String, String> buscarUsuarioConPassword(Connection con, String name) {
+    Map<String, String> map = new TreeMap<>();
+    try (PreparedStatement stmt = con.prepareStatement("SELECT * FROM usuario")) {
+      ResultSet result = stmt.executeQuery();
+      while (result.next()) {
+        map.put(result.getString(2), result.getString(4));
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    } finally {
+      try {
+        con.close();
+      } catch (SQLException e) {
+        throw new RuntimeException(e);
+      }
+    }
+    return map;
+  }
+
   public void insertarUsuario(Connection con, Usuario usuario) {
     try {
       PreparedStatement sentencia =
@@ -101,6 +98,22 @@ public class UsuarioManager {
     try {
       PreparedStatement sentencia = con.prepareStatement("DELETE FROM usuario WHERE id = ?");
       sentencia.setInt(1, id);
+      lineas = sentencia.executeUpdate();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return lineas;
+  }
+
+  public int modificarUsuario(Connection con, Usuario usuario) {
+    int lineas = 0;
+    try {
+      PreparedStatement sentencia =
+              con.prepareStatement("UPDATE usuario SET nombre = ?, correo =  ?, password = ? WHERE id = ?");
+      sentencia.setString(1, usuario.getNombre());
+      sentencia.setString(2, usuario.getCorreo());
+      sentencia.setString(3, usuario.getPassword());
+      sentencia.setString(4, usuario.getId());
       lineas = sentencia.executeUpdate();
     } catch (SQLException e) {
       e.printStackTrace();

@@ -13,9 +13,10 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 @WebServlet(
-    name = "RegistroServlet",
-    urlPatterns = {"/registro-servlet"})
-public class RegistroServlet extends HttpServlet {
+    name = "ConsultarUsuarioServlet",
+    urlPatterns = {"/cpanel-consultar-usuario-servlet"})
+public class CpanelConsultarUsuarioServlet extends HttpServlet {
+
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
@@ -23,13 +24,13 @@ public class RegistroServlet extends HttpServlet {
   }
 
   /***
-   * Método para recogida de parámetros, verificación y registro posterior en base de datos.
-   * @param req Parametros recibidos desde registro.jsp
-   * @param resp Parametros a disposición para registro.jsp
+   * Método que consulta la existencia del usuario a través de la id introducida, y acto seguido
+   * remite los parámetros del usuario a cpanel.jsp.
+   * @param req Parametros recibidos desde cpanel.jsp
+   * @param resp Parametros a disposición para cpanel.jsp
    * @throws ServletException
    * @throws IOException
    */
-
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
@@ -38,28 +39,18 @@ public class RegistroServlet extends HttpServlet {
     if (usuario != null) {
       homePage(resp, usuario);
     } else {
-      String usuarioIntroducido = req.getParameter("nombre");
-      String correoIntroducido = req.getParameter("correo");
-      String passwordIntroducido = req.getParameter("password");
-      String passwordIntroducidoCheck = req.getParameter("confirm_password");
-      req.setAttribute("error", "");
+      int idUsuario = Integer.parseInt(req.getParameter("id"));
       try {
-        if (userSrv.buscarPorNombreExacto(usuarioIntroducido)) {
-          req.setAttribute("error", "El usuario ya existe.");
-          req.getRequestDispatcher("/registro/registro.jsp").forward(req, resp);
-        } else if (passwordIntroducido.length() > 8 || passwordIntroducido.length() < 6) {
-          req.setAttribute(
-              "error", "La contraseña debe contener entre 6 y 8 carácteres.");
-          req.getRequestDispatcher("/registro/registro.jsp").forward(req, resp);
-        } else if (!passwordIntroducido.equals(passwordIntroducidoCheck)) {
-          req.setAttribute("error", "Las contraseñas no coinciden.");
-          req.getRequestDispatcher("/registro/registro.jsp").forward(req, resp);
-
+        if (userSrv.buscarPorId(idUsuario) == null) {
+          req.setAttribute("notificacionConsulta", "El usuario introducido no existe.");
+          req.getRequestDispatcher("/controlpanel/cpanel.jsp").forward(req, resp);
         } else {
-          userSrv.insertarUsuario(
-              new Usuario(
-                  usuarioIntroducido, correoIntroducido, passwordIntroducido));
-          homePage(resp, usuario);
+          Usuario usuarioConsulta = userSrv.buscarPorId(idUsuario);
+          req.setAttribute("id", usuarioConsulta.getId());
+          req.setAttribute("nombreUsuario", usuarioConsulta.getNombre());
+          req.setAttribute("correo", usuarioConsulta.getCorreo());
+          req.setAttribute("password", usuarioConsulta.getPassword());
+          req.getRequestDispatcher("/controlpanel/cpanel.jsp").forward(req, resp);
         }
       } catch (SQLException | ClassNotFoundException e) {
         throw new RuntimeException(e);

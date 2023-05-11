@@ -1,8 +1,12 @@
 package edu.fpdual.jsp.web.servlet;
 
+import edu.fpdual.jsp.persistence.connector.MySQLConnector;
+import edu.fpdual.jsp.persistence.manager.UsuarioManager;
+import edu.fpdual.jsp.service.UsuarioService;
 import edu.fpdual.jsp.web.dto.Usuario;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.Map;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -22,23 +26,36 @@ public class ServletLogin extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
+    UsuarioService userSrv = new UsuarioService(new MySQLConnector(), new UsuarioManager());
     Usuario usuario = (Usuario) req.getSession().getAttribute("usuarioSesion");
+    Map<String, String> mapa;
     if (usuario != null) {
       homePage(resp, usuario);
     } else {
-      String usuarioConfigurado = getServletContext().getInitParameter("usuario");
-      String passwordConfigurado = getServletContext().getInitParameter("password");
       String usuarioIntroducido = req.getParameter("usuario");
       String passwordIntroducido = req.getParameter("contrasena");
-      if ((usuarioIntroducido != null && usuarioIntroducido.equals(usuarioConfigurado))
-          && (passwordIntroducido != null && passwordIntroducido.equals(passwordConfigurado))) {
-        usuario =
-            Usuario.builder().nombre(usuarioIntroducido).password(passwordIntroducido).build();
-
-        req.getSession().setAttribute("usuarioSesion", usuario);
-        homePage(resp, usuario);
-      } else {
-        resp.sendRedirect("/login/login.jsp");
+      try {
+        mapa = userSrv.buscarUsuarioConPassword(usuarioIntroducido);
+      } catch (SQLException | ClassNotFoundException e) {
+        throw new RuntimeException(e);
+      }
+      try {
+        if (!userSrv.buscarPorNombreExacto(usuarioIntroducido)) {
+          req.setAttribute("error", "El usuario no existe.");
+          req.getRequestDispatcher("/login/login.jsp").forward(req, resp);
+          if (usuarioIntroducido != null
+              && passwordIntroducido != null
+              && mapa.get(usuarioIntroducido).equals(passwordIntroducido)) {
+            usuario =
+                Usuario.builder().nombre(usuarioIntroducido).password(passwordIntroducido).build();
+            req.getSession().setAttribute("usuarioSesion", usuario);
+            homePage(resp, usuario);
+          } else {
+            resp.sendRedirect("/login/login.jsp");
+          }
+        }
+      } catch (SQLException | ClassNotFoundException e) {
+        throw new RuntimeException(e);
       }
     }
   }
