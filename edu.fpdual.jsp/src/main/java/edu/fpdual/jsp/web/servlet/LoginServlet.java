@@ -42,7 +42,7 @@ public class LoginServlet extends HttpServlet {
       try {
         if (!userSrv.buscarPorNombreExacto(usuarioIntroducido)) {
           req.setAttribute("error", "El usuario no existe.");
-          req.getRequestDispatcher("/login/login.jsp").forward(req, resp);
+          req.getRequestDispatcher("/index.jsp").forward(req, resp);
         } else {
           if (usuarioIntroducido != null
               && passwordIntroducido != null
@@ -52,7 +52,7 @@ public class LoginServlet extends HttpServlet {
             req.getSession().setAttribute("usuarioSesion", usuario);
             homePage(resp, usuario);
           } else {
-            resp.sendRedirect("/login/login.jsp");
+            resp.sendRedirect("/index.jsp");
           }
         }
       } catch (SQLException | ClassNotFoundException e) {
