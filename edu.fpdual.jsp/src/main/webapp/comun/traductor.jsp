@@ -15,64 +15,75 @@
 <title>Traductor de palabras</title>
 </head>
 <body>
+
   <%
-      // Obtener la lista de palabras de la sesión o crear una nueva si no existe
-      List<String[]> palabras = (List<String[]>) session.getAttribute("palabras");
-      if (palabras == null) {
-          palabras = new ArrayList<String[]>();
-          palabras.add(new String[]{"hola", "hello"});
-          palabras.add(new String[]{"adios", "goodbye"});
-          palabras.add(new String[]{"buenos dias", "good morning"});
-          palabras.add(new String[]{"buenas tardes", "good afternoon"});
-          palabras.add(new String[]{"buenas noches", "good night"});
-          Collections.shuffle(palabras);
-          session.setAttribute("palabras", palabras);
-      }
+        // Obtener la lista de palabras de la sesión o crear una nueva si no existe
+        List<String[]> palabras = (List<String[]>) session.getAttribute("palabras");
+        if (palabras == null) {
+            palabras = new ArrayList<String[]>();
+            palabras.add(new String[]{"servidor", "server"});
+            palabras.add(new String[]{"impresora", "printer"});
+            palabras.add(new String[]{"computadora", "Computer"});
+            palabras.add(new String[]{"contraseña", "password"});
+            palabras.add(new String[]{"navegador", "browser"});
+            palabras.add(new String[]{"red", "network"});
+            palabras.add(new String[]{"programa", "program"});
+            palabras.add(new String[]{"codigo", "code"});
+            palabras.add(new String[]{"herramientas", "tools"});
+            palabras.add(new String[]{"archivo", "file"});
+            palabras.add(new String[]{"ayuda", "help"});
+            palabras.add(new String[]{"vista", "view"});
+            palabras.add(new String[]{"proyecto", "project"});
+            palabras.add(new String[]{"consola", "console"});
+            palabras.add(new String[]{"clase", "class"});
+            Collections.shuffle(palabras);
+            session.setAttribute("palabras", palabras);
+        }
 
-      String palabra = "";
-      String traduccion = "";
+        String palabra = "";
+        String traduccion = "";
 
-      if (!palabras.isEmpty()) {
-          String[] palabraAleatoria = palabras.get(0);
-          palabra = palabraAleatoria[0];
-          traduccion = palabraAleatoria[1];
-      }
+        if (!palabras.isEmpty()) {
+            String[] palabraAleatoria = palabras.get(0);
+            palabra = palabraAleatoria[0];
+            traduccion = palabraAleatoria[1];
+        }
 
-      // Obtener la respuesta del usuario
-      String respuesta = request.getParameter("respuesta");
-      boolean respuestaValida = false;
+        // Obtener la respuesta del usuario
+        String respuesta = request.getParameter("respuesta");
+        boolean respuestaValida = false;
 
-      // Validar la respuesta
-      if (respuesta != null && respuesta.equals(traduccion)) {
-          respuestaValida = true;
-      }
+        // Validar la respuesta
+        if (respuesta != null && respuesta.equals(traduccion)) {
+            respuestaValida = true;
+        }
 
-      // Mostrar el resultado
-      if (respuestaValida) {
-          out.println("<p>¡Respuesta correcta!</p>");
-          palabras.remove(0); // Eliminar la palabra actual de la lista
-          session.setAttribute("palabras", palabras); // Actualizar la lista en la sesión
-      } else if (respuesta != null) {
-          out.println("<p>Respuesta incorrecta. La traducción correcta es: " + traduccion + "</p>");
-      }
-  %>
+        // Mostrar el resultado
+        if (respuestaValida) {
+            out.println("<p>¡Respuesta correcta!</p>");
+            palabras.remove(0); // Eliminar la palabra actual de la lista
+            session.setAttribute("palabras", palabras); // Actualizar la lista en la sesión
+        } else if (respuesta != null) {
+            out.println("<p>Respuesta incorrecta. La traducción correcta es: " + traduccion + "</p>");
+        }
+    %>
 
-  <form method="post">
-      <p>Traduce la siguiente palabra:</p>
-      <% if (!palabras.isEmpty()) { %>
-          <p>Palabra a traducir: <%= palabra %></p>
-          <label for="respuesta">Traducción:</label>
-          <input type="text" id="respuesta" name="respuesta">
-          <input type="submit" value="Enviar">
-      <% } else { %>
-          <p>No hay más palabras para traducir.</p>
-      <% } %>
-  </form>
+    <form method="post">
+        <p>Traduce la siguiente palabra:</p>
+        <% if (!palabras.isEmpty()) { %>
+            <p>Palabra a traducir: <%= palabra %></p>
+            <label for="respuesta">Traducción:</label>
+            <input type="text" id="respuesta" name="respuesta">
+            <input type="submit" value="Enviar">
+        <% } else { %>
+            <p>No hay más palabras para traducir.</p>
+        <% } %>
+    </form>
 
-  <form action="" method="post">
-      <input type="hidden" name="action" value="reset">
-      <input type="submit" value="Reiniciar juego">
-  </form>
+    <form action="" method="post">
+        <input type="hidden" name="action" value="reset">
+        <input type="submit" value="Reiniciar juego">
+    </form>
 
 
 </body>

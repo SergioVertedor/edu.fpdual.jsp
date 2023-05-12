@@ -1,5 +1,6 @@
 package edu.fpdual.jsp.web.servlet;
 
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -9,6 +10,7 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.util.*;
+
 @WebServlet("/traductor-servlet")
 public class TraductorServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
