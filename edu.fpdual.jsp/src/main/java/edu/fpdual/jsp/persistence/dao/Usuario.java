@@ -11,20 +11,25 @@ import java.sql.SQLException;
 @Setter
 @ToString
 public class Usuario implements Comparable<Usuario> {
-	private int id;
+	private String id;
 	private String nombre;
 	private String correo;
 	private String password;
 
-	public Usuario (String nombre, String correo, String password) {
-		this.id = 0;
+	public Usuario (String id, String nombre, String correo, String password) {
+		this.id = id;
+		this.nombre = nombre;
+		this.correo =  correo;
+		this.password = password;
+	}
+	public Usuario ( String nombre, String correo, String password) {
 		this.nombre = nombre;
 		this.correo =  correo;
 		this.password = password;
 	}
 	public Usuario(ResultSet result) {
 		try {
-			this.id = result.getInt("id");
+			this.id = result.getString("id");
 			this.nombre = result.getString("nombre");
 			this.correo = result.getString("correo");
 			this.password = result.getString("password");
