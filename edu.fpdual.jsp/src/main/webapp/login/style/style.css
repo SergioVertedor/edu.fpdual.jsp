@@ -205,6 +205,10 @@ input:focus ~ label, input.used ~ label {
 	transition: all 0.2s ease;
 }
 
+.error {
+color: red;
+}
+
 .bar:before { left: 50%; }
 
 .bar:after { right: 50%; }
