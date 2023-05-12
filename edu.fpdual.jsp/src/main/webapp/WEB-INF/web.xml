@@ -19,7 +19,7 @@
     </context-param>
     <servlet>
         <servlet-name>HomePageServlet</servlet-name>
-        <servlet-class>edu.fpdual.jsp.web.servlet.HomePageServlet</servlet-class>
+        <servlet-class>edu.fpdual.jsp.web.servlet.AhorcadoServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>HomePageServlet</servlet-name>

@@ -16,7 +16,7 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet(
     name = "ServletLogin",
     urlPatterns = {"/servlet-login"})
-public class ServletLogin extends HttpServlet {
+public class LoginServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
@@ -62,6 +62,6 @@ public class ServletLogin extends HttpServlet {
   }
 
   private void homePage(HttpServletResponse resp, Usuario usuario) throws IOException {
-    resp.sendRedirect("/comun/homepage.jsp");
+    resp.sendRedirect("/comun/ahorcado.jsp");
   }
 }

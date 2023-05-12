@@ -2,9 +2,7 @@ package edu.fpdual.jsp.web.servlet;
 
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.Random;
 
-import edu.fpdual.jsp.web.dto.Usuario;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -12,7 +10,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet("/ahorcado")
-public class HomePageServlet extends HttpServlet {
+public class AhorcadoServlet extends HttpServlet {
 
     private String[] palabras = {"codigo", "binario", "string", "comando","bug", "depurar", "compilar","bucle",
             "array","variable","algoritmo","interfaz","clase","objeto","refactorizacion"};
