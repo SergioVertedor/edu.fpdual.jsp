@@ -66,12 +66,6 @@ public class TraductorServlet extends HttpServlet {
     private static final java.util.Map<String, String> palabras = new java.util.HashMap<String, String>() {
         private static final long serialVersionUID = 1L;
 
-        {
-            put("apple", "manzana");
-            put("banana", "plátano");
-            put("car", "coche");
-            put("house", "casa");
-            put("dog", "perro");
-        }
+
     };
 }
