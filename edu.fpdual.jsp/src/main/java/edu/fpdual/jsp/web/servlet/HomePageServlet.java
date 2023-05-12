@@ -3,6 +3,8 @@ package edu.fpdual.jsp.web.servlet;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Random;
+
+import edu.fpdual.jsp.web.dto.Usuario;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -56,7 +58,7 @@ public class HomePageServlet extends HttpServlet {
 
         request.setAttribute("letrasAdivinadas", String.valueOf(letrasAdivinadas));
         request.setAttribute("intentos", intentos);
-        request.getRequestDispatcher("/comun/homePage.jsp").forward(request, response);
+        request.getRequestDispatcher("/comun/homepage.jsp").forward(request, response);
 
     }
 
@@ -64,5 +66,6 @@ public class HomePageServlet extends HttpServlet {
             throws ServletException, IOException {
         doGet(request, response);
     }
+
 
 }

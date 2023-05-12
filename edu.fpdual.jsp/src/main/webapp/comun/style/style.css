@@ -52,3 +52,9 @@ text-align: center;
 .message {
 color: #ff0000;
 }
+
+#imagen {
+ margin: auto;
+ text-align: center;
+ height: 50%;
+}
