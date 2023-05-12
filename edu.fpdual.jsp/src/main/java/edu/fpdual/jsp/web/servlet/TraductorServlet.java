@@ -1,6 +1,7 @@
 package edu.fpdual.jsp.web.servlet;
 
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -8,7 +9,7 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.util.*;
-
+@WebServlet("/traductor-servlet")
 public class TraductorServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -32,7 +33,7 @@ public class TraductorServlet extends HttpServlet {
         session.setAttribute("traduccion", traduccion);
         session.setAttribute("respuestaValida", null);
 
-        request.getRequestDispatcher("/traductor.jsp").forward(request, response);
+        request.getRequestDispatcher("/comun/traductor.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -53,7 +54,7 @@ public class TraductorServlet extends HttpServlet {
             session.setAttribute("juegoReiniciado", "true");
         }
 
-        response.sendRedirect(request.getContextPath() + "/TraductorServlet");
+        response.sendRedirect(request.getContextPath() + "/traductor-servlet");
     }
 
     private String getRandomPalabra() {

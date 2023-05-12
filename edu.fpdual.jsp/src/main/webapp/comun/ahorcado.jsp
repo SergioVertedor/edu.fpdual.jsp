@@ -49,7 +49,7 @@
     </div>
 
 <h1>Presiona el botón para continuar</h1>
-    <form action="/comun/homepage2.jsp" method="post">
+    <form action="/comun/traductor.jsp" method="post">
       <input type="submit" value="Continuar">
     </form>
 
