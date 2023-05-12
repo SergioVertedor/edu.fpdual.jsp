@@ -43,6 +43,7 @@ public class ServletLogin extends HttpServlet {
         if (!userSrv.buscarPorNombreExacto(usuarioIntroducido)) {
           req.setAttribute("error", "El usuario no existe.");
           req.getRequestDispatcher("/login/login.jsp").forward(req, resp);
+        } else {
           if (usuarioIntroducido != null
               && passwordIntroducido != null
               && mapa.get(usuarioIntroducido).equals(passwordIntroducido)) {
@@ -61,6 +62,6 @@ public class ServletLogin extends HttpServlet {
   }
 
   private void homePage(HttpServletResponse resp, Usuario usuario) throws IOException {
-    resp.sendRedirect("/ahorcado");
+    resp.sendRedirect("/comun/homepage.jsp");
   }
 }
