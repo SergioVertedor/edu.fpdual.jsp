@@ -2,11 +2,8 @@ package edu.fpdual.jsp.web.filter;
 
 
 import edu.fpdual.jsp.web.dto.Usuario;
-
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -21,13 +18,13 @@ import java.io.IOException;
 		// Definimos como nombre del filtro "FiltroSesion"
 		filterName = "FiltroSesion",
 		// Indicamos que el filtro será ejecutado cuando la solicitud realizada  inicie por la ruta /comun/
-		urlPatterns = { "/*" },
+		urlPatterns = { "/comun/*" },
 		// Indicamos que las solicitudes que provocarán la ejecución del filtro deberan de ser Request o Forward
 		dispatcherTypes = {
 				DispatcherType.REQUEST,
 				DispatcherType.FORWARD
 		})
-public class SessionFilter implements Filter {
+public class FiltroSesion implements Filter {
 
 	/**
 	 * Metodo de inicializacion del filtro.

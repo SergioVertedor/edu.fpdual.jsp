@@ -30,7 +30,8 @@ public class LoginServlet extends HttpServlet {
     Usuario usuario = (Usuario) req.getSession().getAttribute("usuarioSesion");
     Map<String, String> mapa;
     if (usuario != null) {
-      homePage(resp, usuario);
+      req.getSession().setAttribute("usuarioSesion", usuario);
+      req.getRequestDispatcher("/index.jsp").forward(req, resp);
     } else {
       String usuarioIntroducido = req.getParameter("usuario");
       String passwordIntroducido = req.getParameter("contrasena");
@@ -43,14 +44,19 @@ public class LoginServlet extends HttpServlet {
         if (!userSrv.buscarPorNombreExacto(usuarioIntroducido)) {
           req.setAttribute("error", "El usuario no existe.");
           req.getRequestDispatcher("/index.jsp").forward(req, resp);
-        } else {
+        } else if
+        (!mapa.get(usuarioIntroducido).equals(passwordIntroducido)) {
+          req.setAttribute("error", "Usuario y contraseña no coinciden.");
+          req.getRequestDispatcher("/index.jsp").forward(req, resp);
+          } else {
           if (usuarioIntroducido != null
               && passwordIntroducido != null
               && mapa.get(usuarioIntroducido).equals(passwordIntroducido)) {
             usuario =
-                Usuario.builder().nombre(usuarioIntroducido).password(passwordIntroducido).build();
+                Usuario.builder().usuario(usuarioIntroducido).password(passwordIntroducido).build();
+            req.getSession().setMaxInactiveInterval(5);
             req.getSession().setAttribute("usuarioSesion", usuario);
-            homePage(resp, usuario);
+            req.getRequestDispatcher("/ahorcado").forward(req, resp);
           } else {
             resp.sendRedirect("/index.jsp");
           }
@@ -59,9 +65,5 @@ public class LoginServlet extends HttpServlet {
         throw new RuntimeException(e);
       }
     }
-  }
-
-  private void homePage(HttpServletResponse resp, Usuario usuario) throws IOException {
-    resp.sendRedirect("/ahorcado");
   }
 }

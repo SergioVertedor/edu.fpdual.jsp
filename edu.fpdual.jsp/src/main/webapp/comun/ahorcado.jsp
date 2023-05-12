@@ -1,3 +1,4 @@
+<%@ page import="edu.fpdual.jsp.web.dto.Usuario" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
@@ -14,6 +15,13 @@
     <title>Juego de Adivinanza de Palabras</title>
 </head>
 <body>
+<%
+    Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioSesion");%>
+<p> Bienvenido, <%= usuario.getUsuario() %></p>
+<%
+    if (usuario.getUsuario().equals("admin")) {%>
+<a href="/controlpanel/cPanel.jsp">Acceso a Panel de Control.</a>
+<%}%>
     <div class="container">
         <h1>Juego de Adivinanza de Palabras</h1>
         <% String letrasAdivinadas = (String) request.getAttribute("letrasAdivinadas");

@@ -1,8 +1,8 @@
 package edu.fpdual.jsp.web.servlet;
 
+import edu.fpdual.jsp.web.dto.Usuario;
 import java.io.IOException;
 import java.util.Arrays;
-
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -62,6 +62,7 @@ public class AhorcadoServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioSesion");
         doGet(request, response);
     }
 

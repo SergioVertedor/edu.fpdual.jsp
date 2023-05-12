@@ -8,6 +8,7 @@
 	<meta charset="UTF-8">
 	<title>Panel de Control</title>
 </head>
+<% %>
 <body>
 <h1>Eliminar usuario</h1>
 <form method="post" action="/cpanel-eliminar-usuario-servlet">
