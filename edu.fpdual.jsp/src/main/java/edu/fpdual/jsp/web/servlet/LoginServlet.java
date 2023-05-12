@@ -62,6 +62,6 @@ public class LoginServlet extends HttpServlet {
   }
 
   private void homePage(HttpServletResponse resp, Usuario usuario) throws IOException {
-    resp.sendRedirect("/comun/ahorcado.jsp");
+    resp.sendRedirect("/ahorcado");
   }
 }
