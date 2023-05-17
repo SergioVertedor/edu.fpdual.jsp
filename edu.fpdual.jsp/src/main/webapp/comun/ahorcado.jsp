@@ -43,11 +43,11 @@
         <p>Te quedan <%= intentos %> intentos.</p>
 
         <% if (reiniciar != null && reiniciar.booleanValue()) { %>
-            <form method="get" action="">
+            <form method="get" action="/ahorcado">
                 <input type="submit" value="Reiniciar">
             </form>
         <% } else { %>
-            <form method="post" action="">
+            <form method="post" action="/ahorcado">
                 <input type="text" name="letra" maxlength="1" size="1">
                 <input type="submit" value="Adivinar">
             </form>
