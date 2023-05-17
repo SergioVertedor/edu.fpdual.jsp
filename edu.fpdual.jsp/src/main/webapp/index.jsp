@@ -26,10 +26,14 @@
 		if (mensaje != null){  %>
 	<p class='error'><%= mensaje %></p>
 	<% } %>
+	<% mensaje = (String) request.getAttribute("notificacion");
+		if (mensaje != null){  %>
+	<p class='notificacion'><%= mensaje %></p>
+	<% } %>
 	<button type="submit" class="button buttonBlue">Login
 		<div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
 	</button>
-	<a href="/registro/registro.jsp" target="_blank">¿No tienes cuenta aún? ¡Haz click aquí para registrarte!</a>
+	<a href="/registro/registro.jsp" target="_self">¿No tienes cuenta aún? ¡Haz click aquí para registrarte!</a>
 </form>
 
 </div>

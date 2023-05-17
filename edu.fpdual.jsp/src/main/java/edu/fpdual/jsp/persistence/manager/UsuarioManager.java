@@ -61,12 +61,22 @@ public class UsuarioManager {
     return isListed;
   }
 
-  public Map<String, String> buscarUsuarioConPassword(Connection con, String name) {
-    Map<String, String> map = new TreeMap<>();
-    try (PreparedStatement stmt = con.prepareStatement("SELECT * FROM usuario")) {
+  public boolean buscarUsuarioConPassword(Connection con, String name, String password) {
+    boolean esCorrecto = false;
+    try (PreparedStatement stmt =
+        con.prepareStatement("SELECT * FROM usuario where nombre = ? and password = ?")) {
+      stmt.setString(1, name);
+      stmt.setString(2, password);
       ResultSet result = stmt.executeQuery();
-      while (result.next()) {
-        map.put(result.getString(2), result.getString(4));
+      int lineas = 0;
+      while(result.next()) {
+        lineas++;
+      }
+      System.out.println(lineas);
+      if (lineas == 1) {
+        esCorrecto = true;
+      } else {
+        esCorrecto = false;
       }
     } catch (SQLException e) {
       e.printStackTrace();
@@ -77,7 +87,7 @@ public class UsuarioManager {
         throw new RuntimeException(e);
       }
     }
-    return map;
+    return esCorrecto;
   }
 
   public void insertarUsuario(Connection con, UsuarioDao usuario) {
@@ -109,7 +119,8 @@ public class UsuarioManager {
     int lineas = 0;
     try {
       PreparedStatement sentencia =
-              con.prepareStatement("UPDATE usuario SET nombre = ?, correo =  ?, password = ? WHERE id = ?");
+          con.prepareStatement(
+              "UPDATE usuario SET nombre = ?, correo =  ?, password = ? WHERE id = ?");
       sentencia.setString(1, usuario.getNombre());
       sentencia.setString(2, usuario.getCorreo());
       sentencia.setString(3, usuario.getPassword());
