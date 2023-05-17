@@ -8,7 +8,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-	<title>Title</title>
+	<meta charset="UTF-8">
+    	<title>Panel de Control-Modificar</title>
+    	<link rel="stylesheet" type="text/css" href="/controlpanel/style/style.css"/>
 </head>
 <body>
 <br><br>
@@ -29,23 +31,34 @@
 	if (password == null) {
 		password = "";
 	}%>
+<hgroup>
+    <h1>Modificar usuario</h1>
+</hgroup>
 <form action="/cpanel-modificar-usuario-servlet" method="post">
-	<label for="identificador">ID:</label>
-	<input type="text" id="identificador" name="identificador" value="<%= identificador %>" readonly><br>
-	<label for="nombreUsuario">Usuario:</label>
-	<input type="text" id="nombreUsuario" name="nombreUsuario" value="<%= usuario %>" readonly><br>
-
-	<label for="correo">Correo:</label>
-	<input type="email" id="correo" name="correo" value="<%= correo %>"><br>
-
-	<label for="password">Contraseña:</label>
-	<input type="password" id="password" name="password" value="<%= password %>"><br>
+    <div class="group">
+        <label for="identificador"></label>
+        <input type="text" id="identificador" name="identificador" value="<%= identificador %>" readonly><br>
+	</div>
+	<div class="group">
+        <label for="nombreUsuario"></label>
+        <input type="text" id="nombreUsuario" name="nombreUsuario" value="<%= usuario %>" readonly><br>
+    </div>
+    <div class="group">
+        <label for="correo"></label>
+        <input type="email" id="correo" name="correo" value="<%= correo %>"><br>
+    </div>
+    <div class="group">
+        <label for="password"></label>
+        <input type="password" id="password" name="password" value="<%= password %>"><br>
+    </div>
 	<% String mensaje = (String) request.getAttribute("notificacionUpdate");
 		if (mensaje != null) { %>
 	<p class='notificacionUpdate'><%= mensaje %>
 	</p>
 	<% } %>
-	<button type="submit">Modificar</button>
+	<button type="submit" class="button buttonBlue">Modificar
+	    <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
+	</button>
 
 </form>
 </body>
