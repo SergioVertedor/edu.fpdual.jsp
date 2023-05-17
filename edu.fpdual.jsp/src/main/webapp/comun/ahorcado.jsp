@@ -21,7 +21,7 @@
 <p> Bienvenido, <%= usuario.getUsuario() %></p>
 <%
     if (usuario.getUsuario().equals("admin")) {%>
-<a href="/cpanel-acceso">Acceso a Panel de Control.</a>
+<p><a href="/cpanel-acceso">Acceso a Panel de Control.</a></p>
 <%}%>
     <div class="container">
         <h1>Juego de Adivinanza de Palabras</h1>
