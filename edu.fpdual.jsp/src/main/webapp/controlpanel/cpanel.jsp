@@ -7,6 +7,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Panel de Control</title>
+	<link rel="icon" href="/comun/images/favicon.jpg" type="image/jpeg" />
 </head>
 <body>
 
@@ -45,5 +46,8 @@ if (lista != null) {%>
 	</tbody>
 </table>
 <%}%>
+<br><br>
+<button onclick="window.location.href='/ahorcado'">Volver</button>
+
 </body>
 </html>

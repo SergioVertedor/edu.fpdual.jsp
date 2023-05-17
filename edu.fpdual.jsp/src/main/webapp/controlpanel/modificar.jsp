@@ -9,6 +9,7 @@
 <html>
 <head>
 	<title>Title</title>
+	<link rel="icon" href="/comun/images/favicon.jpg" type="image/jpeg" />
 </head>
 <body>
 <br><br>
