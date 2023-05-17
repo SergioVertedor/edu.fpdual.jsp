@@ -1,4 +1,4 @@
-<%@ page import="edu.fpdual.jsp.web.dto.Usuario" %>
+<%@ page import="edu.fpdual.jsp.web.dto.UsuarioDto" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
@@ -16,7 +16,7 @@
 </head>
 <body>
 <%
-    Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioSesion");
+    UsuarioDto usuario = (UsuarioDto) request.getSession().getAttribute("usuarioSesion");
 %>
 <p> Bienvenido, <%= usuario.getUsuario() %></p>
 <%

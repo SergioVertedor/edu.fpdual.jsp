@@ -1,7 +1,7 @@
 package edu.fpdual.jsp.web.servlet;
 
 import edu.fpdual.jsp.persistence.connector.MySQLConnector;
-import edu.fpdual.jsp.persistence.dao.Usuario;
+import edu.fpdual.jsp.persistence.dao.UsuarioDao;
 import edu.fpdual.jsp.persistence.manager.UsuarioManager;
 import edu.fpdual.jsp.service.UsuarioService;
 import jakarta.servlet.ServletException;
@@ -34,7 +34,7 @@ public class RegistroServlet extends HttpServlet {
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
     UsuarioService userSrv = new UsuarioService(new MySQLConnector(), new UsuarioManager());
-    Usuario usuario = (Usuario) req.getSession().getAttribute("usuarioSesion");
+    UsuarioDao usuario = (UsuarioDao) req.getSession().getAttribute("usuarioSesion");
     if (usuario != null) {
       homePage(resp, usuario);
     } else {
@@ -57,7 +57,7 @@ public class RegistroServlet extends HttpServlet {
 
         } else {
           userSrv.insertarUsuario(
-              new Usuario(
+              new UsuarioDao(
                   usuarioIntroducido, correoIntroducido, passwordIntroducido));
           homePage(resp, usuario);
         }
@@ -73,7 +73,7 @@ public class RegistroServlet extends HttpServlet {
    * @param usuario Incluye la sesión del usuario.
    * @throws IOException
    */
-  private void homePage(HttpServletResponse resp, Usuario usuario) throws IOException {
+  private void homePage(HttpServletResponse resp, UsuarioDao usuario) throws IOException {
     resp.sendRedirect("/");
   }
 }

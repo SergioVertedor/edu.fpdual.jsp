@@ -1,7 +1,7 @@
 package edu.fpdual.jsp.web.filter;
 
 
-import edu.fpdual.jsp.web.dto.Usuario;
+import edu.fpdual.jsp.web.dto.UsuarioDto;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
@@ -62,7 +62,7 @@ public class FiltroSesion implements Filter {
 		HttpServletRequest req=(HttpServletRequest)servletRequest;
 
 		//Recuperamos usuario de la sesion
-		Usuario usuario=(Usuario)req.getSession().getAttribute("usuarioSesion");
+		UsuarioDto usuario=(UsuarioDto)req.getSession().getAttribute("usuarioSesion");
 
 		//Validamos si existe usuario en la sesion
 		if (usuario == null) {

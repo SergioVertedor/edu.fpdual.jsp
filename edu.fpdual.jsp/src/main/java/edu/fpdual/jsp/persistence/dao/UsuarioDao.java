@@ -10,24 +10,24 @@ import java.sql.SQLException;
 @Getter
 @Setter
 @ToString
-public class Usuario implements Comparable<Usuario> {
+public class UsuarioDao implements Comparable<UsuarioDao> {
 	private String id;
 	private String nombre;
 	private String correo;
 	private String password;
 
-	public Usuario (String id, String nombre, String correo, String password) {
+	public UsuarioDao(String id, String nombre, String correo, String password) {
 		this.id = id;
 		this.nombre = nombre;
 		this.correo =  correo;
 		this.password = password;
 	}
-	public Usuario ( String nombre, String correo, String password) {
+	public UsuarioDao(String nombre, String correo, String password) {
 		this.nombre = nombre;
 		this.correo =  correo;
 		this.password = password;
 	}
-	public Usuario(ResultSet result) {
+	public UsuarioDao(ResultSet result) {
 		try {
 			this.id = result.getString("id");
 			this.nombre = result.getString("nombre");
@@ -38,7 +38,7 @@ public class Usuario implements Comparable<Usuario> {
 		}
 	}
 	@Override
-	public int compareTo(Usuario o) {
+	public int compareTo(UsuarioDao o) {
 		return this.nombre.compareTo(o.getNombre());
 	}
 }
