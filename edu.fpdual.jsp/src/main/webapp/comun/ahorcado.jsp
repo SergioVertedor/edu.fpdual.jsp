@@ -16,11 +16,12 @@
 </head>
 <body>
 <%
-    Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioSesion");%>
+    Usuario usuario = (Usuario) request.getSession().getAttribute("usuarioSesion");
+%>
 <p> Bienvenido, <%= usuario.getUsuario() %></p>
 <%
     if (usuario.getUsuario().equals("admin")) {%>
-<a href="/controlpanel/cPanel.jsp">Acceso a Panel de Control.</a>
+<a href="/cpanel-acceso">Acceso a Panel de Control.</a>
 <%}%>
     <div class="container">
         <h1>Juego de Adivinanza de Palabras</h1>

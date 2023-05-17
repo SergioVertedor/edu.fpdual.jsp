@@ -17,7 +17,7 @@ import java.io.IOException;
 @WebFilter(
 		// Definimos como nombre del filtro "FiltroSesion"
 		filterName = "FiltroSesion",
-		// Indicamos que el filtro será ejecutado cuando la solicitud realizada  inicie por la ruta /comun/
+		// Indicamos que el filtro será ejecutado cuando la solicitud realizada inicie por la ruta /comun/
 		urlPatterns = { "/comun/*" },
 		// Indicamos que las solicitudes que provocarán la ejecución del filtro deberan de ser Request o Forward
 		dispatcherTypes = {
