@@ -1,9 +1,10 @@
 package edu.fpdual.jsp.web.servlet;
 
 import edu.fpdual.jsp.persistence.connector.MySQLConnector;
-import edu.fpdual.jsp.persistence.dao.Usuario;
+import edu.fpdual.jsp.persistence.dao.UsuarioDao;
 import edu.fpdual.jsp.persistence.manager.UsuarioManager;
 import edu.fpdual.jsp.service.UsuarioService;
+import edu.fpdual.jsp.web.dto.UsuarioDto;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -33,12 +34,11 @@ public class CpanelModificarUsuarioServlet extends HttpServlet {
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
     UsuarioService userSrv = new UsuarioService(new MySQLConnector(), new UsuarioManager());
-    Usuario usuario = (Usuario) req.getSession().getAttribute("usuarioSesion");
-    if (usuario != null) {
+    UsuarioDto usuario = (UsuarioDto) req.getSession().getAttribute("usuarioSesion");
+    if (!usuario.getUsuario().equalsIgnoreCase("admin")) {
       homePage(resp, usuario);
     } else {
       String identificador = req.getParameter("identificador");
-      System.out.println(identificador);
       String usuarioIntroducido = req.getParameter("nombreUsuario");
       String correoIntroducido = req.getParameter("correo");
       String passwordIntroducido = req.getParameter("password");
@@ -51,11 +51,12 @@ public class CpanelModificarUsuarioServlet extends HttpServlet {
           req.setAttribute("nombreUsuario", usuarioIntroducido);
           req.setAttribute("correo", correoIntroducido);
           req.setAttribute("password", passwordIntroducido);
-          req.getRequestDispatcher("/controlpanel/cpanel.jsp").forward(req, resp);
+          req.getRequestDispatcher("/controlpanel/modificar.jsp").forward(req, resp);
         } else {
           userSrv.modificarUsuario(
-              new Usuario(
+              new UsuarioDao(
                   identificador, usuarioIntroducido, correoIntroducido, passwordIntroducido));
+          req.getRequestDispatcher("/controlpanel/cpanel.jsp").forward(req, resp);
         }
       } catch (SQLException | ClassNotFoundException e) {
         throw new RuntimeException(e);
@@ -69,7 +70,7 @@ public class CpanelModificarUsuarioServlet extends HttpServlet {
    * @param usuario Incluye la sesión del usuario.
    * @throws IOException
    */
-  private void homePage(HttpServletResponse resp, Usuario usuario) throws IOException {
+  private void homePage(HttpServletResponse resp, UsuarioDto usuario) throws IOException {
     resp.sendRedirect("/");
   }
 }

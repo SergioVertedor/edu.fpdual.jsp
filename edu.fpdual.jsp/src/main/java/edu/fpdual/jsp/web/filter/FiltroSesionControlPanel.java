@@ -1,6 +1,6 @@
 package edu.fpdual.jsp.web.filter;
 
-import edu.fpdual.jsp.web.dto.Usuario;
+import edu.fpdual.jsp.web.dto.UsuarioDto;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
@@ -54,21 +54,13 @@ public class FiltroSesionControlPanel implements Filter {
   public void doFilter(
       ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
       throws IOException, ServletException {
-
-    // Casteamos a objeto HttpServletRequest
     HttpServletRequest req = (HttpServletRequest) servletRequest;
+    UsuarioDto usuario = (UsuarioDto) req.getSession().getAttribute("usuarioSesion");
 
-    // Recuperamos usuario de la sesion
-    Usuario usuario = (Usuario) req.getSession().getAttribute("usuarioSesion");
-    System.out.println(usuario.getUsuario());
-    // Validamos si existe usuario en la sesion
-    if (!usuario.getUsuario().equals("admin")) {
-      // Redirigimos a pagina loginJSP.jsp utilizando el metodo "sendRedirect" del objeto de
-      // respuesta
-      ((HttpServletResponse) servletResponse).sendRedirect("/index.jsp");
-    } else {
-      /*Indicamos al filtro que continue su camino con los mismos objetos request y response que recibimos como parametros del metodo  */
+    if (usuario.getUsuario().equals("admin")) {
       filterChain.doFilter(servletRequest, servletResponse);
+    } else {
+      ((HttpServletResponse) servletResponse).sendRedirect("/index.jsp");
     }
   }
 }

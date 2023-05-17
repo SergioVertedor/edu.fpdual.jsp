@@ -1,7 +1,7 @@
 package edu.fpdual.jsp.service;
 
 import edu.fpdual.jsp.persistence.connector.MySQLConnector;
-import edu.fpdual.jsp.persistence.dao.Usuario;
+import edu.fpdual.jsp.persistence.dao.UsuarioDao;
 import edu.fpdual.jsp.persistence.manager.UsuarioManager;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -24,7 +24,7 @@ public class UsuarioService {
    * @throws SQLException
    * @throws ClassNotFoundException
    */
-  public List<Usuario> buscarATodos() throws SQLException, ClassNotFoundException {
+  public List<UsuarioDao> buscarATodos() throws SQLException, ClassNotFoundException {
     Connection con = null;
     try {
       con = connector.getMySQLConnection();
@@ -36,7 +36,7 @@ public class UsuarioService {
     }
   }
 
-  public Usuario buscarPorId(int id) throws SQLException, ClassNotFoundException {
+  public UsuarioDao buscarPorId(int id) throws SQLException, ClassNotFoundException {
     Connection con = null;
     try {
       con = connector.getMySQLConnection();
@@ -48,7 +48,7 @@ public class UsuarioService {
     }
   }
 
-  public int modificarUsuario(Usuario usuario) throws SQLException, ClassNotFoundException {
+  public int modificarUsuario(UsuarioDao usuario) throws SQLException, ClassNotFoundException {
     Connection con = null;
     try {
       con = connector.getMySQLConnection();
@@ -60,7 +60,7 @@ public class UsuarioService {
     }
   }
 
-  public void insertarUsuario(Usuario usuario) throws SQLException, ClassNotFoundException {
+  public void insertarUsuario(UsuarioDao usuario) throws SQLException, ClassNotFoundException {
     Connection con = null;
     try {
       con = connector.getMySQLConnection();

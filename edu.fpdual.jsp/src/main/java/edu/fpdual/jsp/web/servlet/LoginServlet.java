@@ -3,7 +3,7 @@ package edu.fpdual.jsp.web.servlet;
 import edu.fpdual.jsp.persistence.connector.MySQLConnector;
 import edu.fpdual.jsp.persistence.manager.UsuarioManager;
 import edu.fpdual.jsp.service.UsuarioService;
-import edu.fpdual.jsp.web.dto.Usuario;
+import edu.fpdual.jsp.web.dto.UsuarioDto;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Map;
@@ -27,7 +27,7 @@ public class LoginServlet extends HttpServlet {
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
     UsuarioService userSrv = new UsuarioService(new MySQLConnector(), new UsuarioManager());
-    Usuario usuario = (Usuario) req.getSession().getAttribute("usuarioSesion");
+    UsuarioDto usuario = (UsuarioDto) req.getSession().getAttribute("usuarioSesion");
     Map<String, String> mapa;
     if (usuario != null) {
       req.getSession().setAttribute("usuarioSesion", usuario);
@@ -53,8 +53,8 @@ public class LoginServlet extends HttpServlet {
               && passwordIntroducido != null
               && mapa.get(usuarioIntroducido).equals(passwordIntroducido)) {
             usuario =
-                Usuario.builder().usuario(usuarioIntroducido).password(passwordIntroducido).build();
-            req.getSession().setMaxInactiveInterval(5);
+                UsuarioDto.builder().usuario(usuarioIntroducido).password(passwordIntroducido).build();
+            req.getSession().setMaxInactiveInterval(1800);
             req.getSession().setAttribute("usuarioSesion", usuario);
             req.getRequestDispatcher("/ahorcado").forward(req, resp);
           } else {

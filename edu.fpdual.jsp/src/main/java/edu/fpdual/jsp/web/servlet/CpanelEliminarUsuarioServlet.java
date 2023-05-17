@@ -3,9 +3,8 @@ package edu.fpdual.jsp.web.servlet;
 import edu.fpdual.jsp.persistence.connector.MySQLConnector;
 import edu.fpdual.jsp.persistence.manager.UsuarioManager;
 import edu.fpdual.jsp.service.UsuarioService;
-import edu.fpdual.jsp.web.dto.Usuario;
+import edu.fpdual.jsp.web.dto.UsuarioDto;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 
 import jakarta.servlet.ServletException;
@@ -13,7 +12,6 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.SneakyThrows;
 
 @WebServlet(
     name = "EliminarUsuarioServlet",
@@ -37,11 +35,11 @@ public class CpanelEliminarUsuarioServlet extends HttpServlet {
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
     UsuarioService userSrv = new UsuarioService(new MySQLConnector(), new UsuarioManager());
-    Usuario usuario = (Usuario) req.getSession().getAttribute("usuarioSesion");
-    if (usuario != null) {
+    UsuarioDto usuario = (UsuarioDto) req.getSession().getAttribute("usuarioSesion");
+    if (!usuario.getUsuario().equalsIgnoreCase("admin")) {
       homePage(resp, usuario);
     } else {
-      int idUsuario = Integer.parseInt(req.getParameter("id_usuario"));
+      int idUsuario = Integer.parseInt(req.getParameter("id"));
       try {
         if (userSrv.buscarPorId(idUsuario) == null) {
           req.setAttribute("notificacion", "El usuario introducido no existe.");
@@ -65,7 +63,7 @@ public class CpanelEliminarUsuarioServlet extends HttpServlet {
      * @param usuario Incluye la sesión del usuario.
      * @throws IOException
      */
-  private void homePage(HttpServletResponse resp, Usuario usuario) throws IOException {
+  private void homePage(HttpServletResponse resp, UsuarioDto usuario) throws IOException {
     resp.sendRedirect("/");
   }
 }

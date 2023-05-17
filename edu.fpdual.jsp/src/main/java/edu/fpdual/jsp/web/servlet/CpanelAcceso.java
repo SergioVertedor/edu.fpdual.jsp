@@ -9,7 +9,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import edu.fpdual.jsp.web.dto.Usuario;
+import edu.fpdual.jsp.web.dto.UsuarioDto;
 
 @WebServlet(
     name = "CPanel Acceso",
@@ -34,9 +34,8 @@ public class CpanelAcceso extends HttpServlet {
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
     UsuarioService userSrv = new UsuarioService(new MySQLConnector(), new UsuarioManager());
-    Usuario usuario = (Usuario) req.getSession().getAttribute("usuarioSesion");
-    System.out.println(usuario.getUsuario());
-    if (usuario.getUsuario().equals("admin")) {
+    UsuarioDto usuario = (UsuarioDto) req.getSession().getAttribute("usuarioSesion");
+    if (usuario.getUsuario().equalsIgnoreCase("admin")) {
       req.getRequestDispatcher("/controlpanel/cpanel.jsp").forward(req, resp);
     } else {
       homePage(resp, usuario);
@@ -49,7 +48,7 @@ public class CpanelAcceso extends HttpServlet {
    * @param usuario Incluye la sesión del usuario.
    * @throws IOException
    */
-  private void homePage(HttpServletResponse resp, Usuario usuario) throws IOException {
+  private void homePage(HttpServletResponse resp, UsuarioDto usuario) throws IOException {
     resp.sendRedirect("/");
   }
 }
