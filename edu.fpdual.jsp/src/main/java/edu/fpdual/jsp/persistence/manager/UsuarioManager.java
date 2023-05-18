@@ -72,7 +72,6 @@ public class UsuarioManager {
       while(result.next()) {
         lineas++;
       }
-      System.out.println(lineas);
       if (lineas == 1) {
         esCorrecto = true;
       } else {
