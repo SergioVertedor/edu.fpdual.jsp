@@ -20,29 +20,36 @@
 %>
 <p> Bienvenido, <%= usuario.getUsuario() %></p>
 <%
-    if (usuario.getUsuario().equals("admin")) {%>
+    if (usuario.getUsuario().equals("admin")) {
+%>
 <a href="/cpanel-acceso">Acceso a Panel de Control.</a>
-<%}%>
+<%
+    }
+%>
     <div class="container">
         <h1>Juego de Adivinanza de Palabras</h1>
-        <% String letrasAdivinadas = (String) request.getAttribute("letrasAdivinadas");
-        int intentos = (int) request.getAttribute("intentos");
+        <%
+        String letrasAdivinadas = (String) request.getAttribute("letrasAdivinadas");
+        Integer intentos = (Integer) request.getAttribute("intentos");
         String mensaje = (String) request.getAttribute("mensaje");
-
         Boolean reiniciar = (Boolean) request.getAttribute("reiniciar");
+
         boolean reiniciarBool = false;
         if (reiniciar != null) {
             reiniciarBool = reiniciar.booleanValue();
         }
 
-        if (mensaje != null && !mensaje.isEmpty()) { %>
-            <p class="message"><%= mensaje %></p>
+        if (mensaje != null && !mensaje.isEmpty()) {
+        %>
+        <p class="message"><%= mensaje %></p>
         <% } %>
 
         <p><%= letrasAdivinadas %></p>
         <p>Te quedan <%= intentos %> intentos.</p>
 
-        <% if (reiniciar != null && reiniciar.booleanValue()) { %>
+        <%
+        if (reiniciar != null && reiniciarBool) {
+        %>
             <form method="get" action="/ahorcado">
                 <input type="submit" value="Reiniciar">
             </form>
@@ -54,13 +61,13 @@
         <% } %>
         <br><br>
 
-        <img src="/comun/images/pensando.gif" id="imagen"></img>
+        <img src="/comun/images/pensando.gif" id="imagen" />
     </div>
 
-<h1>Presiona el botón para continuar</h1>
+    <h1>Presiona el botón para continuar</h1>
     <form action="/comun/traductor.jsp" method="post">
-      <input type="submit" value="Continuar">
-        </form>
+        <input type="submit" value="Continuar">
+    </form>
 
 </body>
 </html>
