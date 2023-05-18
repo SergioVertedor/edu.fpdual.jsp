@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,7 +29,7 @@
 	<button type="submit" class="button buttonBlue">Login
 		<div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
 	</button>
-	<a href="/registro/registro.jsp" target="_blank">Dont have an account? Click here to register!</a>
+	<a href="/registro/registro.jsp" target="_blank">¿No tienes cuenta aún? ¡Haz click aquí para registrarte!</a>
 </form>
 
 </div>

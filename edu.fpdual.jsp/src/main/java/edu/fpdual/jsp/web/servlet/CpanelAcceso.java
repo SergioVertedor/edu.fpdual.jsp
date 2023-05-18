@@ -1,22 +1,20 @@
 package edu.fpdual.jsp.web.servlet;
 
 import edu.fpdual.jsp.persistence.connector.MySQLConnector;
-import edu.fpdual.jsp.persistence.dao.UsuarioDao;
 import edu.fpdual.jsp.persistence.manager.UsuarioManager;
 import edu.fpdual.jsp.service.UsuarioService;
-import edu.fpdual.jsp.web.dto.UsuarioDto;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
+import edu.fpdual.jsp.web.dto.UsuarioDto;
 
 @WebServlet(
-    name = "ConsultarUsuarioServlet",
-    urlPatterns = {"/cpanel-consultar-usuario-servlet"})
-public class CpanelConsultarUsuarioServlet extends HttpServlet {
+    name = "CPanel Acceso",
+    urlPatterns = {"/cpanel-acceso"})
+public class CpanelAcceso extends HttpServlet {
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -37,25 +35,10 @@ public class CpanelConsultarUsuarioServlet extends HttpServlet {
       throws ServletException, IOException {
     UsuarioService userSrv = new UsuarioService(new MySQLConnector(), new UsuarioManager());
     UsuarioDto usuario = (UsuarioDto) req.getSession().getAttribute("usuarioSesion");
-    if (!usuario.getUsuario().equalsIgnoreCase("admin")) {
-      homePage(resp, usuario);
+    if (usuario.getUsuario().equalsIgnoreCase("admin")) {
+      req.getRequestDispatcher("/controlpanel/cpanel.jsp").forward(req, resp);
     } else {
-      int idUsuario = Integer.parseInt(req.getParameter("id"));
-      try {
-        if (userSrv.buscarPorId(idUsuario) == null) {
-          req.setAttribute("notificacionConsulta", "El usuario introducido no existe.");
-          req.getRequestDispatcher("/controlpanel/modificar.jsp").forward(req, resp);
-        } else {
-          UsuarioDao usuarioConsulta = userSrv.buscarPorId(idUsuario);
-          req.setAttribute("id", usuarioConsulta.getId());
-          req.setAttribute("nombreUsuario", usuarioConsulta.getNombre());
-          req.setAttribute("correo", usuarioConsulta.getCorreo());
-          req.setAttribute("password", usuarioConsulta.getPassword());
-          req.getRequestDispatcher("/controlpanel/modificar.jsp").forward(req, resp);
-        }
-      } catch (SQLException | ClassNotFoundException e) {
-        throw new RuntimeException(e);
-      }
+      homePage(resp, usuario);
     }
   }
 

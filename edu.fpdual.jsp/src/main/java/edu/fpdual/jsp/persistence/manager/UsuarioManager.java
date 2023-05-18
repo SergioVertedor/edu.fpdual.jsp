@@ -1,6 +1,6 @@
 package edu.fpdual.jsp.persistence.manager;
 
-import edu.fpdual.jsp.persistence.dao.Usuario;
+import edu.fpdual.jsp.persistence.dao.UsuarioDao;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -9,12 +9,12 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class UsuarioManager {
-  public List<Usuario> buscarTodos(Connection con) {
+  public List<UsuarioDao> buscarTodos(Connection con) {
     try (Statement stmt = con.createStatement()) {
       ResultSet result = stmt.executeQuery("SELECT * FROM usuario");
-      List<Usuario> usuarios = new ArrayList<>();
+      List<UsuarioDao> usuarios = new ArrayList<>();
       while (result.next()) {
-        usuarios.add(new Usuario(result));
+        usuarios.add(new UsuarioDao(result));
       }
       return usuarios;
     } catch (SQLException e) {
@@ -23,14 +23,14 @@ public class UsuarioManager {
     }
   }
 
-  public Usuario buscarPorId(Connection con, Integer id) {
+  public UsuarioDao buscarPorId(Connection con, Integer id) {
 
     try (PreparedStatement stmt = con.prepareStatement("SELECT * FROM usuario where id = ?")) {
       stmt.setInt(1, id);
       ResultSet result = stmt.executeQuery();
-      Usuario usuario = null;
+      UsuarioDao usuario = null;
       if (result.next()) {
-        usuario = new Usuario(result);
+        usuario = new UsuarioDao(result);
       }
       return usuario;
     } catch (SQLException e) {
@@ -80,7 +80,7 @@ public class UsuarioManager {
     return map;
   }
 
-  public void insertarUsuario(Connection con, Usuario usuario) {
+  public void insertarUsuario(Connection con, UsuarioDao usuario) {
     try {
       PreparedStatement sentencia =
           con.prepareStatement("INSERT INTO usuario (nombre, correo, password) values (?, ?, ?)");
@@ -105,7 +105,7 @@ public class UsuarioManager {
     return lineas;
   }
 
-  public int modificarUsuario(Connection con, Usuario usuario) {
+  public int modificarUsuario(Connection con, UsuarioDao usuario) {
     int lineas = 0;
     try {
       PreparedStatement sentencia =

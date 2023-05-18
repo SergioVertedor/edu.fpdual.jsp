@@ -3,7 +3,7 @@ package edu.fpdual.jsp.web.servlet;
 import edu.fpdual.jsp.persistence.connector.MySQLConnector;
 import edu.fpdual.jsp.persistence.manager.UsuarioManager;
 import edu.fpdual.jsp.service.UsuarioService;
-import edu.fpdual.jsp.web.dto.Usuario;
+import edu.fpdual.jsp.web.dto.UsuarioDto;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Map;
@@ -27,10 +27,11 @@ public class LoginServlet extends HttpServlet {
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
     UsuarioService userSrv = new UsuarioService(new MySQLConnector(), new UsuarioManager());
-    Usuario usuario = (Usuario) req.getSession().getAttribute("usuarioSesion");
+    UsuarioDto usuario = (UsuarioDto) req.getSession().getAttribute("usuarioSesion");
     Map<String, String> mapa;
     if (usuario != null) {
-      homePage(resp, usuario);
+      req.getSession().setAttribute("usuarioSesion", usuario);
+      req.getRequestDispatcher("/index.jsp").forward(req, resp);
     } else {
       String usuarioIntroducido = req.getParameter("usuario");
       String passwordIntroducido = req.getParameter("contrasena");
@@ -43,14 +44,19 @@ public class LoginServlet extends HttpServlet {
         if (!userSrv.buscarPorNombreExacto(usuarioIntroducido)) {
           req.setAttribute("error", "El usuario no existe.");
           req.getRequestDispatcher("/index.jsp").forward(req, resp);
-        } else {
+        } else if
+        (!mapa.get(usuarioIntroducido).equals(passwordIntroducido)) {
+          req.setAttribute("error", "Usuario y contraseña no coinciden.");
+          req.getRequestDispatcher("/index.jsp").forward(req, resp);
+          } else {
           if (usuarioIntroducido != null
               && passwordIntroducido != null
               && mapa.get(usuarioIntroducido).equals(passwordIntroducido)) {
             usuario =
-                Usuario.builder().nombre(usuarioIntroducido).password(passwordIntroducido).build();
+                UsuarioDto.builder().usuario(usuarioIntroducido).password(passwordIntroducido).build();
+            req.getSession().setMaxInactiveInterval(1800);
             req.getSession().setAttribute("usuarioSesion", usuario);
-            homePage(resp, usuario);
+            req.getRequestDispatcher("/ahorcado").forward(req, resp);
           } else {
             resp.sendRedirect("/index.jsp");
           }
@@ -59,9 +65,5 @@ public class LoginServlet extends HttpServlet {
         throw new RuntimeException(e);
       }
     }
-  }
-
-  private void homePage(HttpServletResponse resp, Usuario usuario) throws IOException {
-    resp.sendRedirect("/ahorcado");
   }
 }
