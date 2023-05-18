@@ -64,6 +64,7 @@ public class TraductorServlet extends HttpServlet {
         palabras.add(new String[]{"Consola", "console"});
         palabras.add(new String[]{"Clase", "class"});
         palabras.add(new String[]{"Archivo", "file"});
+        palabras.add(new String[]{"Depurar", "debug"});
         Collections.shuffle(palabras);
         return palabras;
     }

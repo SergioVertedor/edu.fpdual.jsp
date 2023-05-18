@@ -51,7 +51,7 @@
 <h1>Presiona el botón para continuar</h1>
     <form action="/comun/traductor.jsp" method="post">
       <input type="submit" value="Continuar">
-    </form>
+        </form>
 
 </body>
 </html>
