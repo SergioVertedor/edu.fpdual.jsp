@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/comun/style/stylee.css" type="text/css">
+    <link rel="stylesheet" href="/comun/style/styleTraductor.css" type="text/css">
     <link rel="icon" href="/comun/images/favicon.jpg" type="image/jpeg" />
     <link rel="shortcut icon" href="/comun/images/favicon.jpg" type="image/jpeg" />
     <title>Traductor de palabras</title>
@@ -38,5 +38,10 @@
                   <button type="submit">Reiniciar Juego</button>
               <% } %>
           </form>
+
+          <h1>Juego de calcular el espacio de dispositivos de almacenamiento</h1>
+              <form action="/comun/memoria.jsp" method="post">
+                  <input type="submit" value="Jugar">
+              </form>
 </body>
 </html>
