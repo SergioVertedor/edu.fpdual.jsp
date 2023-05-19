@@ -8,6 +8,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+<link rel="icon" href="/comun/images/favicon.jpg" type="image/jpeg" />
+<link rel="shortcut icon" href="/comun/images/favicon.jpg" type="image/jpeg" />
 	<title>Title</title>
 	<link rel="icon" href="/comun/images/favicon.jpg" type="image/jpeg" />
 </head>

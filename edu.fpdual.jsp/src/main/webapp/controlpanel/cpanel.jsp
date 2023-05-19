@@ -6,6 +6,8 @@
 <html>
 <head>
 	<meta charset="UTF-8">
+	<link rel="icon" href="/comun/images/favicon.jpg" type="image/jpeg" />
+    <link rel="shortcut icon" href="/comun/images/favicon.jpg" type="image/jpeg" />
 	<title>Panel de Control</title>
 	<link rel="icon" href="/comun/images/favicon.jpg" type="image/jpeg" />
 </head>
