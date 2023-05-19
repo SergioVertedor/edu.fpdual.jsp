@@ -115,5 +115,7 @@
       </plugins>
     </pluginManagement>
   </build>
-
+  <modules>
+    <module>webservices</module>
+  </modules>
 </project>

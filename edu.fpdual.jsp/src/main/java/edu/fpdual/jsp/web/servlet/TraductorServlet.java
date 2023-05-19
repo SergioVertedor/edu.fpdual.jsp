@@ -1,5 +1,6 @@
 package edu.fpdual.jsp.web.servlet;
 
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -9,69 +10,65 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.util.*;
+
 @WebServlet("/traductor-servlet")
 public class TraductorServlet extends HttpServlet {
-    private static final long serialVersionUID = 1L;
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
-
-        boolean juegoReiniciado = Boolean.parseBoolean((String) session.getAttribute("juegoReiniciado"));
-        String palabraAleatoria;
-        String palabra = (String) session.getAttribute("palabra");
-        String traduccion = (String) session.getAttribute("traduccion");
-
-        if (juegoReiniciado) {
-            palabraAleatoria = getRandomPalabra();
-            traduccion = palabras.get(palabraAleatoria);
-            session.setAttribute("juegoReiniciado", "false");
-        } else {
-            palabraAleatoria = palabra;
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession(true);
+        List<String[]> palabras = (List<String[]>) session.getAttribute("palabras");
+        if (palabras == null || palabras.isEmpty() || request.getParameter("reiniciar") != null) {
+            palabras = inicializarPalabras();
+            session.setAttribute("palabras", palabras);
         }
 
-        session.setAttribute("palabra", palabraAleatoria);
-        session.setAttribute("traduccion", traduccion);
-        session.setAttribute("respuestaValida", null);
+        String palabra = "";
+        String traduccion = "";
 
-        request.getRequestDispatcher("/comun/traductor.jsp").forward(request, response);
-    }
-
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
+        if (!palabras.isEmpty()) {
+            String[] palabraAleatoria = palabras.get(0);
+            palabra = palabraAleatoria[0];
+            traduccion = palabraAleatoria[1];
+        }
 
         String respuesta = request.getParameter("respuesta");
-        String traduccion = (String) session.getAttribute("traduccion");
+        boolean respuestaValida = false;
 
         if (respuesta != null && !respuesta.isEmpty()) {
-            if (respuesta.equalsIgnoreCase(traduccion)) {
-                session.setAttribute("respuestaValida", true);
+            if (esValida(respuesta)) {
+                respuesta = respuesta.toLowerCase();
+                if (respuesta.equals(traduccion)) {
+                    respuestaValida = true;
+                    request.setAttribute("mensaje", "¡Respuesta correcta!");
+                } else {
+                    request.setAttribute("mensaje", "Respuesta incorrecta. La traducción correcta es: " + traduccion);
+                }
             } else {
-                session.setAttribute("respuestaValida", false);
+                request.setAttribute("mensaje", "¡Error! La respuesta solo puede contener letras.");
             }
         }
 
-        if (request.getParameter("action") != null && request.getParameter("action").equals("reset")) {
-            session.setAttribute("juegoReiniciado", "true");
-        }
-
-        response.sendRedirect(request.getContextPath() + "/traductor-servlet");
+        request.setAttribute("palabra", palabra);
+        request.getRequestDispatcher("/comun/traductor.jsp").forward(request, response);
     }
 
-    private String getRandomPalabra() {
-        List<String> palabrasList = new ArrayList<String>(palabras.keySet());
-        Collections.shuffle(palabrasList);
-        return palabrasList.get(0);
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        doPost(request, response);
     }
 
-    private static final java.util.Map<String, String> palabras = new java.util.HashMap<String, String>() {
-        private static final long serialVersionUID = 1L;
+    private List<String[]> inicializarPalabras() {
+        List<String[]> palabras = new ArrayList<>();
+        palabras.add(new String[]{"Servidor", "server"});
+        palabras.add(new String[]{"Impresora", "printer"});
+        palabras.add(new String[]{"Código", "code"});
+        palabras.add(new String[]{"Proyecto", "project"});
+        palabras.add(new String[]{"Consola", "console"});
+        palabras.add(new String[]{"Clase", "class"});
+        palabras.add(new String[]{"Archivo", "file"});
+        Collections.shuffle(palabras);
+        return palabras;
+    }
 
-        {
-            put("apple", "manzana");
-            put("banana", "plátano");
-            put("car", "coche");
-            put("house", "casa");
-            put("dog", "perro");
-        }
-    };
+    private boolean esValida(String respuesta) {
+        return respuesta.matches("[a-zA-Z]+");
+    }
 }

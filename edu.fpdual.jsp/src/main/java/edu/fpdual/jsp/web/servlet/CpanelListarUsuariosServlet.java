@@ -37,7 +37,6 @@ public class CpanelListarUsuariosServlet extends HttpServlet {
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
     UsuarioDto usuario = (UsuarioDto) req.getSession().getAttribute("usuarioSesion");
-    System.out.println(usuario.getUsuario());
     UsuarioService userSrv = new UsuarioService(new MySQLConnector(), new UsuarioManager());
     if (!usuario.getUsuario().equalsIgnoreCase("admin")) {
       homePage(resp, usuario);

@@ -28,7 +28,7 @@ public class LoginServlet extends HttpServlet {
       throws ServletException, IOException {
     UsuarioService userSrv = new UsuarioService(new MySQLConnector(), new UsuarioManager());
     UsuarioDto usuario = (UsuarioDto) req.getSession().getAttribute("usuarioSesion");
-    Map<String, String> mapa;
+    boolean esCorrecto = false;
     if (usuario != null) {
       req.getSession().setAttribute("usuarioSesion", usuario);
       req.getRequestDispatcher("/index.jsp").forward(req, resp);
@@ -36,7 +36,7 @@ public class LoginServlet extends HttpServlet {
       String usuarioIntroducido = req.getParameter("usuario");
       String passwordIntroducido = req.getParameter("contrasena");
       try {
-        mapa = userSrv.buscarUsuarioConPassword(usuarioIntroducido);
+        esCorrecto = userSrv.buscarUsuarioConPassword(usuarioIntroducido, passwordIntroducido);
       } catch (SQLException | ClassNotFoundException e) {
         throw new RuntimeException(e);
       }
@@ -45,13 +45,11 @@ public class LoginServlet extends HttpServlet {
           req.setAttribute("error", "El usuario no existe.");
           req.getRequestDispatcher("/index.jsp").forward(req, resp);
         } else if
-        (!mapa.get(usuarioIntroducido).equals(passwordIntroducido)) {
+        (!esCorrecto) {
           req.setAttribute("error", "Usuario y contraseña no coinciden.");
           req.getRequestDispatcher("/index.jsp").forward(req, resp);
           } else {
-          if (usuarioIntroducido != null
-              && passwordIntroducido != null
-              && mapa.get(usuarioIntroducido).equals(passwordIntroducido)) {
+          if (usuarioIntroducido != null && passwordIntroducido != null) {
             usuario =
                 UsuarioDto.builder().usuario(usuarioIntroducido).password(passwordIntroducido).build();
             req.getSession().setMaxInactiveInterval(1800);

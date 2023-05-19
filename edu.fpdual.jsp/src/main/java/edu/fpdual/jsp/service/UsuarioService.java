@@ -86,19 +86,19 @@ public class UsuarioService {
     }
   }
 
-  public Map<String, String> buscarUsuarioConPassword(String name) throws SQLException, ClassNotFoundException {
+  public boolean buscarUsuarioConPassword(String name, String password) throws SQLException, ClassNotFoundException {
     Connection con = null;
-    Map<String, String> mapa = new TreeMap<>();
+    boolean esCorrecto = false;
     try {
       con = connector.getMySQLConnection();
-      mapa = manager.buscarUsuarioConPassword(con, name);
+      esCorrecto = manager.buscarUsuarioConPassword(con, name, password);
     } finally {
       if (con != null) {
         con.close();
       }
 
     }
-    return mapa;
+    return esCorrecto;
   }
 
   public boolean buscarPorNombreExacto(String name) throws SQLException, ClassNotFoundException {
