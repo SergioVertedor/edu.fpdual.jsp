@@ -10,19 +10,24 @@ import java.io.IOException;
 
 @WebServlet("/memorias")
 public class MemoriaServlet extends HttpServlet {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        request.getRequestDispatcher("/comun/memoria.jsp").forward(request, response);
+    }
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String userAnswer = request.getParameter("answer");
-        int remainingSpace = 32 * 1024 - (5 * 500);
-        String message;
+        String pregunta = request.getParameter("answer");
+        int operacion = 32 * 1024 - (5 * 500);
+        String mensaje;
 
-        if (userAnswer.equals(String.valueOf(remainingSpace))) {
-            message = "¡Respuesta correcta! Al pendrive le queda " + remainingSpace + "MB de memoria.";
+        if (pregunta.equals(String.valueOf(operacion))) {
+            mensaje = "¡Respuesta correcta! Al pendrive le queda " + operacion + " MB de memoria.";
         } else {
-            message = "Respuesta incorrecta. Inténtalo de nuevo.";
+            mensaje = "Respuesta incorrecta. Inténtalo de nuevo.";
         }
 
-        request.setAttribute("message", message);
+        request.setAttribute("mensaje", mensaje);
         request.getRequestDispatcher("/comun/memoria.jsp").forward(request, response);
     }
 }

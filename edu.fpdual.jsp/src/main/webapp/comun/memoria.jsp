@@ -13,26 +13,16 @@
     <link rel="shortcut icon" href="/comun/images/favicon.jpg" type="image/jpeg" />
 <body>
    <h1>Juego de memoria USB</h1>
-       <%
-           String userAnswer = request.getParameter("answer");
-           if (userAnswer != null) {
-               int remainingSpace = 32 * 1024 - (5 * 500);
-               String resultMessage;
-
-               if (userAnswer.equals(String.valueOf(remainingSpace))) {
-                   resultMessage = "¡Respuesta correcta! Al pendrive le queda " + remainingSpace + "MB de memoria.";
-               } else {
-                   resultMessage = "Respuesta incorrecta. Inténtalo de nuevo.";
-               }
-
-               out.println("<p>" + resultMessage + "</p>");
-           }
-       %>
-       <form action="/memorias" method="post">
-           <label>Si tengo un pendrive con 32GB y agrego 5 imágenes que pesan 500MB cada una, ¿cuánta memoria le queda al pendrive?</label>
-           <input type="text" name="answer" required>
-           <br><br>
-           <input type="submit" value="Enviar respuesta">
-       </form>
+      <% String mensaje = (String) request.getAttribute("mensaje");
+         if (mensaje != null) {
+             out.println("<p>" + mensaje + "</p>");
+         }
+      %>
+      <form action="/memorias" method="post">
+          <label>Si tengo un pendrive con 32GB y agrego 5 imágenes que pesan 500MB cada una, ¿cuánta memoria le queda al pendrive?</label>
+          <input type="text" name="answer" required>
+          <br><br>
+          <input type="submit" value="Enviar respuesta">
+      </form>
 </body>
 </html>
