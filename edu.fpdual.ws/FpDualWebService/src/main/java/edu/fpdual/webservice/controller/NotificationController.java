@@ -57,73 +57,45 @@ public class NotificationController {
     return Response.ok().entity(resultado).build();
   }
 
-  @GET
+  @POST
   @Path("/login")
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.TEXT_PLAIN)
-  public Response checkPassword(@QueryParam("nombre") String nombre, @QueryParam("password") String password)
+  public Response checkPassword(UsuarioDao user)
       throws SQLException, ClassNotFoundException {
-
     boolean esCorrecto = false;
     if (new UsuarioService(new MySQLConnector(), new UsuarioManager())
-        .buscarUsuarioConPassword(nombre, password)) {
+        .buscarUsuarioConPassword(user.getNombre(), user.getPassword())) {
       esCorrecto = true;
     }
     return Response.ok().entity(esCorrecto).build();
   }
 
-  /*@GET
-  @Path("/ping")
-  public Response ping() {
-      return Response.ok().entity("Service online").build();
+  @POST
+  @Path("/registro")
+  @Consumes(MediaType.APPLICATION_JSON)
+  @Produces(MediaType.TEXT_PLAIN)
+  public Response registroUsuario(UsuarioDao user) throws SQLException, ClassNotFoundException {
+    new UsuarioService(new MySQLConnector(), new UsuarioManager()).insertarUsuario(user);
+    return Response.ok().entity(0).build();
   }
 
   @GET
-  @Path("/get/")
-  @Produces(MediaType.APPLICATION_JSON)
-  public Response getNotifications() {
-      List<Notification> notifications = new ArrayList<>();
-      notifications.add(new Notification(5, "john", "test notification"));
-      return Response.ok().entity(notifications).build();
-  }
-
-  @GET
-  @Path("/get/{id}")
-  @Produces(MediaType.APPLICATION_JSON)
-  public Response getNotification(@PathParam("id") int id) {
-      return Response.ok().entity(new Notification(id, "john", "test notification")).build();
-  }
-
-  @PUT
-  @Path("/get/{id}/{name}")
-  @Produces(MediaType.APPLICATION_JSON)
-  public Response getNotification(@PathParam("id") int id, @PathParam("name") String name) {
-      return Response.ok().entity(new Notification(id, name, "test notification")).build();
-  }
-
-  @GET
-  @Path("/get/{id}/name")
-  @Produces(MediaType.APPLICATION_JSON)
-  public Response getNotificationWithParameters(@PathParam("id") int id, @QueryParam("name") String name) {
-      if (name == null || name.trim().isEmpty()) {
-          return Response.status(400).entity("Name not present in the request").build();
-      } else {
-          return Response.ok().entity(new Notification(id, name, "test notification")).build();
-      }
-  }
-
-  @GET
-  @Path("/getXML/{id}")
-  @Produces(MediaType.APPLICATION_XML)
-  public Response getNotificationXML(@PathParam("id") int id) {
-      return Response.ok().entity(new Notification(id, "john", "test notification")).build();
+  @Path("/eliminar/{id}")
+  @Produces(MediaType.TEXT_PLAIN)
+  public Response borrarUsuario(@PathParam("id") int id)
+      throws SQLException, ClassNotFoundException {
+    int resultado =
+        new UsuarioService(new MySQLConnector(), new UsuarioManager()).eliminarUsuario(id);
+    return Response.ok().entity(resultado).build();
   }
 
   @POST
-  @Path("/post/")
+  @Path("/modificar")
   @Consumes(MediaType.APPLICATION_JSON)
-  @Produces(MediaType.APPLICATION_JSON)
-  public Response postNotification(Notification notification) {
-      return Response.status(201).entity(notification).build();
-  }*/
+  @Produces(MediaType.TEXT_PLAIN)
+  public Response modificaUsuario(UsuarioDao user) throws SQLException, ClassNotFoundException {
+    int resultado = new UsuarioService(new MySQLConnector(), new UsuarioManager()).modificarUsuario(user);
+    return Response.ok().entity(resultado).build();
+  }
 }

@@ -1,5 +1,4 @@
 package edu.fpdual.webservice.model.application.manager;
-
 import edu.fpdual.webservice.model.application.dao.UsuarioDao;
 
 import java.sql.*;
@@ -7,6 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UsuarioManager {
+  /***
+   * Busca todos los usuarios al recibir la solicitud, los devuelve en una lista.
+   * @param con Conexión con MySQL
+   * @return Devuelve una lista con todos los usuarios y sus campos.
+   */
   public List<UsuarioDao> buscarTodos(Connection con) {
     try (Statement stmt = con.createStatement()) {
       ResultSet result = stmt.executeQuery("SELECT * FROM usuario");
@@ -21,6 +25,12 @@ public class UsuarioManager {
     }
   }
 
+  /***
+   * Busca al usuario que corresponda con la ID proporcionada y lo devuelve como objeto.
+   * @param con Conexión con MySQL
+   * @param id Identificador proporcionado por el cliente.
+   * @return Devuelve un objeto del tipo UsuarioDao.
+   */
   public UsuarioDao buscarPorId(Connection con, Integer id) {
 
     try (PreparedStatement stmt = con.prepareStatement("SELECT * FROM usuario where id = ?")) {
