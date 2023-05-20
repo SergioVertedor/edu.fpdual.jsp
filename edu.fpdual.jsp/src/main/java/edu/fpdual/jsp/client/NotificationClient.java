@@ -1,4 +1,4 @@
-package edu.fpdual.jaxrsclient.client;
+package edu.fpdual.jsp.client;
 
 import edu.fpdual.jaxrsclient.client.dto.Notification;
 import jakarta.ws.rs.client.Client;
@@ -13,7 +13,7 @@ public class NotificationClient {
 
     public NotificationClient() {
         Client client = ClientBuilder.newClient();
-        this.webTarget = client.target("http://localhost:8080/FpDualWebService/api/");
+        this.webTarget = client.target("http://localhost:8081/webapi/");
     }
 
     public Notification getNotification(String id) {

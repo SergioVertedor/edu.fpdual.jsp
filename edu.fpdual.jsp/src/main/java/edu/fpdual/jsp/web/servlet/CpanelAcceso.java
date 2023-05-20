@@ -1,8 +1,5 @@
 package edu.fpdual.jsp.web.servlet;
 
-import edu.fpdual.jsp.persistence.connector.MySQLConnector;
-import edu.fpdual.jsp.persistence.manager.UsuarioManager;
-import edu.fpdual.jsp.service.UsuarioService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
