@@ -1,0 +1,3 @@
+edu\fpdual\webservice\api\dto\Notification.class
+edu\fpdual\webservice\MyResource.class
+edu\fpdual\webservice\controller\NotificationController.class

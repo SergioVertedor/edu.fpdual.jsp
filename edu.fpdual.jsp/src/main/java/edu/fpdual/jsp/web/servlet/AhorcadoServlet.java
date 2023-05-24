@@ -1,6 +1,6 @@
 package edu.fpdual.jsp.web.servlet;
 
-import edu.fpdual.jsp.web.dto.UsuarioDto;
+import edu.fpdual.jsp.client.dto.UsuarioDto;
 import java.io.IOException;
 import java.util.Arrays;
 import jakarta.servlet.ServletException;
@@ -31,16 +31,20 @@ public class AhorcadoServlet extends HttpServlet {
         String letra = request.getParameter("letra");
 
         if (letra != null) {
-            letra = letra.toLowerCase();
-            boolean acierto = false;
-            for (int i = 0; i < palabra.length(); i++) {
-                if (palabra.charAt(i) == letra.charAt(0)) {
-                    letrasAdivinadas[i] = letra.charAt(0);
-                    acierto = true;
+            if (!letra.matches("[a-zA-Z]")) {
+                request.setAttribute("mensaje", "Error: Ingresa solo letras.");
+            } else {
+                letra = letra.toLowerCase();
+                boolean acierto = false;
+                for (int i = 0; i < palabra.length(); i++) {
+                    if (palabra.charAt(i) == letra.charAt(0)) {
+                        letrasAdivinadas[i] = letra.charAt(0);
+                        acierto = true;
+                    }
                 }
-            }
-            if (!acierto) {
-                intentos--;
+                if (!acierto) {
+                    intentos--;
+                }
             }
         }
 

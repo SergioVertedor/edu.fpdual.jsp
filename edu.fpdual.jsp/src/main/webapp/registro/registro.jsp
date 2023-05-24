@@ -4,6 +4,8 @@
     <meta charset="UTF-8"/>
     <title>Registro de Usuarios</title>
        <link rel="stylesheet" type="text/css" href="/registro/style/style.css"/>
+       <link rel="icon" href="/comun/images/favicon.jpg" type="image/jpeg" />
+       <link rel="shortcut icon" href="/comun/images/favicon.jpg" type="image/jpeg" />
 </head>
 <body>
 <hgroup>
