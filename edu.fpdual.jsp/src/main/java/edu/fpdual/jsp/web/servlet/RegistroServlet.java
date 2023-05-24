@@ -60,7 +60,7 @@ public class RegistroServlet extends HttpServlet {
               new UsuarioDao(
                   usuarioIntroducido, correoIntroducido, passwordIntroducido));
           req.setAttribute("notificacion", "Registro completado con éxito.");
-          req.getRequestDispatcher("/index.jsp").forward(req, resp);
+          req.getRequestDispatcher("/login/login.jsp").forward(req, resp);
         }
       } catch (SQLException | ClassNotFoundException e) {
         throw new RuntimeException(e);

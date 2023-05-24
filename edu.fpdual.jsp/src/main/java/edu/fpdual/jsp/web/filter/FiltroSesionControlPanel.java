@@ -60,7 +60,7 @@ public class FiltroSesionControlPanel implements Filter {
     if (usuario.getUsuario().equals("admin")) {
       filterChain.doFilter(servletRequest, servletResponse);
     } else {
-      ((HttpServletResponse) servletResponse).sendRedirect("/index.jsp");
+      ((HttpServletResponse) servletResponse).sendRedirect("/login.jsp");
     }
   }
 }

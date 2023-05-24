@@ -67,7 +67,7 @@ public class FiltroSesion implements Filter {
 		//Validamos si existe usuario en la sesion
 		if (usuario == null) {
 			//Redirigimos a pagina loginJSP.jsp utilizando el metodo "sendRedirect" del objeto de respuesta
-			((HttpServletResponse)servletResponse).sendRedirect("/index.jsp");
+			((HttpServletResponse)servletResponse).sendRedirect("/login.jsp");
 		}
 		else {
 			/*Indicamos al filtro que continue su camino con los mismos objetos request y response que recibimos como parametros del metodo  */
