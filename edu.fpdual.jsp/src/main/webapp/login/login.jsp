@@ -5,13 +5,13 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="/style/style.css">
+	<link rel="stylesheet" href="/login/style/style.css">
 	<title>Login</title>
 
 </head>
 <body>
 <hgroup>
-	<h1>HackeaPalabra</h1>
+	<h1>Hackea la palabra</h1>
 </hgroup>
 <form action="/servlet-login" method="POST">
 	<div class="group">
