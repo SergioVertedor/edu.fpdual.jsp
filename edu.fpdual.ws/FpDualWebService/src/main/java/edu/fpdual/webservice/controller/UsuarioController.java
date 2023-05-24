@@ -1,30 +1,24 @@
 package edu.fpdual.webservice.controller;
 
-import edu.fpdual.webservice.api.dto.Notification;
 import edu.fpdual.webservice.model.application.connector.MySQLConnector;
 import edu.fpdual.webservice.model.application.dao.UsuarioDao;
 import edu.fpdual.webservice.model.application.manager.UsuarioManager;
-import jakarta.inject.Inject;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
-import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
-import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import edu.fpdual.webservice.service.*;
-
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
-@Path("/notifications")
-public class NotificationController {
+@Path("/user")
+public class UsuarioController {
   @GET
-  @Path("/usuarios/")
+  @Path("/get/")
   @Produces(MediaType.APPLICATION_JSON)
   public Response getUsuarios() throws SQLException, ClassNotFoundException {
 
@@ -34,7 +28,7 @@ public class NotificationController {
   }
 
   @GET
-  @Path("/usuarios/{id}")
+  @Path("/get/{id}")
   @Produces(MediaType.APPLICATION_JSON)
   public Response getUsuario(@PathParam("id") int id) throws SQLException, ClassNotFoundException {
     UsuarioDao usuario =
@@ -43,7 +37,7 @@ public class NotificationController {
   }
 
   @GET
-  @Path("/usuarios/check/{nombre}")
+  @Path("/check/{nombre}")
   @Produces(MediaType.TEXT_PLAIN)
   public Response getUsuarioPorNombre(@PathParam("nombre") String nombre)
       throws SQLException, ClassNotFoundException {
@@ -76,8 +70,8 @@ public class NotificationController {
   @Consumes(MediaType.APPLICATION_JSON)
   @Produces(MediaType.TEXT_PLAIN)
   public Response registroUsuario(UsuarioDao user) throws SQLException, ClassNotFoundException {
-    new UsuarioService(new MySQLConnector(), new UsuarioManager()).insertarUsuario(user);
-    return Response.ok().entity(0).build();
+    int resultado = new UsuarioService(new MySQLConnector(), new UsuarioManager()).insertarUsuario(user);
+    return Response.ok().entity(resultado).build();
   }
 
   @GET

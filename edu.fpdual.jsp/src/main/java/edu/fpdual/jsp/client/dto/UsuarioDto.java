@@ -1,4 +1,4 @@
-package edu.fpdual.jaxrsclient.client.dto;
+package edu.fpdual.jsp.client.dto;
 
 import jakarta.xml.bind.annotation.XmlRootElement;
 import lombok.AllArgsConstructor;
@@ -11,11 +11,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @XmlRootElement
-public class Notification {
+public class UsuarioDto {
 
-    private int id;
-    private String title;
-    private String body;
+    private String id;
+    private String nombre;
+    private String correo;
+    private String password;
 
 }
 

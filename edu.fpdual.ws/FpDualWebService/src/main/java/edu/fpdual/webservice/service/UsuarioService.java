@@ -59,11 +59,11 @@ public class UsuarioService {
     }
   }
 
-  public void insertarUsuario(UsuarioDao usuario) throws SQLException, ClassNotFoundException {
+  public int insertarUsuario(UsuarioDao usuario) throws SQLException, ClassNotFoundException {
     Connection con = null;
     try {
       con = connector.getMySQLConnection();
-      manager.insertarUsuario(con, usuario);
+      return manager.insertarUsuario(con, usuario);
     } finally {
       if (con != null) {
         con.close();

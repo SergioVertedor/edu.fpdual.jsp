@@ -6,7 +6,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import edu.fpdual.jsp.web.dto.UsuarioDto;
+import edu.fpdual.jsp.client.dto.UsuarioDto;
 
 @WebServlet(
     name = "CPanel Acceso",
@@ -30,9 +30,8 @@ public class CpanelAcceso extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-    UsuarioService userSrv = new UsuarioService(new MySQLConnector(), new UsuarioManager());
     UsuarioDto usuario = (UsuarioDto) req.getSession().getAttribute("usuarioSesion");
-    if (usuario.getUsuario().equalsIgnoreCase("admin")) {
+    if (usuario.getNombre().equalsIgnoreCase("admin")) {
       req.getRequestDispatcher("/controlpanel/cpanel.jsp").forward(req, resp);
     } else {
       homePage(resp, usuario);

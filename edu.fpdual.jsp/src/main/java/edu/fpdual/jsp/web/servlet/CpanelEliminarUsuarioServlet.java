@@ -1,12 +1,8 @@
 package edu.fpdual.jsp.web.servlet;
 
-import edu.fpdual.jsp.persistence.connector.MySQLConnector;
-import edu.fpdual.jsp.persistence.manager.UsuarioManager;
-import edu.fpdual.jsp.service.UsuarioService;
-import edu.fpdual.jsp.web.dto.UsuarioDto;
+import edu.fpdual.jsp.client.UsuarioClient;
+import edu.fpdual.jsp.client.dto.UsuarioDto;
 import java.io.IOException;
-import java.sql.SQLException;
-
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -34,35 +30,31 @@ public class CpanelEliminarUsuarioServlet extends HttpServlet {
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
-    UsuarioService userSrv = new UsuarioService(new MySQLConnector(), new UsuarioManager());
+    UsuarioClient client = new UsuarioClient();
     UsuarioDto usuario = (UsuarioDto) req.getSession().getAttribute("usuarioSesion");
-    if (!usuario.getUsuario().equalsIgnoreCase("admin")) {
+    if (!usuario.getNombre().equalsIgnoreCase("admin")) {
       homePage(resp, usuario);
     } else {
       int idUsuario = Integer.parseInt(req.getParameter("id"));
-      try {
-        if (userSrv.buscarPorId(idUsuario) == null) {
-          req.setAttribute("notificacion", "El usuario introducido no existe.");
+      if (client.getUsuario(idUsuario) == null) {
+        req.setAttribute("notificacion", "El usuario introducido no existe.");
+        req.getRequestDispatcher("/controlpanel/cpanel.jsp").forward(req, resp);
+      } else {
+        if (client.borrarUsuario(idUsuario) == 1) {
+          req.setAttribute("notificacion", "Usuario eliminado correctamente.");
           req.getRequestDispatcher("/controlpanel/cpanel.jsp").forward(req, resp);
-        } else {
-          if (userSrv.eliminarUsuario(idUsuario) == 1) {
-            req.setAttribute("notificacion", "Usuario eliminado correctamente.");
-            req.getRequestDispatcher("/controlpanel/cpanel.jsp").forward(req, resp);
-          }
         }
-      } catch (SQLException | ClassNotFoundException e) {
-        throw new RuntimeException(e);
       }
       homePage(resp, usuario);
     }
   }
 
-    /***
-     * Método para redireccionar a la página principal.
-     * @param resp Parámetros a disposición para la homepage.
-     * @param usuario Incluye la sesión del usuario.
-     * @throws IOException
-     */
+  /***
+   * Método para redireccionar a la página principal.
+   * @param resp Parámetros a disposición para la homepage.
+   * @param usuario Incluye la sesión del usuario.
+   * @throws IOException
+   */
   private void homePage(HttpServletResponse resp, UsuarioDto usuario) throws IOException {
     resp.sendRedirect("/");
   }

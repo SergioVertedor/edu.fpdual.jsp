@@ -97,17 +97,20 @@ public class UsuarioManager {
     return esCorrecto;
   }
 
-  public void insertarUsuario(Connection con, UsuarioDao usuario) {
+  public int insertarUsuario(Connection con, UsuarioDao usuario) {
+    int lineas = 0;
     try {
       PreparedStatement sentencia =
           con.prepareStatement("INSERT INTO usuario (nombre, correo, password) values (?, ?, ?)");
       sentencia.setString(1, usuario.getNombre());
       sentencia.setString(2, usuario.getCorreo());
       sentencia.setString(3, usuario.getPassword());
-      sentencia.executeUpdate();
+      lineas = sentencia.executeUpdate();
+
     } catch (SQLException e) {
       e.printStackTrace();
     }
+    return lineas;
   }
 
   public int eliminarUsuario(Connection con, int id) {

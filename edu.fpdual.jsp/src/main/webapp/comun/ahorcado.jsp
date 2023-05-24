@@ -1,4 +1,4 @@
-<%@ page import="edu.fpdual.jsp.web.dto.UsuarioDto" %>
+<%@ page import="edu.fpdual.jsp.client.dto.UsuarioDto" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
@@ -18,9 +18,9 @@
 <%
     UsuarioDto usuario = (UsuarioDto) request.getSession().getAttribute("usuarioSesion");
 %>
-<p> Bienvenido, <%= usuario.getUsuario() %></p>
+<p> Bienvenido, <%= usuario.getNombre() %></p>
 <%
-    if (usuario.getUsuario().equals("admin")) {%>
+    if (usuario.getNombre().equals("admin")) {%>
 <a href="/cpanel-acceso">Acceso a Panel de Control.</a>
 <%}%>
     <div class="container">
