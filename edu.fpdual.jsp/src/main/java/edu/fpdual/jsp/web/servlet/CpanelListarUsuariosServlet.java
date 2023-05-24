@@ -1,23 +1,18 @@
 package edu.fpdual.jsp.web.servlet;
 
-import edu.fpdual.jsp.persistence.connector.MySQLConnector;
-import edu.fpdual.jsp.persistence.dao.UsuarioDao;
-import edu.fpdual.jsp.persistence.manager.UsuarioManager;
-import edu.fpdual.jsp.service.UsuarioService;
-import edu.fpdual.jsp.web.dto.UsuarioDto;
+import edu.fpdual.jsp.client.UsuarioClient;
+import edu.fpdual.jsp.client.dto.UsuarioDto;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 
 @WebServlet(
-        name = "ListarUsuariosServlet",
-        urlPatterns = {"/cpanel-listar-usuarios-servlet"})
+    name = "ListarUsuariosServlet",
+    urlPatterns = {"/cpanel-listar-usuarios-servlet"})
 public class CpanelListarUsuariosServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
@@ -37,18 +32,13 @@ public class CpanelListarUsuariosServlet extends HttpServlet {
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
     UsuarioDto usuario = (UsuarioDto) req.getSession().getAttribute("usuarioSesion");
-    UsuarioService userSrv = new UsuarioService(new MySQLConnector(), new UsuarioManager());
-    if (!usuario.getUsuario().equalsIgnoreCase("admin")) {
+    UsuarioClient client = new UsuarioClient();
+    if (!usuario.getNombre().equalsIgnoreCase("admin")) {
       homePage(resp, usuario);
     } else {
-      try {
-        List<UsuarioDao> lista = userSrv.buscarATodos();
-        req.setAttribute("lista", lista);
-        req.getRequestDispatcher("/controlpanel/cpanel.jsp").forward(req, resp);
-
-      } catch (SQLException | ClassNotFoundException e) {
-        throw new RuntimeException(e);
-      }
+      List<UsuarioDto> lista = client.getUsuarios();
+      req.setAttribute("lista", lista);
+      req.getRequestDispatcher("/controlpanel/cpanel.jsp").forward(req, resp);
     }
   }
 
