@@ -14,7 +14,7 @@
 	<label for="nombre">Nombre:</label><br>
 	<input type="text" id="nombre" name="nombre"><br><br>
 
-	<label for="email">Correo electrónico (Opcional):</label><br>
+	<label for="email">Correo electrónico:</label><br>
 	<input type="email" id="email" name="email"><br><br>
 
 	<label for="opinion">Opinión o Sugerencias:</label><br>
