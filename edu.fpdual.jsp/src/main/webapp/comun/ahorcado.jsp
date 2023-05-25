@@ -25,11 +25,16 @@
 %>
 =======
     if (usuario.getNombre().equals("admin")) {%>
+<<<<<<< HEAD
 >>>>>>> sergio
 <a href="/cpanel-acceso">Acceso a Panel de Control.</a>
 <%
     }
 %>
+=======
+<a href="/cpanel-listar-usuarios-servlet">Acceso a Panel de Control.</a>
+<%}%>
+>>>>>>> sergio
     <div class="container">
         <h1>Juego de Adivinanza de Palabras</h1>
         <%
