@@ -12,7 +12,20 @@
     <title>Traductor de palabras</title>
 </head>
 <body>
-
+<section id="sidebar">
+    <div class="inner">
+        <nav>
+            <ul>
+                <li><a href="/comun/ahorcado.jsp">Ahorcado</a></li>
+                <li><a href="/comun/traductor.jsp">Traduce las palabras</a></li>
+                <li><a href="/comun/memoria.jsp">Calcula la memoria</a></li>
+                <li><a href="/contact/form.jsp">Contactanos</a></li>
+            </ul>
+        </nav>
+    </div>
+</section>
+<br>
+<br>
     <h1>Juego de Traducción</h1>
 
     <% String palabra = (String) request.getAttribute("palabra");
@@ -49,5 +62,12 @@
     <form action="/comun/memoria.jsp" method="post">
         <input type="submit" value="Jugar">
     </form>
+<footer id="footer" class="wrapper style1-alt">
+    <div class="inner">
+        <ul class="menu">
+            <li>&copy; HackealaPalabra. Todos los derechos reservados.</li>
+        </ul>
+    </div>
+</footer>
 </body>
 </html>

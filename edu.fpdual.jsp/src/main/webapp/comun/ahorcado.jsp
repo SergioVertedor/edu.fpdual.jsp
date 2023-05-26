@@ -16,6 +16,21 @@
     <title>Juego de Adivinanza de Palabras</title>
 </head>
 <body>
+<section id="sidebar">
+    <div class="inner">
+        <nav>
+            <ul>
+                <li><a href="/comun/ahorcado.jsp">Ahorcado</a></li>
+                <li><a href="/comun/traductor.jsp">Traduce las palabras</a></li>
+                <li><a href="/comun/memoria.jsp">Calcula la memoria</a></li>
+                <li><a href="/contact/form.jsp">Contactanos</a></li>
+            </ul>
+        </nav>
+    </div>
+</section>
+<br>
+<br>
+<br>
 <%
     UsuarioDto usuario = (UsuarioDto) request.getSession().getAttribute("usuarioSesion");
 %>
@@ -73,14 +88,13 @@
         <br><br>
         <img src="/comun/images/pensando.gif" id="imagen"></img>
     </div>
-
-
-
-
-
-<h1>Presiona el botón para continuar</h1>
-    <form action="/comun/traductor.jsp" method="post">
-      <input type="submit" value="Continuar">
-    </form>
+<br>
+<footer id="footer" class="wrapper style1-alt">
+    <div class="inner">
+        <ul class="menu">
+            <li>&copy; HackealaPalabra. Todos los derechos reservados.</li>
+        </ul>
+    </div>
+</footer>
 </body>
 </html>
