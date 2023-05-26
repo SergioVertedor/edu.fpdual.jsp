@@ -21,28 +21,9 @@
 %>
 <p> Bienvenido, <%= usuario.getNombre() %></p>
 <%
-<<<<<<< HEAD
-<<<<<<< HEAD
-    if (usuario.getUsuario().equals("admin")) {%>
-<p><a href="/cpanel-acceso">Acceso a Panel de Control.</a></p>
-<%}%>
-=======
-<<<<<<< HEAD
-    if (usuario.getUsuario().equals("admin")) {
-%>
-=======
-    if (usuario.getNombre().equals("admin")) {%>
->>>>>>> sergio
-<a href="/cpanel-acceso">Acceso a Panel de Control.</a>
-<%
-    }
-%>
->>>>>>> main
-=======
     if (usuario.getNombre().equals("admin")) {%>
 <a href="/cpanel-listar-usuarios-servlet">Acceso a Panel de Control.</a>
 <%}%>
->>>>>>> main
     <div class="container">
         <h1>Juego de Adivinanza de Palabras</h1>
 

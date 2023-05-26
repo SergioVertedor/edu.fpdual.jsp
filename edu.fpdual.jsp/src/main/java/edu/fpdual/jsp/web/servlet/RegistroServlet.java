@@ -49,24 +49,11 @@ public class RegistroServlet extends HttpServlet {
       } else if (!passwordIntroducido.equals(passwordIntroducidoCheck)) {
         req.setAttribute("error", "Las contraseñas no coinciden.");
         req.getRequestDispatcher("/registro/registro.jsp").forward(req, resp);
-
-<<<<<<< HEAD
-        } else {
-          userSrv.insertarUsuario(
-              new UsuarioDao(
-                  usuarioIntroducido, correoIntroducido, passwordIntroducido));
-          req.setAttribute("notificacion", "Registro completado con éxito.");
-          req.getRequestDispatcher("/login/login.jsp").forward(req, resp);
-        }
-      } catch (SQLException | ClassNotFoundException e) {
-        throw new RuntimeException(e);
-=======
       } else {
         client.registroUsuario(
             new UsuarioDto(null, usuarioIntroducido, correoIntroducido, passwordIntroducido, 0));
         req.setAttribute("notificacion", "Registro completado con éxito.");
         req.getRequestDispatcher("/index.jsp").forward(req, resp);
->>>>>>> main
       }
     }
   }
