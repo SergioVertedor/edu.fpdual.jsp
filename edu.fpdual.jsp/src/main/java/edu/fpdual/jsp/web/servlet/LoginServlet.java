@@ -31,31 +31,6 @@ public class LoginServlet extends HttpServlet {
     } else {
       String usuarioIntroducido = req.getParameter("usuario");
       String passwordIntroducido = req.getParameter("contrasena");
-<<<<<<< HEAD
-      try {
-        esCorrecto = userSrv.buscarUsuarioConPassword(usuarioIntroducido, passwordIntroducido);
-      } catch (SQLException | ClassNotFoundException e) {
-        throw new RuntimeException(e);
-      }
-      try {
-        if (!userSrv.buscarPorNombreExacto(usuarioIntroducido)) {
-          req.setAttribute("error", "El usuario no existe.");
-          req.getRequestDispatcher("/login/login.jsp").forward(req, resp);
-        } else if
-        (!esCorrecto) {
-          req.setAttribute("error", "Usuario y contraseña no coinciden.");
-          req.getRequestDispatcher("/login/login.jsp").forward(req, resp);
-          } else {
-          if (usuarioIntroducido != null && passwordIntroducido != null) {
-            usuario =
-                UsuarioDto.builder().usuario(usuarioIntroducido).password(passwordIntroducido).build();
-            req.getSession().setMaxInactiveInterval(1800);
-            req.getSession().setAttribute("usuarioSesion", usuario);
-            req.getRequestDispatcher("/ahorcado").forward(req, resp);
-          } else {
-            resp.sendRedirect("/login/login.jsp");
-          }
-=======
       esCorrecto =
           client.checkPassword(new UsuarioDto(null, usuarioIntroducido, null, passwordIntroducido, 0));
       if (!client.getUsuarioPorNombre(usuarioIntroducido)) {
@@ -76,7 +51,6 @@ public class LoginServlet extends HttpServlet {
           req.getRequestDispatcher("/ahorcado").forward(req, resp);
         } else {
           resp.sendRedirect("/index.jsp");
->>>>>>> main
         }
       }
     }
