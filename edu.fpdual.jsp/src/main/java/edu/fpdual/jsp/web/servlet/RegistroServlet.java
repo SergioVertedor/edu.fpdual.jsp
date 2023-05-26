@@ -49,7 +49,6 @@ public class RegistroServlet extends HttpServlet {
       } else if (!passwordIntroducido.equals(passwordIntroducidoCheck)) {
         req.setAttribute("error", "Las contraseñas no coinciden.");
         req.getRequestDispatcher("/registro/registro.jsp").forward(req, resp);
-
       } else {
         client.registroUsuario(
             new UsuarioDto(null, usuarioIntroducido, correoIntroducido, passwordIntroducido, 0));

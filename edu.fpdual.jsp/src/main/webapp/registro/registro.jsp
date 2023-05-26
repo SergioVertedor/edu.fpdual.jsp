@@ -35,7 +35,7 @@
     <button type="submit" class="button buttonBlue">Register
         <div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
     </button>
-    <a href="../login/login.jsp" target="_blank" >You have an account? Login here!</a>
+    <a href="/login/login.jsp" target="_blank" >You have an account? Login here!</a>
 </form>
 </body>
 </html>
