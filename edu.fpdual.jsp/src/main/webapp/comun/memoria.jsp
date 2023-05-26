@@ -1,4 +1,5 @@
-<%@ page import="edu.fpdual.jsp.web.dto.UsuarioDto" %>
+
+<%@ page import="edu.fpdual.jsp.client.dto.UsuarioDto" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
@@ -14,8 +15,13 @@
 <body>
    <h1>Juego de memoria USB</h1>
       <% String mensaje = (String) request.getAttribute("mensaje");
+         Integer puntuacion = (Integer) request.getAttribute("puntuacion"); // Cambio aquí
+
          if (mensaje != null) {
              out.println("<p>" + mensaje + "</p>");
+         }
+         if (puntuacion != null) { // Verificación adicional
+             out.println("<p>Puntuación: " + puntuacion + "</p>");
          }
       %>
       <form action="/memorias" method="post">

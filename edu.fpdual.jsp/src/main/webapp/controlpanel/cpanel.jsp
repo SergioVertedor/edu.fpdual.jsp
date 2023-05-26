@@ -12,12 +12,8 @@
 	<link rel="icon" href="/comun/images/favicon.jpg" type="image/jpeg" />
 </head>
 <body>
-
-<form action="/cpanel-listar-usuarios-servlet" method="post">
-	<h2>Lista de usuarios</h2>
-	<button type="submit">Mostrar usuarios</button>
-</form>
 <br><br>
+<h3>Lista de usuarios:</h3>
 <%List<UsuarioDto> lista = (List<UsuarioDto>) request.getAttribute("lista");
 if (lista != null) {%>
 <% String mensaje = (String) request.getAttribute("notificacion");
@@ -49,7 +45,7 @@ if (lista != null) {%>
 </table>
 <%}%>
 <br><br>
-<button onclick="window.location.href='/ahorcado'">Volver</button>
+<button onclick="window.location.href='/ahorcado'">Salir</button>
 
 </body>
 </html>

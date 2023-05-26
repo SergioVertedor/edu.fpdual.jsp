@@ -1,18 +1,22 @@
 package edu.fpdual.jsp.web.servlet;
 
+import com.itextpdf.text.DocumentException;
+import edu.fpdual.email.sender.Sender;
+import edu.fpdual.jsp.client.dto.UsuarioDto;
+import edu.fpdual.itextpdf.PdfItext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
-import edu.fpdual.jsp.client.dto.UsuarioDto;
+import java.net.URISyntaxException;
 
 @WebServlet(
-    name = "CPanel Acceso",
-    urlPatterns = {"/cpanel-acceso"})
-public class CpanelAcceso extends HttpServlet {
-
+    name = "SendMail",
+    urlPatterns = {"/send"})
+public class sendMailServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
@@ -31,10 +35,25 @@ public class CpanelAcceso extends HttpServlet {
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
     UsuarioDto usuario = (UsuarioDto) req.getSession().getAttribute("usuarioSesion");
-    if (usuario.getNombre().equalsIgnoreCase("admin")) {
-      req.getRequestDispatcher("/controlpanel/cpanel.jsp").forward(req, resp);
-    } else {
-      homePage(resp, usuario);
+    String emailTo = "hackealapalabra@gmail.com";
+    String nombrePdf = "C:/mensajeRecibido.pdf";
+    String nombre = req.getParameter("nombre");
+    String emailFrom = req.getParameter("email");
+    String opinion = req.getParameter("opinion");
+    try {
+
+      new PdfItext().createPDF(nombrePdf, nombre, emailFrom, opinion);
+      new Sender()
+          .send(
+              emailFrom,
+              emailTo,
+              "Mensaje recibido.",
+              "Ha recibido un mensaje desde contact",
+              nombrePdf);
+      req.setAttribute("notificacion", "Mensaje enviado con éxito. Muchas gracias.");
+      req.getRequestDispatcher("/contact/form.jsp").forward(req, resp);
+    } catch (DocumentException | URISyntaxException e) {
+      resp.sendRedirect("/error.jsp");
     }
   }
 

@@ -1,3 +1,4 @@
+<%@ page import="java.util.Map" %>
 <%@ page import="edu.fpdual.jsp.client.dto.UsuarioDto" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -8,7 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="/comun/style/styleAhorcado.css" type="text/css" >
+    <link rel="stylesheet" href="/comun/style/styleAhorcad.css" type="text/css" >
     <link rel="icon" href="/comun/images/favicon.jpg" type="image/jpeg" />
     <link rel="shortcut icon" href="/comun/images/favicon.jpg" type="image/jpeg" />
 
@@ -20,6 +21,7 @@
 %>
 <p> Bienvenido, <%= usuario.getNombre() %></p>
 <%
+<<<<<<< HEAD
 <<<<<<< HEAD
     if (usuario.getUsuario().equals("admin")) {%>
 <p><a href="/cpanel-acceso">Acceso a Panel de Control.</a></p>
@@ -36,48 +38,68 @@
     }
 %>
 >>>>>>> main
+=======
+    if (usuario.getNombre().equals("admin")) {%>
+<a href="/cpanel-listar-usuarios-servlet">Acceso a Panel de Control.</a>
+<%}%>
+>>>>>>> main
     <div class="container">
         <h1>Juego de Adivinanza de Palabras</h1>
-        <%
-        String letrasAdivinadas = (String) request.getAttribute("letrasAdivinadas");
-        Integer intentos = (Integer) request.getAttribute("intentos");
-        String mensaje = (String) request.getAttribute("mensaje");
-        Boolean reiniciar = (Boolean) request.getAttribute("reiniciar");
 
-        boolean reiniciarBool = false;
-        if (reiniciar != null) {
-            reiniciarBool = reiniciar.booleanValue();
-        }
 
-        if (mensaje != null && !mensaje.isEmpty()) {
-        %>
-        <p class="message"><%= mensaje %></p>
-        <% } %>
+      <%
+      String letrasAdivinadas = (String) request.getAttribute("letrasAdivinadas");
+      int intentos = (int) request.getAttribute("intentos");
+      String mensaje = (String) request.getAttribute("mensaje");
+      int puntuacion = (int) request.getAttribute("puntuacion");
 
-        <p><%= letrasAdivinadas %></p>
-        <p>Te quedan <%= intentos %> intentos.</p>
+      Boolean reiniciar = (Boolean) request.getAttribute("reiniciar");
+      boolean reiniciarBool = false;
+      if (reiniciar != null) {
+          reiniciarBool = reiniciar.booleanValue();
+      }
 
-        <%
-        if (reiniciar != null && reiniciarBool) {
-        %>
-            <form method="get" action="/ahorcado">
-                <input type="submit" value="Reiniciar">
-            </form>
-        <% } else { %>
-            <form method="post" action="/ahorcado">
-                <input type="text" name="letra" maxlength="1" size="1">
-                <input type="submit" value="Adivinar">
-            </form>
-        <% } %>
+      if (mensaje != null && !mensaje.isEmpty()) {
+      %>
+          <p class="message"><%= mensaje %></p>
+      <%
+      }
+
+      %>
+
+      <p><%= letrasAdivinadas %></p>
+      <p>Te quedan <%= intentos %> intentos.</p>
+      <p>Puntuación: <%= puntuacion %></p>
+
+      <%
+      if (reiniciar != null && reiniciar.booleanValue()) {
+      %>
+          <form method="get" action="/ahorcado">
+              <input type="submit" value="Reiniciar">
+          </form>
+      <%
+      } else {
+      %>
+          <form method="post" action="/ahorcado">
+              <input type="text" name="letra" maxlength="1" size="1">
+              <input type="submit" value="Adivinar">
+          </form>
+      <%
+      }
+      %>
+
+
         <br><br>
-
-        <img src="/comun/images/pensando.gif" id="imagen" />
+        <img src="/comun/images/pensando.gif" id="imagen"></img>
     </div>
 
-    <h1>Presiona el botón para continuar</h1>
-    <form action="/comun/traductor.jsp" method="post">
-        <input type="submit" value="Continuar">
-    </form>
 
+
+
+
+<h1>Presiona el botón para continuar</h1>
+    <form action="/comun/traductor.jsp" method="post">
+      <input type="submit" value="Continuar">
+    </form>
 </body>
 </html>

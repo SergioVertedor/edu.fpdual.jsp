@@ -13,35 +13,41 @@
 </head>
 <body>
 
-      <h1>Juego de Traducción</h1>
+    <h1>Juego de Traducción</h1>
 
-          <% String palabra = (String) request.getAttribute("palabra");
-          if (palabra != null && !palabra.isEmpty()) { %>
-              <form action="/traductor-servlet" method="post">
-                  <p>Traduce la siguiente palabra:</p>
-                  <p><strong><%= palabra %></strong></p>
-                  <input type="text" name="respuesta" placeholder="Escribe aquí tu respuesta" required>
-                  <button type="submit">Verificar</button>
-              </form>
-          <% } %>
+    <% String palabra = (String) request.getAttribute("palabra");
+       boolean respuestaValida = request.getAttribute("respuestaValida") != null ? (boolean) request.getAttribute("respuestaValida") : false;
+       int puntuacion = request.getAttribute("puntuacion") != null ? (int) request.getAttribute("puntuacion") : 0;
+    %>
 
-          <% String mensaje = (String) request.getAttribute("mensaje");
-          if (mensaje != null) { %>
-              <p><%= mensaje %></p>
-          <% } %>
+    <% if (palabra != null && !palabra.isEmpty()) { %>
+        <form action="/traductor-servlet" method="post">
+            <p>Traduce la siguiente palabra:</p>
+            <p><strong><%= palabra %></strong></p>
+            <input type="text" name="respuesta" placeholder="Escribe aquí tu respuesta" required>
+            <button type="submit">Verificar</button>
+        </form>
+    <% } %>
 
-          <form action="/traductor-servlet" method="post">
-              <input type="hidden" name="reiniciar" value="true">
-              <% if (palabra == null || palabra.isEmpty()) { %>
-                  <button type="submit">Iniciar Juego</button>
-              <% } else { %>
-                  <button type="submit">Reiniciar Juego</button>
-              <% } %>
-          </form>
+    <% String mensaje = (String) request.getAttribute("mensaje");
+    if (mensaje != null) { %>
+        <p><%= mensaje %></p>
+    <% } %>
 
-          <h1>Juego de calcular el espacio de dispositivos de almacenamiento</h1>
-              <form action="/comun/memoria.jsp" method="post">
-                  <input type="submit" value="Jugar">
-              </form>
+    <p>Puntuación: <%= puntuacion %></p>
+
+    <form action="/traductor-servlet" method="post">
+        <input type="hidden" name="reiniciar" value="true">
+        <% if (palabra == null || palabra.isEmpty()) { %>
+            <button type="submit">Iniciar Juego</button>
+        <% } else { %>
+            <button type="submit">Reiniciar Juego</button>
+        <% } %>
+    </form>
+
+    <h1>Juego de calcular el espacio de dispositivos de almacenamiento</h1>
+    <form action="/comun/memoria.jsp" method="post">
+        <input type="submit" value="Jugar">
+    </form>
 </body>
 </html>

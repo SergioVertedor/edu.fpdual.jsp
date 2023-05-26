@@ -1,4 +1,5 @@
 package edu.fpdual.webservice.model.application.manager;
+
 import edu.fpdual.webservice.model.application.dao.UsuarioDao;
 
 import java.sql.*;
@@ -77,7 +78,7 @@ public class UsuarioManager {
       stmt.setString(2, password);
       ResultSet result = stmt.executeQuery();
       int lineas = 0;
-      while(result.next()) {
+      while (result.next()) {
         lineas++;
       }
       if (lineas == 1) {
@@ -109,6 +110,20 @@ public class UsuarioManager {
 
     } catch (SQLException e) {
       e.printStackTrace();
+    }
+    return lineas;
+  }
+
+  public int updatePuntos(Connection con, int puntosObtenidos, String nombre) {
+    int lineas = 0;
+    try {
+      PreparedStatement sentencia =
+          con.prepareStatement("UPDATE usuario SET puntos = puntos + ? WHERE nombre = ?");
+      sentencia.setInt(1, puntosObtenidos);
+      sentencia.setString(2, nombre);
+      lineas = sentencia.executeUpdate();
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
     }
     return lineas;
   }
