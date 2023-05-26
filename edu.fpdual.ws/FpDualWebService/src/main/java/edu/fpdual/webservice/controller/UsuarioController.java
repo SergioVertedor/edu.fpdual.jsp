@@ -36,6 +36,15 @@ public class UsuarioController {
     return Response.ok().entity(usuario).build();
   }
 
+  @GET
+  @Path("/getid/{nombre}")
+  @Produces(MediaType.APPLICATION_JSON)
+  public Response getUsuario(@PathParam("nombre") String nombre) throws SQLException, ClassNotFoundException {
+    UsuarioDao usuario =
+            new UsuarioService(new MySQLConnector(), new UsuarioManager()).buscarIdPorNombre(nombre);
+    return Response.ok().entity(usuario).build();
+  }
+
     @GET
     @Path("/add/{nombre}/{puntos}")
     @Produces(MediaType.TEXT_PLAIN)

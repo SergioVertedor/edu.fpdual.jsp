@@ -1,5 +1,6 @@
 package edu.fpdual.webservice.model.application.manager;
 
+import edu.fpdual.webservice.model.application.dao.PartidaDao;
 import edu.fpdual.webservice.model.application.dao.UsuarioDao;
 
 import java.sql.*;
@@ -47,6 +48,23 @@ public class UsuarioManager {
       return null;
     }
   }
+
+  public UsuarioDao buscarIdPorNombre(Connection con, String nombre) {
+
+    try (PreparedStatement stmt = con.prepareStatement("SELECT * FROM usuario where nombre = ?")) {
+      stmt.setString(1, nombre);
+      ResultSet result = stmt.executeQuery();
+      UsuarioDao usuario = null;
+      if (result.next()) {
+        usuario = new UsuarioDao(result);
+      }
+      return usuario;
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return null;
+    }
+  }
+
 
   public boolean buscarPorNombreExacto(Connection con, String name) {
     boolean isListed = false;

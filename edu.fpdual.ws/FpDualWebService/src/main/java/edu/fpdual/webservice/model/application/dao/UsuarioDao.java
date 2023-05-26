@@ -15,15 +15,8 @@ public class UsuarioDao implements Comparable<UsuarioDao> {
   private String nombre;
   private String correo;
   private String password;
-
   private int puntos;
 
-  public UsuarioDao(String nombre, String correo, String password, int puntos) {
-    this.nombre = nombre;
-    this.correo = correo;
-    this.password = password;
-    this.puntos = puntos;
-  }
 
   public UsuarioDao(ResultSet result) {
     try {

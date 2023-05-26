@@ -23,12 +23,7 @@ public class UsuarioClient {
     return webTarget.path("user/get").request(MediaType.APPLICATION_JSON).get(usuarios);
   }
 
-  public List<UsuarioDto> getUsuariosOrdenadosPorPuntos() {
-    GenericType<List<UsuarioDto>> usuarios = new GenericType<List<UsuarioDto>>() {};
-    return webTarget.path("user/getordered").request(MediaType.APPLICATION_JSON).get(usuarios);
-  }
-
-  public boolean getUsuarioPorNombre(String nombre) {
+  public boolean checkUsuarioPorNombre(String nombre) {
     String respuesta =
         webTarget.path("user/check/" + nombre).request(MediaType.TEXT_PLAIN).get(String.class);
     boolean resultado = Boolean.parseBoolean(respuesta);
@@ -42,6 +37,15 @@ public class UsuarioClient {
         .request(MediaType.APPLICATION_JSON)
         .get(UsuarioDto.class);
   }
+
+  public UsuarioDto getUsuarioPorNombre(String nombre) {
+
+    return webTarget
+            .path("user/getid/" + nombre)
+            .request(MediaType.APPLICATION_JSON)
+            .get(UsuarioDto.class);
+  }
+
 
   public int updatePuntos(int puntosObtenidos, String nombre) {
     String respuesta =

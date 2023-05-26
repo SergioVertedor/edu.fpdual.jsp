@@ -22,14 +22,7 @@ public class RankingServlet extends HttpServlet {
     doPost(req, resp);
   }
 
-  /***
-   * Método que consulta la existencia del usuario a través de la id introducida, y acto seguido
-   * remite los parámetros del usuario a cpanel.jsp.
-   * @param req Parametros recibidos desde cpanel.jsp
-   * @param resp Parametros a disposición para cpanel.jsp
-   * @throws ServletException
-   * @throws IOException
-   */
+
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {

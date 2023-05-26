@@ -40,7 +40,7 @@ public class RegistroServlet extends HttpServlet {
       String passwordIntroducido = req.getParameter("password");
       String passwordIntroducidoCheck = req.getParameter("confirm_password");
       req.setAttribute("error", "");
-      if (client.getUsuarioPorNombre(usuarioIntroducido)) {
+      if (client.checkUsuarioPorNombre(usuarioIntroducido)) {
         req.setAttribute("error", "El usuario ya existe.");
         req.getRequestDispatcher("/registro/registro.jsp").forward(req, resp);
       } else if (passwordIntroducido.length() > 8 || passwordIntroducido.length() < 6) {

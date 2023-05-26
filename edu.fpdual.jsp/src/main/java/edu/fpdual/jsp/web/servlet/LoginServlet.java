@@ -33,7 +33,7 @@ public class LoginServlet extends HttpServlet {
       String passwordIntroducido = req.getParameter("contrasena");
       esCorrecto =
           client.checkPassword(new UsuarioDto(null, usuarioIntroducido, null, passwordIntroducido, 0));
-      if (!client.getUsuarioPorNombre(usuarioIntroducido)) {
+      if (!client.checkUsuarioPorNombre(usuarioIntroducido)) {
         req.setAttribute("error", "El usuario no existe.");
         req.getRequestDispatcher("/index.jsp").forward(req, resp);
       } else if (!esCorrecto) {

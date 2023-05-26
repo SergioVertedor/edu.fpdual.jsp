@@ -47,6 +47,18 @@ public class UsuarioService {
     }
   }
 
+  public UsuarioDao buscarIdPorNombre(String nombre) throws SQLException, ClassNotFoundException {
+    Connection con = null;
+    try {
+      con = connector.getMySQLConnection();
+      return manager.buscarIdPorNombre(con, nombre);
+    } finally {
+      if (con != null) {
+        con.close();
+      }
+    }
+  }
+
   public int modificarUsuario(UsuarioDao usuario) throws SQLException, ClassNotFoundException {
     Connection con = null;
     try {
