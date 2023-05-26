@@ -1,28 +1,21 @@
-package edu.fpdual.jsp.itextpdf;
+package edu.fpdual.itextpdf;
 
 import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.FontFactory;
-import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfReader;
-import com.itextpdf.text.pdf.PdfStamper;
 import com.itextpdf.text.pdf.PdfWriter;
-import edu.fpdual.jsp.web.servlet.sendMailServlet;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.stream.Stream;
 
 public class PdfItext {
@@ -30,8 +23,7 @@ public class PdfItext {
   public void createPDF(String fileName, String nombre, String email, String text)
       throws IOException, DocumentException, URISyntaxException {
     Document document = new Document();
-    PdfWriter.getInstance(document, new FileOutputStream(fileName + ".pdf"));
-
+    PdfWriter.getInstance(document, new FileOutputStream(fileName));
     document.open();
 
     Paragraph paragraph = createParagraph(text);

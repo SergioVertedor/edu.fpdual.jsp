@@ -32,7 +32,7 @@ public class LoginServlet extends HttpServlet {
       String usuarioIntroducido = req.getParameter("usuario");
       String passwordIntroducido = req.getParameter("contrasena");
       esCorrecto =
-          client.checkPassword(new UsuarioDto(null, usuarioIntroducido, null, passwordIntroducido));
+          client.checkPassword(new UsuarioDto(null, usuarioIntroducido, null, passwordIntroducido, 0));
       if (!client.getUsuarioPorNombre(usuarioIntroducido)) {
         req.setAttribute("error", "El usuario no existe.");
         req.getRequestDispatcher("/index.jsp").forward(req, resp);

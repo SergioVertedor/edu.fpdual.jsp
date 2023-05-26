@@ -16,10 +16,13 @@ public class UsuarioDao implements Comparable<UsuarioDao> {
   private String correo;
   private String password;
 
-  public UsuarioDao(String nombre, String correo, String password) {
+  private int puntos;
+
+  public UsuarioDao(String nombre, String correo, String password, int puntos) {
     this.nombre = nombre;
     this.correo = correo;
     this.password = password;
+    this.puntos = puntos;
   }
 
   public UsuarioDao(ResultSet result) {
@@ -28,6 +31,7 @@ public class UsuarioDao implements Comparable<UsuarioDao> {
       this.nombre = result.getString("nombre");
       this.correo = result.getString("correo");
       this.password = result.getString("password");
+      this.puntos = result.getInt("puntos");
     } catch (SQLException e) {
       e.printStackTrace();
     }

@@ -36,6 +36,15 @@ public class UsuarioController {
     return Response.ok().entity(usuario).build();
   }
 
+    @GET
+    @Path("/add/{nombre}/{puntos}")
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response updatePuntos(@PathParam("nombre") String nombre, @PathParam("puntos") int puntosObtenidos) throws SQLException, ClassNotFoundException {
+
+               int resultado = new UsuarioService(new MySQLConnector(), new UsuarioManager()).updatePuntos(puntosObtenidos, nombre);
+        return Response.ok().entity(resultado).build();
+    }
+
   @GET
   @Path("/check/{nombre}")
   @Produces(MediaType.TEXT_PLAIN)
