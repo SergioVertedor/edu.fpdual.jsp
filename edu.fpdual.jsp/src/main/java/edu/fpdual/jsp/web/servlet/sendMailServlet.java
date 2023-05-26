@@ -35,21 +35,23 @@ public class sendMailServlet extends HttpServlet {
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
     UsuarioDto usuario = (UsuarioDto) req.getSession().getAttribute("usuarioSesion");
-    String correo = "hackealapalabra@gmail.com";
+    String emailTo = "hackealapalabra@gmail.com";
     String nombrePdf = "C:/mensajeRecibido.pdf";
     String nombre = req.getParameter("nombre");
-    String email = req.getParameter("email");
+    String emailFrom = req.getParameter("email");
     String opinion = req.getParameter("opinion");
     try {
 
-      new PdfItext().createPDF(nombrePdf, nombre, email, opinion);
+      new PdfItext().createPDF(nombrePdf, nombre, emailFrom, opinion);
       new Sender()
           .send(
-              email,
-              correo,
+              emailFrom,
+              emailTo,
               "Mensaje recibido.",
               "Ha recibido un mensaje desde contact",
               nombrePdf);
+      req.setAttribute("notificacion", "Mensaje enviado con éxito. Muchas gracias.");
+      req.getRequestDispatcher("/contact/form.jsp").forward(req, resp);
     } catch (DocumentException | URISyntaxException e) {
       resp.sendRedirect("/error.jsp");
     }

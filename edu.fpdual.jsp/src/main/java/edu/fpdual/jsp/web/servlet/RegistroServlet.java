@@ -52,7 +52,7 @@ public class RegistroServlet extends HttpServlet {
 
       } else {
         client.registroUsuario(
-            new UsuarioDto(null, usuarioIntroducido, correoIntroducido, passwordIntroducido));
+            new UsuarioDto(null, usuarioIntroducido, correoIntroducido, passwordIntroducido, 0));
         req.setAttribute("notificacion", "Registro completado con éxito.");
         req.getRequestDispatcher("/index.jsp").forward(req, resp);
       }

@@ -71,6 +71,17 @@ public class UsuarioService {
     }
   }
 
+  public int updatePuntos(int puntosObtenidos, String nombre) throws SQLException, ClassNotFoundException {
+    Connection con = null;
+    try {
+      con = connector.getMySQLConnection();
+     return manager.updatePuntos(con, puntosObtenidos, nombre);
+    } finally {
+      if (con != null) {
+        con.close();
+      }
+    }
+  }
   public int eliminarUsuario(int id) throws SQLException, ClassNotFoundException {
     Connection con = null;
     int lineas = 0;

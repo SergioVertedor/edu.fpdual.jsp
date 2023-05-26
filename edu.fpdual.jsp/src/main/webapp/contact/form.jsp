@@ -21,6 +21,10 @@
 	<textarea id="opinion" name="opinion" rows="5" cols="30"></textarea><br><br>
 
 	<input type="submit" value="Enviar">
+	<% String mensaje = (String) request.getAttribute("notificacion");
+		if (mensaje != null){  %>
+	<p class='notificacion'><%= mensaje %></p>
+	<% } %>
 </form>
 </body>
 </html>

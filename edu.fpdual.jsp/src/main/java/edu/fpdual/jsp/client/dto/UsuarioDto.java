@@ -11,12 +11,18 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @XmlRootElement
-public class UsuarioDto {
+public class UsuarioDto implements Comparable<UsuarioDto> {
 
     private String id;
     private String nombre;
     private String correo;
     private String password;
+    private int puntos;
 
+
+    @Override
+    public int compareTo(UsuarioDto user) {
+        return Integer.compare(this.puntos, user.getPuntos());
+    }
 }
 

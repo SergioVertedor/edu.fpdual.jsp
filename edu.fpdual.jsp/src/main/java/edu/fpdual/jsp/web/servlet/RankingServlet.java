@@ -8,11 +8,14 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
 
 @WebServlet(
-    name = "ModificarUsuarioServlet",
-    urlPatterns = {"/cpanel-modificar-usuario-servlet"})
-public class CpanelModificarUsuarioServlet extends HttpServlet {
+    name = "RankingServlet",
+    urlPatterns = {"/ranking"})
+public class RankingServlet extends HttpServlet {
+
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
@@ -20,7 +23,8 @@ public class CpanelModificarUsuarioServlet extends HttpServlet {
   }
 
   /***
-   * Método que modifica el usuario a través del formulario realizado por el usuario.
+   * Método que consulta la existencia del usuario a través de la id introducida, y acto seguido
+   * remite los parámetros del usuario a cpanel.jsp.
    * @param req Parametros recibidos desde cpanel.jsp
    * @param resp Parametros a disposición para cpanel.jsp
    * @throws ServletException
@@ -31,27 +35,13 @@ public class CpanelModificarUsuarioServlet extends HttpServlet {
       throws ServletException, IOException {
     UsuarioClient client = new UsuarioClient();
     UsuarioDto usuario = (UsuarioDto) req.getSession().getAttribute("usuarioSesion");
-    if (!usuario.getNombre().equalsIgnoreCase("admin")) {
+    if (usuario == null) {
       homePage(resp, usuario);
     } else {
-      String identificador = req.getParameter("identificador");
-      String usuarioIntroducido = req.getParameter("nombreUsuario");
-      String correoIntroducido = req.getParameter("correo");
-      String passwordIntroducido = req.getParameter("password");
-      if (passwordIntroducido.length() > 8 || passwordIntroducido.length() < 6) {
-        req.setAttribute(
-            "notificacionUpdate", "La contraseña debe contener entre 6 y 8 carácteres.");
-        req.setAttribute("id", identificador);
-        req.setAttribute("nombreUsuario", usuarioIntroducido);
-        req.setAttribute("correo", correoIntroducido);
-        req.setAttribute("password", passwordIntroducido);
-        req.getRequestDispatcher("/controlpanel/modificar.jsp").forward(req, resp);
-      } else {
-        client.modificaUsuario(
-            new UsuarioDto(
-                identificador, usuarioIntroducido, correoIntroducido, passwordIntroducido, 0));
-        req.getRequestDispatcher("/controlpanel/cpanel.jsp").forward(req, resp);
-      }
+      List<UsuarioDto> users = client.getUsuarios();
+      Collections.sort(users, Collections.reverseOrder());
+      req.setAttribute("lista", users);
+      req.getRequestDispatcher("/leaderboard/ranking.jsp").forward(req, resp);
     }
   }
 
