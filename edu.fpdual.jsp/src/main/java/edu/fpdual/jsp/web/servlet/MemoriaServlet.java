@@ -21,8 +21,11 @@ public class MemoriaServlet extends HttpServlet {
         int operacion = 32 * 1024 - (5 * 500);
 
         String mensaje = calcularMensaje(pregunta, operacion);
+        int puntuacion = calcularPuntuacion(pregunta, operacion);
 
         request.setAttribute("mensaje", mensaje);
+        request.setAttribute("puntuacion", puntuacion);
+
         request.getRequestDispatcher("/comun/memoria.jsp").forward(request, response);
     }
 
@@ -34,5 +37,13 @@ public class MemoriaServlet extends HttpServlet {
                 return "Respuesta incorrecta. Inténtalo de nuevo.";
             }
         }).apply(pregunta);
+    }
+
+    private int calcularPuntuacion(String pregunta, int operacion) {
+        if (pregunta != null && pregunta.equals(String.valueOf(operacion))) {
+            return 100;
+        } else {
+            return 0;
+        }
     }
 }

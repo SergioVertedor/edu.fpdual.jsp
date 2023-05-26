@@ -18,6 +18,9 @@ public class AhorcadoServlet extends HttpServlet {
     private char[] letrasAdivinadas;
     private int intentos = 10;
 
+    private int puntuacion = 0;
+
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -52,14 +55,17 @@ public class AhorcadoServlet extends HttpServlet {
             request.setAttribute("mensaje", "¡ENHORABUENA, Ganaste! La palabra era " + palabra);
             request.setAttribute("reiniciar", true);
             palabra = null;
+            puntuacion += 50; // Incrementar la puntuación en 50 puntos por adivinar la palabra
         } else if (intentos == 0) {
             request.setAttribute("mensaje", "Perdiste :( La palabra era " + palabra);
             request.setAttribute("reiniciar", true);
             palabra = null;
         }
 
+
         request.setAttribute("letrasAdivinadas", String.valueOf(letrasAdivinadas));
         request.setAttribute("intentos", intentos);
+        request.setAttribute("puntuacion", puntuacion);
         request.getRequestDispatcher("/comun/ahorcado.jsp").forward(request, response);
 
     }

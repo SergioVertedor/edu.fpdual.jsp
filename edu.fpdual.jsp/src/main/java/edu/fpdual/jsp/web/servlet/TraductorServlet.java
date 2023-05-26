@@ -13,12 +13,16 @@ import java.util.*;
 
 @WebServlet("/traductor-servlet")
 public class TraductorServlet extends HttpServlet {
+
+    private static final String PALABRAS_ATTRIBUTE = "palabras";
+    private static final String PUNTUACION_ATTRIBUTE = "puntuacion";
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(true);
-        List<String[]> palabras = (List<String[]>) session.getAttribute("palabras");
+        List<String[]> palabras = (List<String[]>) session.getAttribute(PALABRAS_ATTRIBUTE);
         if (palabras == null || palabras.isEmpty() || request.getParameter("reiniciar") != null) {
             palabras = inicializarPalabras();
-            session.setAttribute("palabras", palabras);
+            session.setAttribute(PALABRAS_ATTRIBUTE, palabras);
         }
 
         String palabra = "";
@@ -32,22 +36,27 @@ public class TraductorServlet extends HttpServlet {
 
         String respuesta = request.getParameter("respuesta");
         boolean respuestaValida = false;
+        String mensaje = "";
 
         if (respuesta != null && !respuesta.isEmpty()) {
             if (esValida(respuesta)) {
                 respuesta = respuesta.toLowerCase();
                 if (respuesta.equals(traduccion)) {
                     respuestaValida = true;
-                    request.setAttribute("mensaje", "¡Respuesta correcta!");
+                    mensaje = "¡Respuesta correcta!";
+                    incrementarPuntuacion(session);
                 } else {
-                    request.setAttribute("mensaje", "Respuesta incorrecta. La traducción correcta es: " + traduccion);
+                    mensaje = "Respuesta incorrecta. La traducción correcta es: " + traduccion;
                 }
             } else {
-                request.setAttribute("mensaje", "¡Error! La respuesta solo puede contener letras.");
+                mensaje = "¡Error! La respuesta solo puede contener letras.";
             }
         }
 
         request.setAttribute("palabra", palabra);
+        request.setAttribute("respuestaValida", respuestaValida);
+        request.setAttribute("puntuacion", obtenerPuntuacion(session));
+        request.setAttribute("mensaje", mensaje);
         request.getRequestDispatcher("/comun/traductor.jsp").forward(request, response);
     }
 
@@ -71,5 +80,22 @@ public class TraductorServlet extends HttpServlet {
 
     private boolean esValida(String respuesta) {
         return respuesta.matches("[a-zA-Z]+");
+    }
+
+    private void incrementarPuntuacion(HttpSession session) {
+        Integer puntuacion = (Integer) session.getAttribute(PUNTUACION_ATTRIBUTE);
+        if (puntuacion == null) {
+            puntuacion = 0;
+        }
+        puntuacion += 50; // Sumar 50 puntos
+        session.setAttribute(PUNTUACION_ATTRIBUTE, puntuacion);
+    }
+
+    private int obtenerPuntuacion(HttpSession session) {
+        Integer puntuacion = (Integer) session.getAttribute(PUNTUACION_ATTRIBUTE);
+        if (puntuacion == null) {
+            puntuacion = 0;
+        }
+        return puntuacion;
     }
 }
