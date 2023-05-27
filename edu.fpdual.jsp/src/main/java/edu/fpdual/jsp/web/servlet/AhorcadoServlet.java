@@ -1,5 +1,6 @@
 package edu.fpdual.jsp.web.servlet;
 
+import edu.fpdual.jsp.client.UsuarioClient;
 import edu.fpdual.jsp.client.dto.UsuarioDto;
 import java.io.IOException;
 import java.util.Arrays;
@@ -12,6 +13,9 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/ahorcado")
 public class AhorcadoServlet extends HttpServlet {
 
+
+
+
     private String[] palabras = {"codigo", "binario", "string", "comando","bug", "depurar", "compilar","bucle",
             "array","variable","algoritmo","interfaz","clase","objeto","refactorizacion"};
     private String palabra = null;
@@ -23,6 +27,8 @@ public class AhorcadoServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        UsuarioDto usuario = (UsuarioDto) request.getSession().getAttribute("usuarioSesion");
 
         if (palabra == null) {
             palabra = palabras[(int) (Math.random() * palabras.length)];
@@ -56,6 +62,7 @@ public class AhorcadoServlet extends HttpServlet {
             request.setAttribute("reiniciar", true);
             palabra = null;
             puntuacion += 50; // Incrementar la puntuación en 50 puntos por adivinar la palabra
+            new UsuarioClient().updatePuntos(puntuacion, usuario.getNombre());
         } else if (intentos == 0) {
             request.setAttribute("mensaje", "Perdiste :( La palabra era " + palabra);
             request.setAttribute("reiniciar", true);
@@ -66,13 +73,14 @@ public class AhorcadoServlet extends HttpServlet {
         request.setAttribute("letrasAdivinadas", String.valueOf(letrasAdivinadas));
         request.setAttribute("intentos", intentos);
         request.setAttribute("puntuacion", puntuacion);
+
+
         request.getRequestDispatcher("/comun/ahorcado.jsp").forward(request, response);
 
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        UsuarioDto usuario = (UsuarioDto) request.getSession().getAttribute("usuarioSesion");
         doGet(request, response);
     }
 

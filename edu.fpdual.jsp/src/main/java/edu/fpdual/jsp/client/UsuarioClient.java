@@ -41,16 +41,15 @@ public class UsuarioClient {
   public UsuarioDto getUsuarioPorNombre(String nombre) {
 
     return webTarget
-            .path("user/getid/" + nombre)
-            .request(MediaType.APPLICATION_JSON)
-            .get(UsuarioDto.class);
+        .path("user/getid/" + nombre)
+        .request(MediaType.APPLICATION_JSON)
+        .get(UsuarioDto.class);
   }
-
 
   public int updatePuntos(int puntosObtenidos, String nombre) {
     String respuesta =
         webTarget
-            .path("user/add/" + nombre + puntosObtenidos)
+            .path("user/add/" + nombre + "/" + puntosObtenidos)
             .request(MediaType.TEXT_PLAIN)
             .get(String.class);
     return Integer.parseInt(respuesta);

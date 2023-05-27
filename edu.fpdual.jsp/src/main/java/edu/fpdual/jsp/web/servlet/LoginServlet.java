@@ -35,10 +35,10 @@ public class LoginServlet extends HttpServlet {
           client.checkPassword(new UsuarioDto(null, usuarioIntroducido, null, passwordIntroducido, 0));
       if (!client.checkUsuarioPorNombre(usuarioIntroducido)) {
         req.setAttribute("error", "El usuario no existe.");
-        req.getRequestDispatcher("/index.jsp").forward(req, resp);
+        req.getRequestDispatcher("/login/login.jsp").forward(req, resp);
       } else if (!esCorrecto) {
         req.setAttribute("error", "Usuario y contraseña no coinciden.");
-        req.getRequestDispatcher("/index.jsp").forward(req, resp);
+        req.getRequestDispatcher("/login/login.jsp").forward(req, resp);
       } else {
         if (usuarioIntroducido != null && passwordIntroducido != null) {
           usuario =
@@ -50,7 +50,7 @@ public class LoginServlet extends HttpServlet {
           req.getSession().setAttribute("usuarioSesion", usuario);
           req.getRequestDispatcher("/ahorcado").forward(req, resp);
         } else {
-          resp.sendRedirect("/index.jsp");
+          resp.sendRedirect("/login/login.jsp");
         }
       }
     }
