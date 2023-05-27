@@ -1,6 +1,5 @@
 package edu.fpdual.webservice.model.application.manager;
 
-import edu.fpdual.webservice.model.application.dao.PartidaDao;
 import edu.fpdual.webservice.model.application.dao.UsuarioDao;
 
 import java.sql.*;
