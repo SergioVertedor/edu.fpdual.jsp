@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Registro de Usuarios</title>
-       <link rel="stylesheet" type="text/css" href="/registro/style/style.css"/>
-       <link rel="icon" href="/comun/images/favicon.jpg" type="image/jpeg" />
-       <link rel="shortcut icon" href="/comun/images/favicon.jpg" type="image/jpeg" />
+    <link rel="stylesheet" href="/registro/style/style.css"/>
+    <link rel="icon" href="/comun/images/favicon.jpg" type="image/jpeg" />
+    <link rel="shortcut icon" href="/comun/images/favicon.jpg" type="image/jpeg" />
 </head>
 <body>
 <hgroup>
-    <h1>HackeaPalabra</h1>
+    <h1>Hackea la palabra</h1>
 </hgroup>
 <form action="/registro-servlet" method="POST">
     <div class="group">

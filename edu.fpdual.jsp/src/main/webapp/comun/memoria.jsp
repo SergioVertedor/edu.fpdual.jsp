@@ -40,10 +40,16 @@
       %>
       <form action="/memorias" method="post">
           <label>Si tengo un pendrive con 32GB y agrego 5 imágenes que pesan 500MB cada una, ¿cuánta memoria le queda al pendrive?</label>
+          <div>
           <input type="text" name="answer" required>
+          <div>
           <br><br>
           <input type="submit" value="Enviar respuesta">
       </form>
+      <br>
+      <br>
+      <br>
+      <br>
 <footer id="footer" class="wrapper style1-alt">
     <div class="inner">
         <ul class="menu">
