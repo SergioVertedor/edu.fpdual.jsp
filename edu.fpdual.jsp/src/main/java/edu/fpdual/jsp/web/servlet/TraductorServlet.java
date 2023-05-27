@@ -1,6 +1,7 @@
 package edu.fpdual.jsp.web.servlet;
 
-import jakarta.servlet.RequestDispatcher;
+import edu.fpdual.jsp.client.UsuarioClient;
+import edu.fpdual.jsp.client.dto.UsuarioDto;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -19,6 +20,7 @@ public class TraductorServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(true);
+        UsuarioDto usuario = (UsuarioDto) request.getSession().getAttribute("usuarioSesion");
         List<String[]> palabras = (List<String[]>) session.getAttribute(PALABRAS_ATTRIBUTE);
         if (palabras == null || palabras.isEmpty() || request.getParameter("reiniciar") != null) {
             palabras = inicializarPalabras();
@@ -44,7 +46,7 @@ public class TraductorServlet extends HttpServlet {
                 if (respuesta.equals(traduccion)) {
                     respuestaValida = true;
                     mensaje = "¡Respuesta correcta!";
-                    incrementarPuntuacion(session);
+                    incrementarPuntuacion(session, usuario);
                 } else {
                     mensaje = "Respuesta incorrecta. La traducción correcta es: " + traduccion;
                 }
@@ -82,13 +84,14 @@ public class TraductorServlet extends HttpServlet {
         return respuesta.matches("[a-zA-Z]+");
     }
 
-    private void incrementarPuntuacion(HttpSession session) {
+    private void incrementarPuntuacion(HttpSession session, UsuarioDto usuario) {
         Integer puntuacion = (Integer) session.getAttribute(PUNTUACION_ATTRIBUTE);
         if (puntuacion == null) {
             puntuacion = 0;
         }
         puntuacion += 50; // Sumar 50 puntos
         session.setAttribute(PUNTUACION_ATTRIBUTE, puntuacion);
+        new UsuarioClient().updatePuntos(puntuacion, usuario.getNombre());
     }
 
     private int obtenerPuntuacion(HttpSession session) {
