@@ -35,9 +35,15 @@
 
     <% if (palabra != null && !palabra.isEmpty()) { %>
         <form action="/traductor-servlet" method="post">
-            <p>Traduce la siguiente palabra:</p>
-            <p><strong><%= palabra %></strong></p>
-            <input type="text" name="respuesta" placeholder="Escribe aquí tu respuesta" required>
+            <div>
+                <p>Traduce la siguiente palabra:</p>
+                <p><strong><%= palabra %></strong></p>
+            </div>
+            <br>
+            <div>
+                <input type="text" name="respuesta" placeholder="Escribe aquí tu respuesta" required>
+            </div>
+            <br>
             <button type="submit">Verificar</button>
         </form>
     <% } %>
@@ -57,11 +63,12 @@
             <button type="submit">Reiniciar Juego</button>
         <% } %>
     </form>
-
-    <h1>Juego de calcular el espacio de dispositivos de almacenamiento</h1>
-    <form action="/comun/memoria.jsp" method="post">
-        <input type="submit" value="Jugar">
-    </form>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
 <footer id="footer" class="wrapper style1-alt">
     <div class="inner">
         <ul class="menu">
