@@ -10,18 +10,28 @@
 
 </head>
 <body>
+<section id="sidebar">
+    <div class="inner">
+        <nav>
+            <ul>
+                <li><a href="/index.html">Inicio</a></li>
+                <li><a href="/send">Contactanos</a></li>
+            </ul>
+        </nav>
+    </div>
+</section>
 <hgroup>
 	<h1>Hackea la palabra</h1>
 </hgroup>
 <form action="/servlet-login" method="POST">
-	<div class="group">
-		<input type="text" id="usuario" name="usuario"><span class="highlight"></span><span class="bar"></span>
-		<label>Name</label>
+	<div>
+		<input type="text" id="usuario" name="usuario" placeholder="Usuario"><span class="highlight"></span><span class="bar"></span>
 	</div>
-	<div class="group">
-		<input type="password" id="contrasena" name="contrasena"><span class="highlight"></span><span class="bar"></span>
-		<label>password</label>
+	<br>
+	<div>
+		<input type="password" id="contrasena" name="contrasena" placeholder="Contraseña"><span class="highlight"></span><span class="bar"></span>
 	</div>
+	<br>
 	<% String mensaje = (String) request.getAttribute("error");
 		if (mensaje != null){  %>
 	<p class='error'><%= mensaje %></p>
@@ -33,9 +43,25 @@
 	<button type="submit" class="button buttonBlue">Login
 		<div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
 	</button>
-	<a href="/registro/registro.jsp" target="_self">¿No tienes cuenta aún? ¡Haz click aquí para registrarte!</a>
+	<br>
+	<br>
+	<div>
+	    <a href="/registro/registro.jsp" target="_self">¿No tienes cuenta aún? ¡Haz click aquí para registrarte!</a>
+    </div>
 </form>
-
 </div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<footer id="footer" class="wrapper style1-alt">
+    <div class="inner">
+        <ul class="menu">
+            <li>&copy; HackealaPalabra. Todos los derechos reservados.</li>
+        </ul>
+    </div>
+</footer>
 </body>
 </html>

@@ -20,10 +20,11 @@
     <div class="inner">
         <nav>
             <ul>
-                <li><a href="/comun/ahorcado.jsp">Ahorcado</a></li>
-                <li><a href="/comun/traductor.jsp">Traduce las palabras</a></li>
-                <li><a href="/comun/memoria.jsp">Calcula la memoria</a></li>
-                <li><a href="/contact/form.jsp">Contactanos</a></li>
+                <li><a href="/index.html">Inicio</a></li>
+                <li><a href="/ahorcado">Ahorcado</a></li>
+                <li><a href="/traductor-servlet">Traduce las palabras</a></li>
+                <li><a href="/memorias">Calcula la memoria</a></li>
+                <li><a href="/ranking">Ranking</a></li>
             </ul>
         </nav>
     </div>

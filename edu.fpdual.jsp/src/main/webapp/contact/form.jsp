@@ -6,19 +6,31 @@
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="/contact/style/style.css">
 </head>
 <body>
-<h1>Formulario de Contacto</h1>
+<section id="sidebar">
+    <div class="inner">
+        <nav>
+            <ul>
+                <li><a href="/index.html">Inicio</a></li>
+                <li><a href="/send">Contactanos</a></li>
+            </ul>
+        </nav>
+    </div>
+</section>
+<br>
+<div>
+    <h1>Formulario de Contacto</h1>
+</div>
+<br>
 
 <form action="/send" method="POST">
-	<label for="nombre">Nombre:</label><br>
-	<input type="text" id="nombre" name="nombre"><br><br>
+	<input type="text" id="nombre" name="nombre" placeholder="Usuario" required><br>
 
-	<label for="email">Correo electrónico:</label><br>
-	<input type="email" id="email" name="email"><br><br>
+	<input type="email" id="email" name="email" placeholder="Email" required><br>
 
-	<label for="opinion">Opinión o Sugerencias:</label><br>
-	<textarea id="opinion" name="opinion" rows="5" cols="30"></textarea><br><br>
+	<textarea id="opinion" name="opinion" rows="5" cols="30" placeholder="Opinión o Sugerencias"></textarea><br>
 
 	<input type="submit" value="Enviar">
 	<% String mensaje = (String) request.getAttribute("notificacion");

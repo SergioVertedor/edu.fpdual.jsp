@@ -178,7 +178,7 @@ input, select, textarea {
 	h1, h2, h3, h4, h5, h6 {
 		color: #ffffff;
 		font-weight: bold;
-		line-height: 1.5;
+		line-height: 1;
 		margin: 0 0 0.5em 0;
 	}
 
@@ -188,7 +188,7 @@ input, select, textarea {
 		}
 
 	h1 {
-		font-size: 2.75em;
+		font-size: 1em;
 	}
 
 		h1.major {
@@ -238,7 +238,7 @@ input, select, textarea {
 	@media screen and (max-width: 736px) {
 
 		h1 {
-			font-size: 2em;
+			font-size: 1em;
 		}
 
 		h2 {
