@@ -48,6 +48,12 @@ public class UsuarioManager {
     }
   }
 
+  /***
+   * Busca un usuario en la base de datos a partir de su nombre y lo devuelve.
+   * @param con Conexión con MySQL
+   * @param nombre Valor del campo nombre a buscar.
+   * @return Devuelve un objeto del tipo UsuarioDao.
+   */
   public UsuarioDao buscarIdPorNombre(Connection con, String nombre) {
 
     try (PreparedStatement stmt = con.prepareStatement("SELECT * FROM usuario where nombre = ?")) {
@@ -64,7 +70,12 @@ public class UsuarioManager {
     }
   }
 
-
+  /***
+   * Busca en la bse de datos a partir del campo nombre, si existe una coincidencia, devuelve un boolean.
+   * @param con Conexión con MySQL
+   * @param name Valor del campo nombre a buscar.
+   * @return Devuelve un boolean.
+   */
   public boolean buscarPorNombreExacto(Connection con, String name) {
     boolean isListed = false;
     try (PreparedStatement stmt = con.prepareStatement("SELECT * FROM usuario where nombre = ?")) {
@@ -87,6 +98,12 @@ public class UsuarioManager {
     return isListed;
   }
 
+  /***
+   * Busca en la bse de datos a partir del campo nombre, si existe una coincidencia, devuelve un boolean.
+   * @param con Conexión con MySQL
+   * @param name Valor del campo nombre a buscar.
+   * @return Devuelve un boolean.
+   */
   public boolean buscarUsuarioConPassword(Connection con, String name, String password) {
     boolean esCorrecto = false;
     try (PreparedStatement stmt =
@@ -115,6 +132,12 @@ public class UsuarioManager {
     return esCorrecto;
   }
 
+  /***
+   * Se añade entrada en la tabla usuario a partir de un objeto UsuarioDao.
+   * @param con Conexión con MySQL
+   * @param usuario Objeto del cual se obtiene los valores a insertar en la base de datos.
+   * @return Devuelve un int con el número de lineas modificadas, se espera 1 para que todo sea correcto.
+   */
   public int insertarUsuario(Connection con, UsuarioDao usuario) {
     int lineas = 0;
     try {
@@ -131,6 +154,13 @@ public class UsuarioManager {
     return lineas;
   }
 
+  /***
+   * Actualización del campo puntos para añadir las puntuaciones de los juegos.
+   * @param con Conexión con MySQL
+   * @param puntosObtenidos Puntos a añadir en el campo puntos.
+   * @param nombre Valor del campo nombre a buscar.
+   * @return Devuelve un int con el número de lineas modificadas, se espera 1 para que todo sea correcto.
+   */
   public int updatePuntos(Connection con, int puntosObtenidos, String nombre) {
     int lineas = 0;
     try {
@@ -145,6 +175,12 @@ public class UsuarioManager {
     return lineas;
   }
 
+  /***
+   * Elimina una entrada de usuario usando del campo id.
+   * @param con Conexión con MySQL
+   * @param id Identificador proporcionado por el cliente.
+   * @return Devuelve un int con el número de lineas modificadas, se espera 1 para que todo sea correcto.
+   */
   public int eliminarUsuario(Connection con, int id) {
     int lineas = 0;
     try {
@@ -157,6 +193,12 @@ public class UsuarioManager {
     return lineas;
   }
 
+  /***
+   * Modifica los campos correo o password del registro que coincida con el usuario que se pasa por parámetro.
+   * @param con Conexión con MySQL
+   * @param usuario Objeto del cual se obtiene los valores a modificar en la base de datos.
+   * @return Devuelve un int con el número de lineas modificadas, se espera 1 para que todo sea correcto.
+   */
   public int modificarUsuario(Connection con, UsuarioDao usuario) {
     int lineas = 0;
     try {

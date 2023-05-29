@@ -7,7 +7,6 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
-
 public class UsuarioService {
   private MySQLConnector connector;
   private UsuarioManager manager;
@@ -18,7 +17,7 @@ public class UsuarioService {
   }
 
   /***
-   * Metodo que busca en el servidor MySQL todos los usuarios.
+   * Llamada a manager para solicitar una lista de todos los usuarios.
    * @return Devuelve una lista que contiene todos los usuarios en el registro.
    * @throws SQLException
    * @throws ClassNotFoundException
@@ -35,6 +34,13 @@ public class UsuarioService {
     }
   }
 
+  /***
+   *
+   * @param id
+   * @return
+   * @throws SQLException
+   * @throws ClassNotFoundException
+   */
   public UsuarioDao buscarPorId(int id) throws SQLException, ClassNotFoundException {
     Connection con = null;
     try {
@@ -83,17 +89,19 @@ public class UsuarioService {
     }
   }
 
-  public int updatePuntos(int puntosObtenidos, String nombre) throws SQLException, ClassNotFoundException {
+  public int updatePuntos(int puntosObtenidos, String nombre)
+      throws SQLException, ClassNotFoundException {
     Connection con = null;
     try {
       con = connector.getMySQLConnection();
-     return manager.updatePuntos(con, puntosObtenidos, nombre);
+      return manager.updatePuntos(con, puntosObtenidos, nombre);
     } finally {
       if (con != null) {
         con.close();
       }
     }
   }
+
   public int eliminarUsuario(int id) throws SQLException, ClassNotFoundException {
     Connection con = null;
     int lineas = 0;
@@ -108,7 +116,8 @@ public class UsuarioService {
     }
   }
 
-  public boolean buscarUsuarioConPassword(String name, String password) throws SQLException, ClassNotFoundException {
+  public boolean buscarUsuarioConPassword(String name, String password)
+      throws SQLException, ClassNotFoundException {
     Connection con = null;
     boolean esCorrecto = false;
     try {
@@ -118,7 +127,6 @@ public class UsuarioService {
       if (con != null) {
         con.close();
       }
-
     }
     return esCorrecto;
   }
