@@ -19,6 +19,13 @@ public class LoginServlet extends HttpServlet {
     doPost(req, resp);
   }
 
+  /***
+   * Método encargado de validar los datos introducidos y ejecutar la comprobación de login por cliente.
+   * @param req Parametros recibidos desde login.jsp
+   * @param resp Parametros a disposición para login.jsp
+   * @throws ServletException
+   * @throws IOException
+   */
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
