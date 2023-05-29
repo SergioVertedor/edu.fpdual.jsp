@@ -18,8 +18,8 @@ import java.util.List;
 @Path("/user")
 public class UsuarioController {
   /***
-   *
-   * @return
+   * Recoge una solicitud HTTP GET, la traslada al Service y produce una respuesta en formato JSON.
+   * @return Devuelve en formato JSON una lista de UsuarioDao extraídos de BBDD.
    * @throws SQLException
    * @throws ClassNotFoundException
    */
@@ -33,6 +33,13 @@ public class UsuarioController {
     return Response.ok().entity(usuarios).build();
   }
 
+  /***
+   * Recoge una solicitud HTTP GET, la traslada al Service y produce una respuesta en formato JSON.
+   * @param id entero que se recoge para localizar la id de usuario en BBDD.
+   * @return Devuelve en formato JSON un UsuarioDao extraído de BBDD.
+   * @throws SQLException
+   * @throws ClassNotFoundException
+   */
   @GET
   @Path("/get/{id}")
   @Produces(MediaType.APPLICATION_JSON)
@@ -42,6 +49,13 @@ public class UsuarioController {
     return Response.ok().entity(usuario).build();
   }
 
+  /***
+   * Recoge una solicitud HTTP GET, la traslada al Service y produce una respuesta en formato JSON.
+   * @param nombre String que se recoge para localizar el nombre de usuario en BBDD.
+   * @return Devuelve en formato JSON un UsuarioDao extraído de BBDD.
+   * @throws SQLException
+   * @throws ClassNotFoundException
+   */
   @GET
   @Path("/getid/{nombre}")
   @Produces(MediaType.APPLICATION_JSON)
@@ -51,6 +65,14 @@ public class UsuarioController {
     return Response.ok().entity(usuario).build();
   }
 
+  /***
+   * Recoge una solicitud HTTP GET, la traslada al Service y produce una respuesta en texto plano.
+   * @param nombre String que se recoge para localizar el nombre de usuario en BBDD.
+   * @param puntosObtenidos Entero proporcionado para sumar a los puntos existentes.
+   * @return int con el número de filas alteradas (se espera 1 para que sea correcto).
+   * @throws SQLException
+   * @throws ClassNotFoundException
+   */
     @GET
     @Path("/add/{nombre}/{puntos}")
     @Produces(MediaType.TEXT_PLAIN)
@@ -60,6 +82,13 @@ public class UsuarioController {
         return Response.ok().entity(resultado).build();
     }
 
+  /***
+   * Recoge una solicitud HTTP GET, la traslada al Service y produce una respuesta en texto plano.
+   * @param nombre String que se recoge para localizar el nombre de usuario en BBDD.
+   * @return boolean True si existe el usuario.
+   * @throws SQLException
+   * @throws ClassNotFoundException
+   */
   @GET
   @Path("/check/{nombre}")
   @Produces(MediaType.TEXT_PLAIN)
@@ -75,6 +104,15 @@ public class UsuarioController {
     return Response.ok().entity(resultado).build();
   }
 
+  /***
+   * Recoge una solicitud HTTP POST que incluye un objeto en formato JSON, la traslada al Service y
+   * produce una respuesta en texto plano.
+   * @param user Objeto en formato JSON correspondiente a un UsuarioDao.
+   * @return boolean true si el nombre y la contraseña del objeto, coinciden con
+   * los registros de la BBDD.
+   * @throws SQLException
+   * @throws ClassNotFoundException
+   */
   @POST
   @Path("/login")
   @Consumes(MediaType.APPLICATION_JSON)
@@ -89,6 +127,14 @@ public class UsuarioController {
     return Response.ok().entity(esCorrecto).build();
   }
 
+  /***
+   * Recoge una solicitud HTTP POST que incluye un objeto en formato JSON, la traslada al Service y
+   * produce una respuesta en texto plano.
+   * @param user Objeto en formato JSON correspondiente a un UsuarioDao.
+   * @return int con el número de filas alteradas (se espera 1 para que sea correcto).
+   * @throws SQLException
+   * @throws ClassNotFoundException
+   */
   @POST
   @Path("/registro")
   @Consumes(MediaType.APPLICATION_JSON)
@@ -98,6 +144,13 @@ public class UsuarioController {
     return Response.ok().entity(resultado).build();
   }
 
+  /***
+   * Recoge una solicitud HTTP GET y la traslada al Service.
+   * @param id entero que indica la identificación del registro en BBDD a eliminar
+   * @return int con el número de filas alteradas (se espera 1 para que sea correcto).
+   * @throws SQLException
+   * @throws ClassNotFoundException
+   */
   @GET
   @Path("/eliminar/{id}")
   @Produces(MediaType.TEXT_PLAIN)
@@ -108,6 +161,14 @@ public class UsuarioController {
     return Response.ok().entity(resultado).build();
   }
 
+  /***
+   * Recoge una solicitud HTTP POST que incluye un objeto en formato JSON, la traslada al Service y
+   * produce una respuesta en texto plano.
+   * @param user Objeto UsuarioDao en formato JSON trasladado para actualizar en BBDD.
+   * @return int con el número de filas alteradas (se espera 1 para que sea correcto).
+   * @throws SQLException
+   * @throws ClassNotFoundException
+   */
   @POST
   @Path("/modificar")
   @Consumes(MediaType.APPLICATION_JSON)
