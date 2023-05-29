@@ -22,7 +22,14 @@ public class RankingServlet extends HttpServlet {
     doPost(req, resp);
   }
 
-
+  /***
+   * Método encargado de usar el cliente para conseguir una lista de los usuarios, ordenarlos
+   * y devolverlos a ranking.jsp
+   * @param req Parámetros recibidos desde petición.
+   * @param resp Parámetros a disposición de /ranking.jsp
+   * @throws ServletException
+   * @throws IOException
+   */
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {

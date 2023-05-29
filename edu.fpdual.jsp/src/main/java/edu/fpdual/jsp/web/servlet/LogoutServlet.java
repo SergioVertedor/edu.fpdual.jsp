@@ -14,6 +14,14 @@ public class LogoutServlet {
             name = "LogoutServlet",
             urlPatterns = {"/logout"})
     public class ServletVolverLogin extends HttpServlet {
+
+        /***
+         * Método encargado de pasar la sesión a null y redireccionar a la raíz.
+         * @param req Parámetros recibidos desde petición.
+         * @param resp Parámetros a disposición de /
+         * @throws ServletException
+         * @throws IOException
+         */
         @Override
         protected void doGet(HttpServletRequest req, HttpServletResponse resp)
                 throws ServletException, IOException {

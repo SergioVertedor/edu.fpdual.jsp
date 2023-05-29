@@ -21,8 +21,8 @@ public class LoginServlet extends HttpServlet {
 
   /***
    * Método encargado de validar los datos introducidos y ejecutar la comprobación de login por cliente.
-   * @param req Parametros recibidos desde login.jsp
-   * @param resp Parametros a disposición para login.jsp
+   * @param req Parámetros recibidos desde login.jsp
+   * @param resp Parámetros a disposición para login.jsp
    * @throws ServletException
    * @throws IOException
    */
