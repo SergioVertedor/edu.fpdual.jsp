@@ -17,6 +17,12 @@ import java.util.List;
 
 @Path("/user")
 public class UsuarioController {
+  /***
+   *
+   * @return
+   * @throws SQLException
+   * @throws ClassNotFoundException
+   */
   @GET
   @Path("/get/")
   @Produces(MediaType.APPLICATION_JSON)

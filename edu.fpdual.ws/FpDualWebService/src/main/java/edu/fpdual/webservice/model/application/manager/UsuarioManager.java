@@ -136,7 +136,8 @@ public class UsuarioManager {
    * Se añade entrada en la tabla usuario a partir de un objeto UsuarioDao.
    * @param con Conexión con MySQL
    * @param usuario Objeto del cual se obtiene los valores a insertar en la base de datos.
-   * @return Devuelve un int con el número de lineas modificadas, se espera 1 para que todo sea correcto.
+   * @return Devuelve un int con el número de lineas modificadas, se espera 1 para que
+   * todo sea correcto.
    */
   public int insertarUsuario(Connection con, UsuarioDao usuario) {
     int lineas = 0;
@@ -159,7 +160,8 @@ public class UsuarioManager {
    * @param con Conexión con MySQL
    * @param puntosObtenidos Puntos a añadir en el campo puntos.
    * @param nombre Valor del campo nombre a buscar.
-   * @return Devuelve un int con el número de lineas modificadas, se espera 1 para que todo sea correcto.
+   * @return Devuelve un int con el número de lineas modificadas, se espera 1 para que
+   * todo sea correcto.
    */
   public int updatePuntos(Connection con, int puntosObtenidos, String nombre) {
     int lineas = 0;
