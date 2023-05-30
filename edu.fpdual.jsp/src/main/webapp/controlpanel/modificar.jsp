@@ -59,9 +59,9 @@
 		password = "";
 	}%>
 <form action="/cpanel-modificar-usuario-servlet" method="post">
-	<label for="identificador">ID:</label>
+	<label class="noMod" for="identificador">ID:</label>
 	<input type="text" id="identificador" name="identificador" value="<%= identificador %>" readonly><br>
-	<label for="nombreUsuario">Usuario:</label>
+	<label class="noMod" for="nombreUsuario">Usuario:</label>
 	<input type="text" id="nombreUsuario" name="nombreUsuario" value="<%= usuarioModificado %>" readonly><br>
 
 	<label for="correo">Correo:</label>
