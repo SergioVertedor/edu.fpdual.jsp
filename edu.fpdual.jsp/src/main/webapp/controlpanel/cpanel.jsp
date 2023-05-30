@@ -8,12 +8,36 @@
 	<meta charset="UTF-8">
 	<link rel="icon" href="/comun/images/favicon.jpg" type="image/jpeg" />
     <link rel="shortcut icon" href="/comun/images/favicon.jpg" type="image/jpeg" />
+    <link rel="stylesheet" href="/controlpanel/style/style.css" type="text/css" >
 	<title>Panel de Control</title>
 	<link rel="icon" href="/comun/images/favicon.jpg" type="image/jpeg" />
 </head>
 <body>
-<br><br>
-<h3>Lista de usuarios:</h3>
+<%
+    UsuarioDto usuario = (UsuarioDto) request.getSession().getAttribute("usuarioSesion");
+%>
+<section id="sidebar">
+    <div class="inner">
+        <nav>
+            <ul>
+                <li><p> Bienvenido, <%= usuario.getNombre() %></p></li>
+                <li><a href="/index.html">Inicio</a></li>
+                <li><a href="/ahorcado">Ahorcado</a></li>
+                <li><a href="/traductor-servlet">Traduce las palabras</a></li>
+                <li><a href="/memorias">Calcula la memoria</a></li>
+                <li><a href="/ranking">Ranking</a></li>
+                <%
+                    if (usuario.getNombre().equals("admin")) {%>
+                <li><a href="/cpanel-listar-usuarios-servlet">Acceso a Panel de Control</a></li>
+                <%}%>
+                <li><a href="/logout">Cerrar sesión</a></li>
+            </ul>
+        </nav>
+    </div>
+</section>
+<br>
+<br>
+<h1>Lista de usuarios:</h1>
 <%List<UsuarioDto> lista = (List<UsuarioDto>) request.getAttribute("lista");
 if (lista != null) {%>
 <% String mensaje = (String) request.getAttribute("notificacion");

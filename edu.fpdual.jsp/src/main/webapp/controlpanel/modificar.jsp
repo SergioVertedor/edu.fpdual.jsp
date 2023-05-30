@@ -5,26 +5,52 @@
   Time: 14:01
   To change this template use File | Settings | File Templates.
 --%>
+<%@ page import="edu.fpdual.jsp.client.dto.UsuarioDto" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
 <link rel="icon" href="/comun/images/favicon.jpg" type="image/jpeg" />
 <link rel="shortcut icon" href="/comun/images/favicon.jpg" type="image/jpeg" />
-	<title>Title</title>
+<link rel="stylesheet" href="/controlpanel/style/style.css" type="text/css" >
+	<title>Modificacion</title>
 	<link rel="icon" href="/comun/images/favicon.jpg" type="image/jpeg" />
 </head>
 <body>
-<br><br>
+<%
+    UsuarioDto usuario = (UsuarioDto) request.getSession().getAttribute("usuarioSesion");
+%>
+<section id="sidebar">
+    <div class="inner">
+        <nav>
+            <ul>
+                <li><p> Bienvenido, <%= usuario.getNombre() %></p></li>
+                <li><a href="/index.html">Inicio</a></li>
+                <li><a href="/ahorcado">Ahorcado</a></li>
+                <li><a href="/traductor-servlet">Traduce las palabras</a></li>
+                <li><a href="/memorias">Calcula la memoria</a></li>
+                <li><a href="/ranking">Ranking</a></li>
+                <%
+                    if (usuario.getNombre().equals("admin")) {%>
+                <li><a href="/cpanel-listar-usuarios-servlet">Acceso a Panel de Control</a></li>
+                <%}%>
+                <li><a href="/logout">Cerrar sesión</a></li>
+            </ul>
+        </nav>
+    </div>
+</section>
+<br>
+<br>
+<h1>Modificacion de usuario:</h1>
 <%
 	String identificador = (String) request.getAttribute("id");
-	String usuario = (String) request.getAttribute("nombreUsuario");
+	String usuarioModificado = (String) request.getAttribute("nombreUsuario");
 	String correo = (String) request.getAttribute("correo");
 	String password = (String) request.getAttribute("password");
 	if (identificador == null) {
 		identificador = "";
 	}
-	if (usuario == null) {
-		usuario = "";
+	if (usuarioModificado == null) {
+		usuarioModificado = "";
 	}
 	if (correo == null) {
 		correo = "";
@@ -36,7 +62,7 @@
 	<label for="identificador">ID:</label>
 	<input type="text" id="identificador" name="identificador" value="<%= identificador %>" readonly><br>
 	<label for="nombreUsuario">Usuario:</label>
-	<input type="text" id="nombreUsuario" name="nombreUsuario" value="<%= usuario %>" readonly><br>
+	<input type="text" id="nombreUsuario" name="nombreUsuario" value="<%= usuarioModificado %>" readonly><br>
 
 	<label for="correo">Correo:</label>
 	<input type="email" id="correo" name="correo" value="<%= correo %>"><br>
