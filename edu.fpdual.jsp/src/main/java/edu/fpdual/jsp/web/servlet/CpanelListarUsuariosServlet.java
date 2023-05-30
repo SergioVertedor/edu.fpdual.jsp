@@ -36,6 +36,10 @@ public class CpanelListarUsuariosServlet extends HttpServlet {
     if (!usuario.getNombre().equalsIgnoreCase("admin")) {
       homePage(resp, usuario);
     } else {
+      String mensaje = (String) req.getAttribute("notificacion");
+      if (mensaje != null) {
+        req.setAttribute("notificacion", mensaje);
+      }
       List<UsuarioDto> lista = client.getUsuarios();
       req.setAttribute("lista", lista);
       req.getRequestDispatcher("/controlpanel/cpanel.jsp").forward(req, resp);

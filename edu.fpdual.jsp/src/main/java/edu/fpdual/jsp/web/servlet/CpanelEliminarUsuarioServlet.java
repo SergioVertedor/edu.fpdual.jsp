@@ -42,7 +42,7 @@ public class CpanelEliminarUsuarioServlet extends HttpServlet {
       } else {
         if (client.borrarUsuario(idUsuario) == 1) {
           req.setAttribute("notificacion", "Usuario eliminado correctamente.");
-          req.getRequestDispatcher("/controlpanel/cpanel.jsp").forward(req, resp);
+          req.getRequestDispatcher("/cpanel-listar-usuarios-servlet").forward(req, resp);
         }
       }
       homePage(resp, usuario);

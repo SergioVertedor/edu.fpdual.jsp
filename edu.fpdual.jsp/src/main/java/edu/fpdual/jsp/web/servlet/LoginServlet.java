@@ -31,7 +31,6 @@ public class LoginServlet extends HttpServlet {
       throws ServletException, IOException {
     UsuarioClient client = new UsuarioClient();
     UsuarioDto usuario = (UsuarioDto) req.getSession().getAttribute("usuarioSesion");
-    System.out.println(usuario);
     boolean esCorrecto = false;
     String usuarioIntroducido = req.getParameter("usuario");
     String passwordIntroducido = req.getParameter("contrasena");
