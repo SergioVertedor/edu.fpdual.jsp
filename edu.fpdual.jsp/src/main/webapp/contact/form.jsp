@@ -16,7 +16,7 @@
         <nav>
             <ul>
                 <li><a href="/index.html">Inicio</a></li>
-                <li><a href="/send">Contactanos</a></li>
+                <li><a href="/contact/form.jsp">Contactanos</a></li>
             </ul>
         </nav>
     </div>
