@@ -69,9 +69,9 @@
 
 	<label for="password">Contraseña:</label>
 	<input type="password" id="password" name="password" value="<%= password %>"><br>
-	<% String mensaje = (String) request.getAttribute("notificacionUpdate");
+	<% String mensaje = (String) request.getAttribute("notificacion");
 		if (mensaje != null) { %>
-	<p class='notificacionUpdate'><%= mensaje %>
+	<p class='notificacion'><%= mensaje %>
 	</p>
 	<% } %>
 	<button type="submit">Modificar</button>

@@ -1,5 +1,6 @@
 package edu.fpdual.jsp.web.servlet;
 
+import edu.fpdual.HackeaException;
 import edu.fpdual.jsp.client.UsuarioClient;
 import edu.fpdual.jsp.client.dto.UsuarioDto;
 import java.io.IOException;
@@ -34,25 +35,37 @@ public class LoginServlet extends HttpServlet {
     boolean esCorrecto = false;
     String usuarioIntroducido = req.getParameter("usuario");
     String passwordIntroducido = req.getParameter("contrasena");
-    esCorrecto =
-        client.checkPassword(
-            new UsuarioDto(null, usuarioIntroducido, null, passwordIntroducido, 0));
-    if (!client.checkUsuarioPorNombre(usuarioIntroducido)) {
+
+    //Excepción personalizada
+    try {
+      esCorrecto =
+          client.checkPassword(
+              new UsuarioDto(null, usuarioIntroducido, null, passwordIntroducido, 0));
+      if (!client.checkUsuarioPorNombre(usuarioIntroducido)) {
+        throw new HackeaException("El usuario no existe.");
+      }
+    } catch (HackeaException e) {
       req.setAttribute("error", "El usuario no existe.");
       req.getRequestDispatcher("/login/login.jsp").forward(req, resp);
-    } else if (!esCorrecto) {
+    }
+    //Excepción personalizada
+    try {
+      if (!esCorrecto) {
+        throw new HackeaException("Usuario y contraseña no coinciden.");
+      }
+    } catch (HackeaException e) {
       req.setAttribute("error", "Usuario y contraseña no coinciden.");
       req.getRequestDispatcher("/login/login.jsp").forward(req, resp);
+    }
+
+    if (usuarioIntroducido != null && passwordIntroducido != null) {
+      usuario =
+          UsuarioDto.builder().nombre(usuarioIntroducido).password(passwordIntroducido).build();
+      req.getSession().setMaxInactiveInterval(1800);
+      req.getSession().setAttribute("usuarioSesion", usuario);
+      req.getRequestDispatcher("/ahorcado").forward(req, resp);
     } else {
-      if (usuarioIntroducido != null && passwordIntroducido != null) {
-        usuario =
-            UsuarioDto.builder().nombre(usuarioIntroducido).password(passwordIntroducido).build();
-        req.getSession().setMaxInactiveInterval(1800);
-        req.getSession().setAttribute("usuarioSesion", usuario);
-        req.getRequestDispatcher("/ahorcado").forward(req, resp);
-      } else {
-        resp.sendRedirect("/login/login.jsp");
-      }
+      resp.sendRedirect("/login/login.jsp");
     }
   }
 }

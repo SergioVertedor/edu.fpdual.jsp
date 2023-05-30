@@ -40,7 +40,7 @@ public class CpanelModificarUsuarioServlet extends HttpServlet {
       String passwordIntroducido = req.getParameter("password");
       if (passwordIntroducido.length() > 8 || passwordIntroducido.length() < 6) {
         req.setAttribute(
-            "notificacionUpdate", "La contraseña debe contener entre 6 y 8 carácteres.");
+            "notificacion", "La contraseña debe contener entre 6 y 8 carácteres.");
         req.setAttribute("id", identificador);
         req.setAttribute("nombreUsuario", usuarioIntroducido);
         req.setAttribute("correo", correoIntroducido);
@@ -50,7 +50,10 @@ public class CpanelModificarUsuarioServlet extends HttpServlet {
         client.modificaUsuario(
             new UsuarioDto(
                 identificador, usuarioIntroducido, correoIntroducido, passwordIntroducido, 0));
-        req.getRequestDispatcher("/controlpanel/cpanel.jsp").forward(req, resp);
+        req.setAttribute(
+                "notificacion", "Usuario modificado.");
+        req.getRequestDispatcher("/cpanel-listar-usuarios-servlet").forward(req, resp);
+
       }
     }
   }
