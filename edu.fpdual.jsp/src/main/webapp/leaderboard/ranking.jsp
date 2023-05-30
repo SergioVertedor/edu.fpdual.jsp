@@ -10,12 +10,9 @@
 <html>
 <head>
     <title>Ranking</title>
-<<<<<<< HEAD
 <link rel="icon" href="/comun/images/favicon.jpg" type="image/jpeg" />
 <link rel="shortcut icon" href="/comun/images/favicon.jpg" type="image/jpeg" />
-=======
-    <link rel="stylesheet" href="/leaderboard/style/style.css">
->>>>>>> main
+<link rel="stylesheet" href="/leaderboard/style/style.css">
 </head>
 <body>
 <%

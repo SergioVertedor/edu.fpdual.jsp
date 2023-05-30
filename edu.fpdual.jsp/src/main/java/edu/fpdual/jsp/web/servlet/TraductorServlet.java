@@ -17,14 +17,18 @@ public class TraductorServlet extends HttpServlet {
 
     private static final String PALABRAS_ATTRIBUTE = "palabras";
     private static final String PUNTUACION_ATTRIBUTE = "puntuacion";
+    private static final String PALABRA_ACTUAL_ATTRIBUTE = "palabraActual";
+    private static final String INTENTO_REALIZADO_ATTRIBUTE = "intentoRealizado";
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(true);
         UsuarioDto usuario = (UsuarioDto) request.getSession().getAttribute("usuarioSesion");
+
         List<String[]> palabras = (List<String[]>) session.getAttribute(PALABRAS_ATTRIBUTE);
         if (palabras == null || palabras.isEmpty() || request.getParameter("reiniciar") != null) {
             palabras = inicializarPalabras();
             session.setAttribute(PALABRAS_ATTRIBUTE, palabras);
+            session.setAttribute(INTENTO_REALIZADO_ATTRIBUTE, false);
         }
 
         String palabra = "";
@@ -37,27 +41,30 @@ public class TraductorServlet extends HttpServlet {
         }
 
         String respuesta = request.getParameter("respuesta");
-        boolean respuestaValida = false;
         String mensaje = "";
 
-        if (respuesta != null && !respuesta.isEmpty()) {
+        boolean intentoRealizado = (boolean) session.getAttribute(INTENTO_REALIZADO_ATTRIBUTE);
+
+        if (respuesta != null && !respuesta.isEmpty() && !intentoRealizado) {
             if (esValida(respuesta)) {
                 respuesta = respuesta.toLowerCase();
                 if (respuesta.equals(traduccion)) {
-                    respuestaValida = true;
                     mensaje = "¡Respuesta correcta!";
                     incrementarPuntuacion(session, usuario);
+                    palabras.remove(0); // Eliminar la palabra actual de la lista
+                    session.setAttribute(PALABRAS_ATTRIBUTE, palabras);
                 } else {
                     mensaje = "Respuesta incorrecta. La traducción correcta es: " + traduccion;
                 }
+                session.setAttribute(INTENTO_REALIZADO_ATTRIBUTE, true);
             } else {
                 mensaje = "¡Error! La respuesta solo puede contener letras.";
             }
         }
 
-        request.setAttribute("palabra", palabra);
-        request.setAttribute("respuestaValida", respuestaValida);
-        request.setAttribute("puntuacion", obtenerPuntuacion(session));
+        session.setAttribute(PALABRA_ACTUAL_ATTRIBUTE, palabra);
+        session.setAttribute(PUNTUACION_ATTRIBUTE, obtenerPuntuacion(session));
+
         request.setAttribute("mensaje", mensaje);
         request.getRequestDispatcher("/comun/traductor.jsp").forward(request, response);
     }
