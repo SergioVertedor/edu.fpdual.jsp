@@ -24,7 +24,6 @@
         <nav>
             <ul>
                 <li><p> Bienvenido, <%= usuario.getNombre() %></p></li>
-                <li><a href="/index.html">Inicio</a></li>
                 <li><a href="/ahorcado">Ahorcado</a></li>
                 <li><a href="/traductor-servlet">Traduce las palabras</a></li>
                 <li><a href="/memorias">Calcula la memoria</a></li>
