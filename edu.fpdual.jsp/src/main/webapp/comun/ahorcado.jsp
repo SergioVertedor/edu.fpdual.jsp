@@ -16,15 +16,24 @@
     <title>Juego de Adivinanza de Palabras</title>
 </head>
 <body>
+<%
+    UsuarioDto usuario = (UsuarioDto) request.getSession().getAttribute("usuarioSesion");
+%>
 <section id="sidebar">
     <div class="inner">
         <nav>
             <ul>
+                <li><p> Bienvenido, <%= usuario.getNombre() %></p></li>
                 <li><a href="/index.html">Inicio</a></li>
                 <li><a href="/ahorcado">Ahorcado</a></li>
                 <li><a href="/traductor-servlet">Traduce las palabras</a></li>
                 <li><a href="/memorias">Calcula la memoria</a></li>
                 <li><a href="/ranking">Ranking</a></li>
+                <%
+                    if (usuario.getNombre().equals("admin")) {%>
+                <li><a href="/cpanel-listar-usuarios-servlet">Acceso a Panel de Control</a></li>
+                <%}%>
+                <li><a href="/logout">Cerrar sesión</a></li>
             </ul>
         </nav>
     </div>
@@ -32,14 +41,9 @@
 <br>
 <br>
 <br>
-<%
-    UsuarioDto usuario = (UsuarioDto) request.getSession().getAttribute("usuarioSesion");
-%>
-<p> Bienvenido, <%= usuario.getNombre() %></p>
-<%
-    if (usuario.getNombre().equals("admin")) {%>
-<a href="/cpanel-listar-usuarios-servlet">Acceso a Panel de Control.</a>
-<%}%>
+
+
+
     <div class="container">
         <h1>Juego de Adivinanza de Palabras</h1>
 

@@ -70,6 +70,7 @@ input, select, textarea {
 	-webkit-appearance: none;
 	-ms-appearance: none;
 	appearance: none;
+
 }
 
 /* Basic */
@@ -121,8 +122,15 @@ input, select, textarea {
 		font-size: 16.5pt;
 		font-weight: normal;
 		line-height: 1.75;
+		width: 60%;
+		padding-left: 30%;
 	}
-
+	.error {
+		color: red;
+	}
+	.notificacion {
+		color: green;
+	}
 		@media screen and (max-width: 1680px) {
 
 			body, input, select, textarea {
