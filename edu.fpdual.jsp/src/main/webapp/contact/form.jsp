@@ -7,6 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/contact/style/style.css">
+    <link rel="icon" href="/comun/images/favicon.jpg" type="image/jpeg" />
+    <link rel="shortcut icon" href="/comun/images/favicon.jpg" type="image/jpeg" />
 </head>
 <body>
 <section id="sidebar">

@@ -10,6 +10,8 @@
 <html>
 <head>
     <title>Ranking</title>
+<link rel="icon" href="/comun/images/favicon.jpg" type="image/jpeg" />
+<link rel="shortcut icon" href="/comun/images/favicon.jpg" type="image/jpeg" />
 </head>
 <body>
 <h3>Ranking:</h3>
