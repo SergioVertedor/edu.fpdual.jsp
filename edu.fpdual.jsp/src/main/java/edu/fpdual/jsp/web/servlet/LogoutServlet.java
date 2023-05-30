@@ -9,29 +9,24 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-public class LogoutServlet {
-    @WebServlet(
-            name = "LogoutServlet",
-            urlPatterns = {"/logout"})
-    public class ServletVolverLogin extends HttpServlet {
+@WebServlet(
+    name = "LogoutServlet",
+    urlPatterns = {"/logout"})
+public class LogoutServlet extends HttpServlet {
 
-        /***
-         * Método encargado de pasar la sesión a null y redireccionar a la raíz.
-         * @param req Parámetros recibidos desde petición.
-         * @param resp Parámetros a disposición de /
-         * @throws ServletException
-         * @throws IOException
-         */
-        @Override
-        protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-                throws ServletException, IOException {
-            UsuarioDto usuario = (UsuarioDto) req.getSession().getAttribute("usuarioSesion");
-            if (usuario != null) {
-                usuario = null;
-                resp.sendRedirect("/");
-            } else {
-                resp.sendRedirect("/");
-            }
-        }
-    }
+  /***
+   * Método encargado de pasar la sesión a null y redireccionar a la raíz.
+   * @param req Parámetros recibidos desde petición.
+   * @param resp Parámetros a disposición de /
+   * @throws ServletException
+   * @throws IOException
+   */
+  @Override
+  protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+      throws ServletException, IOException {
+      req.setAttribute("usuarioSesion", null);
+      req.getRequestDispatcher("/").forward(req, resp);
+      resp.sendRedirect("/");
+
+  }
 }

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.List" %>
+<%@ page import="edu.fpdual.jsp.client.dto.UsuarioDto" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,15 +13,24 @@
     <title>Traductor de palabras</title>
 </head>
 <body>
+<%
+    UsuarioDto usuario = (UsuarioDto) request.getSession().getAttribute("usuarioSesion");
+%>
 <section id="sidebar">
     <div class="inner">
         <nav>
             <ul>
-                li><a href="/index.html">Inicio</a></li>
+                <li><p> Bienvenido, <%= usuario.getNombre() %></p></li>
+                <li><a href="/index.html">Inicio</a></li>
                 <li><a href="/ahorcado">Ahorcado</a></li>
                 <li><a href="/traductor-servlet">Traduce las palabras</a></li>
                 <li><a href="/memorias">Calcula la memoria</a></li>
                 <li><a href="/ranking">Ranking</a></li>
+                <%
+                    if (usuario.getNombre().equals("admin")) {%>
+                <li><a href="/cpanel-listar-usuarios-servlet">Acceso a Panel de Control</a></li>
+                <%}%>
+                <li><a href="/logout">Cerrar sesión</a></li>
             </ul>
         </nav>
     </div>

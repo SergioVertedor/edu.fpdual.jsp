@@ -31,34 +31,28 @@ public class LoginServlet extends HttpServlet {
       throws ServletException, IOException {
     UsuarioClient client = new UsuarioClient();
     UsuarioDto usuario = (UsuarioDto) req.getSession().getAttribute("usuarioSesion");
+    System.out.println(usuario);
     boolean esCorrecto = false;
-    if (usuario != null) {
-      req.getSession().setAttribute("usuarioSesion", usuario);
+    String usuarioIntroducido = req.getParameter("usuario");
+    String passwordIntroducido = req.getParameter("contrasena");
+    esCorrecto =
+        client.checkPassword(
+            new UsuarioDto(null, usuarioIntroducido, null, passwordIntroducido, 0));
+    if (!client.checkUsuarioPorNombre(usuarioIntroducido)) {
+      req.setAttribute("error", "El usuario no existe.");
+      req.getRequestDispatcher("/login/login.jsp").forward(req, resp);
+    } else if (!esCorrecto) {
+      req.setAttribute("error", "Usuario y contraseña no coinciden.");
       req.getRequestDispatcher("/login/login.jsp").forward(req, resp);
     } else {
-      String usuarioIntroducido = req.getParameter("usuario");
-      String passwordIntroducido = req.getParameter("contrasena");
-      esCorrecto =
-          client.checkPassword(new UsuarioDto(null, usuarioIntroducido, null, passwordIntroducido, 0));
-      if (!client.checkUsuarioPorNombre(usuarioIntroducido)) {
-        req.setAttribute("error", "El usuario no existe.");
-        req.getRequestDispatcher("/login/login.jsp").forward(req, resp);
-      } else if (!esCorrecto) {
-        req.setAttribute("error", "Usuario y contraseña no coinciden.");
-        req.getRequestDispatcher("/login/login.jsp").forward(req, resp);
+      if (usuarioIntroducido != null && passwordIntroducido != null) {
+        usuario =
+            UsuarioDto.builder().nombre(usuarioIntroducido).password(passwordIntroducido).build();
+        req.getSession().setMaxInactiveInterval(1800);
+        req.getSession().setAttribute("usuarioSesion", usuario);
+        req.getRequestDispatcher("/ahorcado").forward(req, resp);
       } else {
-        if (usuarioIntroducido != null && passwordIntroducido != null) {
-          usuario =
-              UsuarioDto.builder()
-                  .nombre(usuarioIntroducido)
-                  .password(passwordIntroducido)
-                  .build();
-          req.getSession().setMaxInactiveInterval(1800);
-          req.getSession().setAttribute("usuarioSesion", usuario);
-          req.getRequestDispatcher("/ahorcado").forward(req, resp);
-        } else {
-          resp.sendRedirect("/login/login.jsp");
-        }
+        resp.sendRedirect("/login/login.jsp");
       }
     }
   }
