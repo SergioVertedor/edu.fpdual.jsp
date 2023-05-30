@@ -41,10 +41,9 @@ public class FiltroSesion implements Filter {
 
 	/**
 	 * Metodo principal del filtro. Realiza los siguientes pasos:
-	 * <ul>
-	 *     <li>1) Recuperamos el usuario de la sesión.</li>
-	 *     <li>2) Si existe un usuario en la sesión, continuamos con el flujo normal, pero si no redirigimos la llamada a "/AplicativoWeb/login/loginJSP.jsp"</li>
-	 * </ul
+	 *     1) Recuperamos el usuario de la sesión.
+	 *     2) Si existe un usuario en la sesión, continuamos con el flujo normal, pero si no redirigimos la llamada a "/AplicativoWeb/login/loginJSP.jsp"
+	 *
 	 *
 	 * @param servletRequest Objeto de solicitud de la llamada
 	 * @param servletResponse Objeto de respuesta de la llamada

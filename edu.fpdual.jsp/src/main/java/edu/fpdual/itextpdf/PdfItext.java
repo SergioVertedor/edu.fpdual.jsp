@@ -19,7 +19,16 @@ import java.net.URISyntaxException;
 import java.util.stream.Stream;
 
 public class PdfItext {
-
+  /***
+   * Crea un documento PDF con los parámetros que se le proporciona.
+   * @param fileName String que contenga ruta del archivo y su extensión.
+   * @param nombre String que contiene el nombre proporcionado en el formulario de contacto.
+   * @param email String que contiene el email proporcionado en el formulario de contacto.
+   * @param text String que contiene el cuerpo del mensaje proporcionado en el formulario de contacto.
+   * @throws IOException
+   * @throws DocumentException
+   * @throws URISyntaxException
+   */
   public void createPDF(String fileName, String nombre, String email, String text)
       throws IOException, DocumentException, URISyntaxException {
     Document document = new Document();
@@ -40,6 +49,11 @@ public class PdfItext {
     document.close();
   }
 
+  /***
+   * Formatea el texto para que aparezca en el pdf con los datos proporcionados.
+   * @param text String que contiene el email proporcionado en el formulario de contacto.
+   * @return
+   */
   private Paragraph createParagraph(String text) {
     Font font = FontFactory.getFont(FontFactory.COURIER, 16, BaseColor.BLACK);
     // Chunk chunk = new Chunk(text, font);
@@ -48,6 +62,11 @@ public class PdfItext {
     return paragraph;
   }
 
+  /***
+   * Construcción de la tabla, este método se encarga del header.
+   * @param pdfPTable Objeto pdfTable encargado de la creación de la tabla proporcionado para
+   *                  dar formato.
+   */
   private void addTableHeaders(PdfPTable pdfPTable) {
     Stream.of("Nombre", "Correo")
         .forEach(
@@ -60,6 +79,16 @@ public class PdfItext {
             });
   }
 
+  /***
+   * Construcción de la tabla, este método se encarga del formato de los campos.
+   * @param pdfPTable Objeto pdfTable encargado de la creación de la tabla proporcionado para
+   *                  dar formato.
+   * @param nombre String que contiene el nombre proporcionado en el formulario de contacto.
+   * @param email String que contiene el email proporcionado en el formulario de contacto.
+   * @throws URISyntaxException
+   * @throws BadElementException
+   * @throws IOException
+   */
   private void addTableSimpleRows(PdfPTable pdfPTable, String nombre, String email)
       throws URISyntaxException, BadElementException, IOException {
     pdfPTable.addCell(nombre);
