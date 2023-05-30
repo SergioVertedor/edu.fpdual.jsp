@@ -33,12 +33,14 @@
 	</div>
 	<br>
 	<% String mensaje = (String) request.getAttribute("error");
-		if (mensaje != null){  %>
-	<p class='error'><%= mensaje %></p>
+	if (mensaje != null){
+			%>
+	<div><p class='error'><%= mensaje %></p></div>
 	<% } %>
 	<% mensaje = (String) request.getAttribute("notificacion");
-		if (mensaje != null){  %>
-	<p class='notificacion'><%= mensaje %></p>
+		if (mensaje != null){
+	%>
+	<div><p class='notificacion'><%= mensaje %></p></div>
 	<% } %>
 	<button type="submit" class="button buttonBlue">Login
 		<div class="ripples buttonRipples"><span class="ripplesCircle"></span></div>
