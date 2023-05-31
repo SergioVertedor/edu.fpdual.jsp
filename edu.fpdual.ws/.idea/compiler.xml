@@ -10,5 +10,8 @@
         <module name="FpDualWebService" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="edu.fpdual.ws" target="1.5" />
+    </bytecodeTargetLevel>
   </component>
 </project>
