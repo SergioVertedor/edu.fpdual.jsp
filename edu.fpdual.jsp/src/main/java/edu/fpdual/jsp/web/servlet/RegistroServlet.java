@@ -31,10 +31,6 @@ public class RegistroServlet extends HttpServlet {
   protected void doPost(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
     UsuarioClient client = new UsuarioClient();
-    UsuarioDto usuario = (UsuarioDto) req.getSession().getAttribute("usuarioSesion");
-    if (usuario != null) {
-      homePage(resp, usuario);
-    } else {
       String usuarioIntroducido = req.getParameter("nombre");
       String correoIntroducido = req.getParameter("correo");
       String passwordIntroducido = req.getParameter("password");
@@ -56,7 +52,7 @@ public class RegistroServlet extends HttpServlet {
         req.getRequestDispatcher("/login/login.jsp").forward(req, resp);
       }
     }
-  }
+
 
   /***
    * Método para redireccionar a la página principal.
