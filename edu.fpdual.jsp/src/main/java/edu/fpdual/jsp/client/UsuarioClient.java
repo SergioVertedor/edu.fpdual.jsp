@@ -18,11 +18,22 @@ public class UsuarioClient {
     this.webTarget = client.target("http://localhost:8081/webapi/");
   }
 
+  /**
+   * Solicita al servicio una lista de todos los usuarios.
+   *
+   * @return Documento en formato JSON con todos los usuarios.
+   */
   public List<UsuarioDto> getUsuarios() {
     GenericType<List<UsuarioDto>> usuarios = new GenericType<List<UsuarioDto>>() {};
     return webTarget.path("user/get").request(MediaType.APPLICATION_JSON).get(usuarios);
   }
 
+  /**
+   * Solicita al servicio que verifique la existencia del nombre de usuario en la BBDD.
+   *
+   * @param nombre
+   * @return boolean que confirma o desmiente la existencia del usuario.
+   */
   public boolean checkUsuarioPorNombre(String nombre) {
     String respuesta =
         webTarget.path("user/check/" + nombre).request(MediaType.TEXT_PLAIN).get(String.class);
@@ -30,6 +41,12 @@ public class UsuarioClient {
     return resultado;
   }
 
+  /**
+   * Solicita al servicio un usuario proporcionando su id correspondiente.
+   *
+   * @param id
+   * @return Documento en formato JSON conteniendo el usuario solicitado.
+   */
   public UsuarioDto getUsuario(int id) {
 
     return webTarget
@@ -38,6 +55,12 @@ public class UsuarioClient {
         .get(UsuarioDto.class);
   }
 
+  /**
+   * Solicita un usuario a partir del nombre con objetivo de extraer la id.
+   *
+   * @param nombre
+   * @return Documento en formato JSON conteniendo el usuario solicitado.
+   */
   public UsuarioDto getUsuarioPorNombre(String nombre) {
 
     return webTarget
@@ -46,6 +69,13 @@ public class UsuarioClient {
         .get(UsuarioDto.class);
   }
 
+  /**
+   * Solicita al servicio que añada los puntos indicados del usuario facilitado en BBDD.
+   *
+   * @param puntosObtenidos
+   * @param nombre
+   * @return int con el número de líneas modificadas (se espera 1).
+   */
   public int updatePuntos(int puntosObtenidos, String nombre) {
     String respuesta =
         webTarget
@@ -55,6 +85,12 @@ public class UsuarioClient {
     return Integer.parseInt(respuesta);
   }
 
+  /**
+   * Solicita a servicio la verificación de la contraseña, pasándole un UsuarioDto.
+   *
+   * @param user
+   * @return boolean que será True si la verificación ha sido satisfactoria.
+   */
   public boolean checkPassword(UsuarioDto user) {
 
     String respuesta =
@@ -65,6 +101,12 @@ public class UsuarioClient {
     return Boolean.parseBoolean(respuesta);
   }
 
+  /**
+   * Solicita a servicio el registro en BBDD del objeto UsuarioDto facilitado.
+   *
+   * @param user
+   * @return int con el número de líneas modificadas (se espera 1).
+   */
   public int registroUsuario(UsuarioDto user) {
     String respuesta =
         webTarget
@@ -74,6 +116,13 @@ public class UsuarioClient {
     return Integer.parseInt(respuesta);
   }
 
+  /**
+   * Solicita a servicio la eliminación de una entrada en BBDD correspondiente a la id
+   * proporcionada.
+   *
+   * @param id
+   * @return int con el número de líneas modificadas (se espera 1).
+   */
   public int borrarUsuario(int id) {
 
     String respuesta =
@@ -81,6 +130,12 @@ public class UsuarioClient {
     return Integer.parseInt(respuesta);
   }
 
+  /**
+   * Se solicita a servicio la modificación de los valores de un usuario aportando un UsuarioDto.
+   *
+   * @param user
+   * @return int con el número de líneas modificadas (se espera 1).
+   */
   public int modificaUsuario(UsuarioDto user) {
 
     String respuesta =
@@ -90,33 +145,4 @@ public class UsuarioClient {
             .post(Entity.entity(user, MediaType.APPLICATION_JSON), String.class);
     return Integer.parseInt(respuesta);
   }
-  /*
-  public String ping() {
-
-      return webTarget.path("notifications/ping")
-              .request(MediaType.APPLICATION_JSON)
-              .get(String.class);
-  }
-
-  public Notification getNotification(String id, String name) {
-
-      return webTarget.path("notifications/get/"+id+"/name")
-              .queryParam("name", name)
-              .request(MediaType.APPLICATION_JSON)
-              .get(Notification.class);
-  }
-
-  public Notification putNotification(String id, String name) {
-
-      return webTarget.path("notifications/get/"+id+"/"+name)
-              .request(MediaType.APPLICATION_JSON)
-              .put(Entity.entity("",MediaType.APPLICATION_JSON), Notification.class);
-  }
-
-  public Notification postNotification(Notification notification) {
-
-      return webTarget.path("notifications/post")
-              .request(MediaType.APPLICATION_JSON)
-              .post(Entity.entity(notification,MediaType.APPLICATION_JSON), Notification.class);
-  }*/
 }
