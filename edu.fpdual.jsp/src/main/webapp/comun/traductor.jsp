@@ -47,7 +47,7 @@
 <% if (palabraActual != null && !palabraActual.isEmpty()) { %>
     <form action="/traductor-servlet" method="post">
         <div>
-            <p>Traduce la siguiente palabra:</p>
+            <p>Traduce la siguiente palabra en inglés:</p>
             <p><strong><%= palabraActual %></strong></p>
         </div>
         <br>
