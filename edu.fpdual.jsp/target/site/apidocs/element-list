@@ -1,0 +1,8 @@
+edu.fpdual.email
+edu.fpdual.email.sender
+edu.fpdual.email.sender.enums
+edu.fpdual.itextpdf
+edu.fpdual.jsp.client
+edu.fpdual.jsp.client.dto
+edu.fpdual.jsp.web.filter
+edu.fpdual.jsp.web.servlet

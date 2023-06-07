@@ -1,7 +1,0 @@
-edu\fpdual\webservice\controller\UsuarioController.class
-edu\fpdual\webservice\model\application\manager\UsuarioManager.class
-edu\fpdual\webservice\model\application\dao\UsuarioDao.class
-edu\fpdual\webservice\api\dto\Notification.class
-edu\fpdual\webservice\model\application\connector\MySQLConnector.class
-edu\fpdual\webservice\service\UsuarioService.class
-edu\fpdual\webservice\model\application\connector\MySQLConstants.class
